@@ -436,7 +436,7 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
 void EvolutionState::SetOptionsFromFile(string filename) {
 
     string line;
-    vector<string> argv_v = {"dummy"};
+    vector<string> argv_v = {"dummy"}; argv_v.reserve(100);
     vector<string> split_line;
     ifstream file(filename);
     if (file.is_open()) {
@@ -461,4 +461,5 @@ void EvolutionState::SetOptionsFromFile(string filename) {
         argv[i] = (char*) argv_v[i].c_str();
 
     SetOptions(argc, argv);
+    
 }

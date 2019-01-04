@@ -10,8 +10,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
-                <sourceRootElem>Semantics</sourceRootElem>
-                <sourceRootElem>MachineLearning</sourceRootElem>
+                <sourceRootElem>/export/scratch1/virgolin/GP-GOMEA</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

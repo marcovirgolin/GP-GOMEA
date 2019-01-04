@@ -103,7 +103,8 @@
         <itemPath>Variation/TreeInitializer.cpp</itemPath>
         <itemPath>Variation/TreeInitializer.h</itemPath>
       </logicalFolder>
-      <itemPath>main.cpp</itemPath>
+      <itemPath>/export/scratch1/virgolin/GP-GOMEA/main.cpp</itemPath>
+      <itemPath>python_exposer.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -124,8 +125,7 @@
     <itemPath>stats_generations.txt</itemPath>
   </logicalFolder>
   <sourceRootList>
-    <Elem>Semantics</Elem>
-    <Elem>MachineLearning</Elem>
+    <Elem>/export/scratch1/virgolin/GP-GOMEA</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -138,13 +138,25 @@
       <compileType>
         <ccTool>
           <standard>11</standard>
+          <incDir>
+            <pElem>/usr/include/python2.7</pElem>
+          </incDir>
           <commandLine>-fopenmp</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
-          <commandLine>-larmadillo -lboost_program_options</commandLine>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea</output>
+          <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs python-2.7`</linkerOptionItem>
+          </linkerLibItems>
+          <commandLine>-larmadillo -lboost_program_options -lboost_python -lboost_system</commandLine>
         </linkerTool>
       </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/main.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="Evolution/EvolutionRun.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Evolution/EvolutionRun.h" ex="false" tool="3" flavor2="0">
@@ -315,11 +327,11 @@
       </item>
       <item path="Variation/TreeInitializer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="params.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="params_valgrind.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="python_exposer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="result.txt" ex="false" tool="3" flavor2="0">
       </item>
@@ -339,6 +351,9 @@
         <ccTool>
           <developmentMode>6</developmentMode>
           <standard>11</standard>
+          <incDir>
+            <pElem>/usr/include/python2.7</pElem>
+          </incDir>
           <commandLine>-fopenmp</commandLine>
         </ccTool>
         <fortranCompilerTool>
@@ -348,9 +363,18 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <linkerTool>
-          <commandLine>-larmadillo -lboost_program_options</commandLine>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea</output>
+          <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs python-2.7`</linkerOptionItem>
+          </linkerLibItems>
+          <commandLine>-larmadillo -lboost_program_options -lboost_python -lboost_system</commandLine>
         </linkerTool>
       </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/main.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="Evolution/EvolutionRun.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Evolution/EvolutionRun.h" ex="false" tool="3" flavor2="0">
@@ -521,11 +545,11 @@
       </item>
       <item path="Variation/TreeInitializer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="params.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="params_valgrind.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="python_exposer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="result.txt" ex="false" tool="3" flavor2="0">
       </item>
@@ -547,6 +571,11 @@
           <commandLine>-larmadillo -lboost_program_options</commandLine>
         </linkerTool>
       </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/main.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="Evolution/EvolutionRun.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Evolution/EvolutionRun.h" ex="false" tool="3" flavor2="0">
@@ -717,11 +746,11 @@
       </item>
       <item path="Variation/TreeInitializer.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="params.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="params_valgrind.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="python_exposer.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="result.txt" ex="false" tool="3" flavor2="0">
       </item>

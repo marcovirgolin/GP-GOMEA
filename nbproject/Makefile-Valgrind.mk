@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/61f3bb6/main.o \
 	${OBJECTDIR}/Evolution/EvolutionRun.o \
 	${OBJECTDIR}/Evolution/EvolutionState.o \
 	${OBJECTDIR}/Evolution/GenerationHandler.o \
@@ -57,7 +58,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Utils/Utils.o \
 	${OBJECTDIR}/Variation/SubtreeVariator.o \
 	${OBJECTDIR}/Variation/TreeInitializer.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/python_exposer.o
 
 
 # C Compiler Flags
@@ -78,11 +79,16 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/virgogp2.0
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/virgogp2.0: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/virgogp2.0 ${OBJECTFILES} ${LDLIBSOPTIONS} -larmadillo -lboost_program_options
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea ${OBJECTFILES} ${LDLIBSOPTIONS} -larmadillo -lboost_program_options
+
+${OBJECTDIR}/_ext/61f3bb6/main.o: /export/scratch1/virgolin/GP-GOMEA/main.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/61f3bb6
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/61f3bb6/main.o /export/scratch1/virgolin/GP-GOMEA/main.cpp
 
 ${OBJECTDIR}/Evolution/EvolutionRun.o: Evolution/EvolutionRun.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Evolution
@@ -194,10 +200,10 @@ ${OBJECTDIR}/Variation/TreeInitializer.o: Variation/TreeInitializer.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Variation/TreeInitializer.o Variation/TreeInitializer.cpp
 
-${OBJECTDIR}/main.o: main.cpp 
+${OBJECTDIR}/python_exposer.o: python_exposer.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/python_exposer.o python_exposer.cpp
 
 # Subprojects
 .build-subprojects:
@@ -205,7 +211,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/virgogp2.0
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea
 
 # Subprojects
 .clean-subprojects:
