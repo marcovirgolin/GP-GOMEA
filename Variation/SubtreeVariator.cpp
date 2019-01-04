@@ -148,8 +148,6 @@ Node* SubtreeVariator::SubtreeRDO(const Node& p, int max_height, const arma::mat
     Node * chosen_o;
     vector<Node*> nodes_o = o->GetSubtreeNodes(true);
 
-    bool use_normalization = semlib.normalize_outputs;
-
     if (unif_depth_var)
         // pick nodes candidates for swapping by first choosing a random depth
         nodes_o = GetNodesAtUniformRandomDepth(o, nodes_o);
@@ -172,135 +170,13 @@ Node* SubtreeVariator::SubtreeRDO(const Node& p, int max_height, const arma::mat
     // perform swap
     Node * parent_o = chosen_o->parent;
     if (parent_o) {
-        // do algebraic simplifications
-        bool simplification_done = false;
-
-        if (use_normalization) {
-            // potential simplifications
-            if (false && parent_o->GetValue().compare("*") == 0) {
-                Node * slope_n = NULL;
-                Node * intercept_n = NULL;
-                double_t c;
-                Node * sibling_n;
-                vector<Node*> siblings = parent_o->children;
-
-                if (siblings[0] == chosen_o) {
-                    sibling_n = siblings[1];
-                } else {
-                    sibling_n = siblings[0];
-                }
-
-                if (sibling_n->op->type == OperatorType::opTerminal &&
-                        sibling_n->op->term_type == OperatorTerminalType::opTermConstant) {
-                    // sibling is a constant
-                    c = ((OpRegrConstant*) sibling_n->op)->GetConstant();
-
-                    Node * times_n = NULL;
-                    if (branch->GetValue().compare("+") == 0) {
-                        // look for the intercept
-                        if (branch->children[0]->GetValue().compare("*") == 0) {
-                            times_n = branch->children[0];
-                            intercept_n = branch->children[1];
-                        } else {
-                            times_n = branch->children[1];
-                            intercept_n = branch->children[0];
-                        }
-                        if (!(intercept_n->op->type == OperatorType::opTerminal && intercept_n->op->term_type == OperatorTerminalType::opTermConstant)) {
-                            intercept_n = NULL;
-                        }
-                    }
-
-                    if (intercept_n != NULL) {
-                        // look for the slope
-                        if (Utils::IsNumber(times_n->children[0]->GetValue())) {
-                            slope_n = times_n->children[0];
-                        } else if (Utils::IsNumber(times_n->children[1]->GetValue())) {
-                            slope_n = branch->children[1];
-                        }
-
-                        if (!(slope_n->op->type == OperatorType::opTerminal && slope_n->op->term_type == OperatorTerminalType::opTermConstant)) {
-                            slope_n = NULL;
-                        }
-                    }
-                }
-
-                if (slope_n && intercept_n) {
-
-                    double_t new_intercept = c * ((OpRegrConstant*) intercept_n->op)->GetConstant();
-                    double_t new_slope = c * ((OpRegrConstant*) slope_n->op)->GetConstant();
-
-                    if (!(isinf(new_intercept) || isnan(new_intercept) || isinf(new_slope) || isnan(new_slope))) {
-                        ((OpRegrConstant*) intercept_n->op)->SetConstant(new_intercept);
-                        ((OpRegrConstant*) slope_n->op)->SetConstant(new_slope);
-
-                        if (use_caching) {
-                            slope_n->ClearCachedOutput(true);
-                            intercept_n->ClearCachedOutput(false);
-                        }
-
-                        Node * pp = parent_o->parent;
-                        chosen_o = parent_o;
-                        parent_o = pp;
-                        simplification_done = true;
-                    }
-                }
-            } else if (false && parent_o->GetValue().compare("+") == 0) {
-                Node * intercept_n = NULL;
-                double_t c;
-                Node * sibling_n;
-                vector<Node*> siblings = parent_o->children;
-
-                if (siblings[0] == chosen_o) {
-                    sibling_n = siblings[1];
-                } else {
-                    sibling_n = siblings[0];
-                }
-
-                if (sibling_n->op->type == OperatorType::opTerminal &&
-                        sibling_n->op->term_type == OperatorTerminalType::opTermConstant) {
-                    // sibling is a constant
-                    c = ((OpRegrConstant*) sibling_n->op)->GetConstant();
-
-                    if (branch->GetValue().compare("+") == 0) {
-                        // look for the intercept
-                        if (branch->children[0]->op->type == OperatorType::opTerminal && intercept_n->op->term_type == OperatorTerminalType::opTermConstant == 0) {
-                            intercept_n = branch->children[0];
-                        } else if (branch->children[1]->op->type == OperatorType::opTerminal && intercept_n->op->term_type == OperatorTerminalType::opTermConstant == 0) {
-                            intercept_n = branch->children[1];
-                        }
-                    }
-
-                    if (intercept_n) {
-
-                        double_t new_intercept = c + ((OpRegrConstant*) intercept_n->op)->GetConstant();
-
-                        if (!(isinf(new_intercept) || isnan(new_intercept))) {
-                            ((OpRegrConstant*) intercept_n->op)->SetConstant(new_intercept);
-
-                            if (use_caching) {
-                                intercept_n->ClearCachedOutput(false);
-                            }
-
-                            Node * pp = parent_o->parent;
-                            chosen_o = parent_o;
-                            parent_o = pp;
-                            simplification_done = true;
-                        }
-                    }
-                }
-            }
-        }
-
-        if (!simplification_done || (simplification_done && parent_o)) {
-            auto it1 = parent_o->DetachChild(chosen_o);
-            parent_o->InsertChild(branch, it1);
-            chosen_o->ClearSubtree();
-        } else {
-            o->ClearSubtree();
-            o = branch;
-        }
-
+        
+        auto it1 = parent_o->DetachChild(chosen_o);
+        parent_o->InsertChild(branch, it1);
+        chosen_o->ClearSubtree();
+        
     } else {
+        // replacing the root
         o->ClearSubtree();
         o = branch;
     }
@@ -367,7 +243,7 @@ Node * SubtreeVariator::FindSubtreeForSemanticBackpropagationReplacement(std::ve
         if (!vals_no_nans.empty())
             desired_vals_mean /= vals_no_nans.size();
         // else it remained 0.0
-        
+
         vals_wo_mean = (vals - desired_vals_mean);
 
         if (vals_no_nans.empty()) {
@@ -377,7 +253,7 @@ Node * SubtreeVariator::FindSubtreeForSemanticBackpropagationReplacement(std::ve
                 vals_wo_mean[i] = arma::randn(); //random normal cause mean 0 std 1 like normalized trees
             }
             // could recompute desired_vals_mean, but that should be close to 0 anyway (current value) due to normal distributed samples above
-            
+
         } else if (!use_lib_linear_parsing) { // compute the mean, make sure its ok
             if (isinf(desired_vals_mean) || isnan(desired_vals_mean)) {
                 search_for_normalized_tree = false;
@@ -409,7 +285,7 @@ Node * SubtreeVariator::FindSubtreeForSemanticBackpropagationReplacement(std::ve
     pair<double_t, double_t> const_cdist;
     if (use_normalization) {
         vec constant_mean_vector(desired_output.size());
-        for(size_t i = 0; i < desired_output.size(); i++) {
+        for (size_t i = 0; i < desired_output.size(); i++) {
             constant_mean_vector[i] = desired_vals_mean;
         }
         double_t distconst = Utils::ComputeDistanceWithDontCares(desired_output, constant_mean_vector);
