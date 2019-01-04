@@ -9,27 +9,27 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux
-CND_ARTIFACT_NAME_Debug=gp-gomea
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/gp-gomea
+CND_ARTIFACT_NAME_Debug=virgogp2.0
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux/virgogp2.0
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux/package
-CND_PACKAGE_NAME_Debug=gp-gomea.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/gp-gomea.tar
+CND_PACKAGE_NAME_Debug=virgogp2.0.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux/package/virgogp2.0.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux
-CND_ARTIFACT_NAME_Release=gp-gomea
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/gp-gomea
+CND_ARTIFACT_NAME_Release=virgogp2.0
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux/virgogp2.0
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux/package
-CND_PACKAGE_NAME_Release=gp-gomea.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/gp-gomea.tar
+CND_PACKAGE_NAME_Release=virgogp2.0.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux/package/virgogp2.0.tar
 # Valgrind configuration
 CND_PLATFORM_Valgrind=GNU-Linux
 CND_ARTIFACT_DIR_Valgrind=dist/Valgrind/GNU-Linux
-CND_ARTIFACT_NAME_Valgrind=gp-gomea
-CND_ARTIFACT_PATH_Valgrind=dist/Valgrind/GNU-Linux/gp-gomea
+CND_ARTIFACT_NAME_Valgrind=virgogp2.0
+CND_ARTIFACT_PATH_Valgrind=dist/Valgrind/GNU-Linux/virgogp2.0
 CND_PACKAGE_DIR_Valgrind=dist/Valgrind/GNU-Linux/package
-CND_PACKAGE_NAME_Valgrind=gp-gomea.tar
-CND_PACKAGE_PATH_Valgrind=dist/Valgrind/GNU-Linux/package/gp-gomea.tar
+CND_PACKAGE_NAME_Valgrind=virgogp2.0.tar
+CND_PACKAGE_PATH_Valgrind=dist/Valgrind/GNU-Linux/package/virgogp2.0.tar
 #
 # include compiler specific variables
 #

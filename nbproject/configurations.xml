@@ -45,6 +45,11 @@
         <itemPath>GOMEA/GOMVariator.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="Operators" projectFiles="true">
+        <logicalFolder name="f2" displayName="Matricial" projectFiles="true">
+          <itemPath>Operators/Vectorial/OpM.h</itemPath>
+          <itemPath>Operators/Vectorial/OpMProduct.h</itemPath>
+          <itemPath>Operators/Vectorial/OpMVariables.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="Regression" projectFiles="true">
           <itemPath>Operators/Regression/OpAnalyticLog_01.h</itemPath>
           <itemPath>Operators/Regression/OpAnalyticQuotient.h</itemPath>
@@ -252,6 +257,12 @@
       </item>
       <item path="Operators/Regression/OpTimes.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Operators/Vectorial/OpM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Vectorial/OpMProduct.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Vectorial/OpMVariables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="README.md" ex="false" tool="3" flavor2="0">
       </item>
       <item path="RunHandling/IMSHandler.cpp" ex="false" tool="1" flavor2="0">
@@ -452,6 +463,12 @@
       </item>
       <item path="Operators/Regression/OpTimes.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Operators/Vectorial/OpM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Vectorial/OpMProduct.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Vectorial/OpMVariables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="README.md" ex="false" tool="3" flavor2="0">
       </item>
       <item path="RunHandling/IMSHandler.cpp" ex="false" tool="1" flavor2="0">
@@ -641,6 +658,12 @@
             flavor2="0">
       </item>
       <item path="Operators/Regression/OpTimes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Vectorial/OpM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Vectorial/OpMProduct.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Vectorial/OpMVariables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="README.md" ex="false" tool="3" flavor2="0">
       </item>

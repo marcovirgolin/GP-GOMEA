@@ -78,11 +78,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/virgogp2.0
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/virgogp2.0: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea ${OBJECTFILES} ${LDLIBSOPTIONS} -larmadillo -lboost_program_options
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/virgogp2.0 ${OBJECTFILES} ${LDLIBSOPTIONS} -larmadillo -lboost_program_options
 
 ${OBJECTDIR}/Evolution/EvolutionRun.o: Evolution/EvolutionRun.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Evolution
@@ -205,7 +205,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/virgogp2.0
 
 # Subprojects
 .clean-subprojects:
