@@ -21,7 +21,8 @@ You need the following libraries to use GP-GOMEA:
 Call `./gp-gomea --help` to get a comprehensive list of parameters. Some parameters are mandatory, some others have defaults. You can set the parameters when calling the executable with `gp-gomea --param1 value1 --param2 value2`; or write them in a parameter file (see the examples for GP-GOMEA, standard GP, and Semantic Backpropagation-based GP), and finally call `./gp-gomea --file param_file.txt`.
 
 ### Datasets
-You can find supervised learning datasets to play with at: https://goo.gl/9D2z3b 
+Datasets must be organized as follows. Each row is an example, and each column is a feature. The last column must contain the target variable. Values should be separated by spaces. Do not include any textual header.
+You can find examples at: https://goo.gl/9D2z3b 
 
 ### Output
 The file `stats_generations.txt` contains information that is logged every generation (iteration) of the algorithm. When the run terminates, an output `result.txt` is produced, that also contains the symbolic expression found by GP.
