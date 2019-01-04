@@ -21,13 +21,13 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             ("prob", po::value<string>(), "sets the problem (e.g., symbreg)")
             ("functions", po::value<string>(), "sets the functions to use")
             ("terminals", po::value<string>(), "sets the terminals to use")
-            ("erc", "uses ephemeral random constants (default: enabled, sampled from min(features) to max(features)")
+            ("erc", "uses ephemeral random constants (default: enabled, sampled from -5*max(abs(features)) to 5*max(abs(features))")
             ("train", po::value<string>(), "sets the training set for symbolic regression")
             ("test", po::value<string>(), "sets the testing set for symbolic regression")
             ("validation", po::value<double_t>(), "sets the percentage of examples to take out from the training set and use for validation of best solutions in symbolic regression (default is 0)")
             ("popsize", po::value<size_t>(), "sets the size of the population (default is 500)")
             ("ims", po::value<string>(), "uses the interleaved multi-start scheme (default subgenerations number is 10, default early stopping criteria is 1; if validation is set, uses validation performance as metric)")
-            ("initmaxtreeheight", po::value<size_t>(), "sets the intial maximum tree height (default is 6, minimum is 2)")
+            ("initmaxtreeheight", po::value<size_t>(), "sets the initial maximum tree height (default is 6, minimum is 2)")
             ("inittype", po::value<string>(), "sets the initialization type (default is RHH for tree-based GP, HH for GOMEA)")
             ("syntuniqinit", po::value<int>(), "forces solutions in the initial population to be syntactically unique, with a maximum number of tries (default is disabled)")
             ("semuniqinit", po::value<int>(), "forces solutions in the initial population to be semantically unique, with a maximum number of tries (default is disabled)")
@@ -195,13 +195,9 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
 
         // ADD SR ERC
         if (vm.count("erc")) {
-            double_t min_erc = arma::min(arma::min(fitness->TrainX)); //min(fitness->TrainY);
-            //min_erc = min_erc < 0 ? 5 * min_erc : -5 * min_erc;
-            double_t max_erc = arma::max(arma::max(fitness->TrainX)); //max(fitness->TrainY);
-            //max_erc = max_erc > 0 ? 5 * max_erc : -5 * max_erc;
-            //for (size_t i = 0; i < TR.n_cols / 2 + 1; i++)
-            //min_erc = -10.0;
-            //max_erc = 10.0;
+            double_t biggest_val = arma::max(arma::max(arma::abs(fitness->TrainX)));
+            double_t min_erc = -5*biggest_val; //min(fitness->TrainY);
+            double_t max_erc = 5*biggest_val; //max(fitness->TrainY);
             config->terminals.push_back(new OpRegrConstant(min_erc, max_erc));
         }
 

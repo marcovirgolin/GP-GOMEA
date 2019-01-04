@@ -1,0 +1,37 @@
+train path_to_training_set.dat
+test path_to_test_set.dat
+
+
+# Termination Criteria
+time -1
+generations 500
+evaluations -1
+
+# Problem setting
+prob symbreg
+linearscaling
+functions +_-_*_aq
+erc
+
+# Initialization
+initmaxtreeheight 6
+maxtreeheight 12
+maxsize 1000
+popsize 1000
+syntuniqinit 1000
+
+# Variation
+subcross 0.0
+submut 0.0
+unifdepthvar
+sblibtype p_12_9999_l_n
+sbrdo 1.0
+
+# Selection
+tournament 4
+elitism 1
+
+# Other
+caching # care, very memory expensive!
+seed 1
+parallel 2

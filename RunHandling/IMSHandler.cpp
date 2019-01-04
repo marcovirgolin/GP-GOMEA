@@ -85,8 +85,6 @@ void IMSHandler::Start() {
                     max_run_idx++;
                 }
 
-                //cout << "  < execution of run " << i << " (total run time: " << runs[i]->elapsed_time << endl;
-                
                 // Perform generation
                 runs[i]->DoGeneration();
 
