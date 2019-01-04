@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="97">
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>--prob symbreg --train "../datasets/rw/bsoton_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/bsoton_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN --popsize 10</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN --popsize 10 --linearscaling</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN --popsize 100 --linearscaling</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN --popsize 100 --linearscaling --caching</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals nan --popsize 100 --linearscaling --caching</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" ulimit -S -d 10 --file params.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --file params.txt</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}" --file params.txt</runcommand>
+        <rundir></rundir>
+        <buildfirst>true</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 20</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 50</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 50 --caching</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 100 --caching</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 100 </runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/madelon_full.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 100</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/madelon_full.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 100 --caching</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/iris_train.dat" --test "../datasets/rw/iris_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 100</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/iris_train.dat" --test "../datasets/rw/iris_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --evaluations 100 --gomea</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --file params.txt</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}" --file params.txt</runcommand>
+        <rundir></rundir>
+        <buildfirst>true</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+    <conf name="Valgrind" type="1">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>valgrind --tool=memcheck --leak-check=yes --show-reachable=no ./virgogpv2  --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN --popsize 10</runcommandpicklistitem>
+          <runcommandpicklistitem>valgrind --tool=memcheck --leak-check=yes --show-reachable=no ./virgogp2.0  --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN --popsize 10</runcommandpicklistitem>
+          <runcommandpicklistitem>valgrind --tool=memcheck --leak-check=yes --show-reachable=no ./virgogp2.0  --prob symbreg --train "../../../../datasets/rw/boston_train.dat" --test "../../../../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN --popsize 10</runcommandpicklistitem>
+          <runcommandpicklistitem>valgrind --tool=memcheck --leak-check=yes --show-reachable=no ./virgogp2.0  --prob symbreg --train "../../../../datasets/rw/boston_train.dat" --test "../../../../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN --popsize 10 --subcross 0.0 --submut 1.0</runcommandpicklistitem>
+          <runcommandpicklistitem>valgrind --tool=memcheck --leak-check=yes --show-reachable=no ./virgogp2.0  --prob symbreg --train "../../../../datasets/rw/boston_train.dat" --test "../../../../datasets/rw/boston_test.dat" --functions +_-_aq_* --terminals NAN --popsize 10 --subcross 0.2 --submut 0.8</runcommandpicklistitem>
+          <runcommandpicklistitem>valgrind --tool=memcheck --leak-check=yes --show-reachable=no ./virgogp2.0  --file params_valgrind.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>valgrind --tool=memcheck --leak-check=yes --show-reachable=no ./virgogp2.0  --file ../../../params.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>valgrind --tool=memcheck --leak-check=yes --show-reachable=no ulimit -S -d 10 ./virgogp2.0  --file ../../../params_valgrind.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>valgrind --tool=memcheck --leak-check=yes --show-reachable=no -ulimit -S -d 10 ./virgogp2.0  --file ../../../params_valgrind.txt</runcommandpicklistitem>
+          <runcommandpicklistitem>valgrind --tool=memcheck --leak-check=yes --show-reachable=no ./virgogp2.0  --file ../../../params_valgrind.txt</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>valgrind --tool=memcheck --leak-check=yes --show-reachable=no ./virgogp2.0  --file ../../../params_valgrind.txt</runcommand>
+        <rundir>dist/Valgrind/GNU-Linux</rundir>
+        <buildfirst>true</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+  </confs>
+</configurationDescriptor>

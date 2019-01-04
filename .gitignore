@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# Other
+params_valgrind.txt
+stats_generations.txt
+result.txt

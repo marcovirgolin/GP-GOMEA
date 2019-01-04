@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="97">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="f2" displayName="Evolution" projectFiles="true">
+        <itemPath>Evolution/EvolutionRun.cpp</itemPath>
+        <itemPath>Evolution/EvolutionRun.h</itemPath>
+        <itemPath>Evolution/EvolutionState.cpp</itemPath>
+        <itemPath>Evolution/EvolutionState.h</itemPath>
+        <itemPath>Evolution/GenerationHandler.cpp</itemPath>
+        <itemPath>Evolution/GenerationHandler.h</itemPath>
+        <itemPath>Evolution/PopulationInitializer.cpp</itemPath>
+        <itemPath>Evolution/PopulationInitializer.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f6" displayName="Fitness" projectFiles="true">
+        <itemPath>Fitness/Fitness.cpp</itemPath>
+        <itemPath>Fitness/Fitness.h</itemPath>
+        <itemPath>Fitness/SymbolicRegressionFitness.cpp</itemPath>
+        <itemPath>Fitness/SymbolicRegressionFitness.h</itemPath>
+        <itemPath>Fitness/SymbolicRegressionLinearScalingFitness.cpp</itemPath>
+        <itemPath>Fitness/SymbolicRegressionLinearScalingFitness.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="Genotype" projectFiles="true">
+        <itemPath>Genotype/Node.cpp</itemPath>
+        <itemPath>Genotype/Node.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f5" displayName="GOMEA" projectFiles="true">
+        <itemPath>GOMEA/GOMEAFOS.cpp</itemPath>
+        <itemPath>GOMEA/GOMEAFOS.h</itemPath>
+        <itemPath>GOMEA/GOMEAGenerationHandler.cpp</itemPath>
+        <itemPath>GOMEA/GOMEAGenerationHandler.h</itemPath>
+        <itemPath>GOMEA/GOMEATreeInitializer.cpp</itemPath>
+        <itemPath>GOMEA/GOMEATreeInitializer.h</itemPath>
+        <itemPath>GOMEA/GOMVariator.cpp</itemPath>
+        <itemPath>GOMEA/GOMVariator.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f4" displayName="Operators" projectFiles="true">
+        <logicalFolder name="f1" displayName="Regression" projectFiles="true">
+          <itemPath>Operators/Regression/OpAnalyticLog_01.h</itemPath>
+          <itemPath>Operators/Regression/OpAnalyticQuotient.h</itemPath>
+          <itemPath>Operators/Regression/OpAnalyticQuotient_01.h</itemPath>
+          <itemPath>Operators/Regression/OpCos.h</itemPath>
+          <itemPath>Operators/Regression/OpExp.h</itemPath>
+          <itemPath>Operators/Regression/OpLog.h</itemPath>
+          <itemPath>Operators/Regression/OpMinus.h</itemPath>
+          <itemPath>Operators/Regression/OpPlus.h</itemPath>
+          <itemPath>Operators/Regression/OpRegrConstant.h</itemPath>
+          <itemPath>Operators/Regression/OpSin.h</itemPath>
+          <itemPath>Operators/Regression/OpSquare.h</itemPath>
+          <itemPath>Operators/Regression/OpSquareRoot.h</itemPath>
+          <itemPath>Operators/Regression/OpTimes.h</itemPath>
+        </logicalFolder>
+        <itemPath>Operators/OpVariable.h</itemPath>
+        <itemPath>Operators/Operator.cpp</itemPath>
+        <itemPath>Operators/Operator.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f9" displayName="RunHandling" projectFiles="true">
+        <itemPath>RunHandling/IMSHandler.cpp</itemPath>
+        <itemPath>RunHandling/IMSHandler.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f7" displayName="Selection" projectFiles="true">
+        <itemPath>Selection/TournamentSelection.cpp</itemPath>
+        <itemPath>Selection/TournamentSelection.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Semantics" displayName="Semantics" projectFiles="true">
+        <itemPath>Semantics/SemanticBackpropagator.cpp</itemPath>
+        <itemPath>Semantics/SemanticBackpropagator.h</itemPath>
+        <itemPath>Semantics/SemanticLibrary.cpp</itemPath>
+        <itemPath>Semantics/SemanticLibrary.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f8" displayName="Tests" projectFiles="true">
+        <itemPath>Semantics/TestDerivatives.h</itemPath>
+        <itemPath>Tests/TestsSemanticBackpropagation.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="Utils" projectFiles="true">
+        <itemPath>Utils/ConfigurationOptions.h</itemPath>
+        <itemPath>Utils/Exceptions.h</itemPath>
+        <itemPath>Utils/KDTree.cpp</itemPath>
+        <itemPath>Utils/KDTree.h</itemPath>
+        <itemPath>Utils/Logger.cpp</itemPath>
+        <itemPath>Utils/Logger.h</itemPath>
+        <itemPath>Utils/Utils.cpp</itemPath>
+        <itemPath>Utils/Utils.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3" displayName="Variation" projectFiles="true">
+        <itemPath>Variation/SubtreeVariator.cpp</itemPath>
+        <itemPath>Variation/SubtreeVariator.h</itemPath>
+        <itemPath>Variation/TreeInitializer.cpp</itemPath>
+        <itemPath>Variation/TreeInitializer.h</itemPath>
+      </logicalFolder>
+      <itemPath>main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <itemPath>LICENSE</itemPath>
+    <itemPath>README.md</itemPath>
+    <itemPath>params.txt</itemPath>
+    <itemPath>params_valgrind.txt</itemPath>
+    <itemPath>result.txt</itemPath>
+    <itemPath>stats_generations.txt</itemPath>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>Semantics</Elem>
+    <Elem>MachineLearning</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>11</standard>
+          <commandLine>-fopenmp</commandLine>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-larmadillo -lboost_program_options</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Evolution/EvolutionRun.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionRun.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/GenerationHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/GenerationHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/PopulationInitializer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Evolution/PopulationInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Fitness/Fitness.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Fitness/Fitness.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionLinearScalingFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionLinearScalingFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAFOS.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAFOS.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAGenerationHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAGenerationHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEATreeInitializer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEATreeInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMVariator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMVariator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Genotype/Node.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Genotype/Node.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="LICENSE" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/OpVariable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Operator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Operators/Operator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticLog_01.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticQuotient.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticQuotient_01.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpCos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpExp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpMinus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpPlus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpRegrConstant.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSin.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSquare.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSquareRoot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpTimes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RunHandling/IMSHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RunHandling/IMSHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Selection/TournamentSelection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Selection/TournamentSelection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticBackpropagator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Semantics/SemanticBackpropagator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticLibrary.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticLibrary.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/TestDerivatives.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Tests/TestsSemanticBackpropagation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Utils/ConfigurationOptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Exceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/KDTree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/KDTree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Logger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/Logger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Utils.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/Utils.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Variation/SubtreeVariator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Variation/SubtreeVariator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Variation/TreeInitializer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Variation/TreeInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="params.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="params_valgrind.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="result.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="stats_generations.txt" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>6</developmentMode>
+          <standard>11</standard>
+          <commandLine>-fopenmp</commandLine>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <commandLine>-larmadillo -lboost_program_options</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Evolution/EvolutionRun.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionRun.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/GenerationHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/GenerationHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/PopulationInitializer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Evolution/PopulationInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Fitness/Fitness.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Fitness/Fitness.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionLinearScalingFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionLinearScalingFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAFOS.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAFOS.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAGenerationHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAGenerationHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEATreeInitializer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEATreeInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMVariator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMVariator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Genotype/Node.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Genotype/Node.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="LICENSE" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/OpVariable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Operator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Operators/Operator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticLog_01.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticQuotient.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticQuotient_01.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpCos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpExp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpMinus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpPlus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpRegrConstant.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSin.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSquare.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSquareRoot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpTimes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RunHandling/IMSHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RunHandling/IMSHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Selection/TournamentSelection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Selection/TournamentSelection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticBackpropagator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Semantics/SemanticBackpropagator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticLibrary.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticLibrary.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/TestDerivatives.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Tests/TestsSemanticBackpropagation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Utils/ConfigurationOptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Exceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/KDTree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/KDTree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Logger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/Logger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Utils.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/Utils.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Variation/SubtreeVariator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Variation/SubtreeVariator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Variation/TreeInitializer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Variation/TreeInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="params.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="params_valgrind.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="result.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="stats_generations.txt" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Valgrind" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>11</standard>
+          <commandLine>-lm -g -w -pipe -lpthread -Wall -W -DNO_DEBUG -fopenmp</commandLine>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-larmadillo -lboost_program_options</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="Evolution/EvolutionRun.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionRun.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/GenerationHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/GenerationHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/PopulationInitializer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Evolution/PopulationInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Fitness/Fitness.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Fitness/Fitness.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionLinearScalingFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionLinearScalingFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAFOS.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAFOS.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAGenerationHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAGenerationHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEATreeInitializer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEATreeInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMVariator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMVariator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Genotype/Node.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Genotype/Node.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="LICENSE" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/OpVariable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Operator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Operators/Operator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticLog_01.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticQuotient.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticQuotient_01.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpCos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpExp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpMinus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpPlus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpRegrConstant.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSin.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSquare.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSquareRoot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpTimes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RunHandling/IMSHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RunHandling/IMSHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Selection/TournamentSelection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Selection/TournamentSelection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticBackpropagator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Semantics/SemanticBackpropagator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticLibrary.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticLibrary.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/TestDerivatives.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Tests/TestsSemanticBackpropagation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Utils/ConfigurationOptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Exceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/KDTree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/KDTree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Logger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/Logger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Utils.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/Utils.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Variation/SubtreeVariator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Variation/SubtreeVariator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Variation/TreeInitializer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Variation/TreeInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="params.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="params_valgrind.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="result.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="stats_generations.txt" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
