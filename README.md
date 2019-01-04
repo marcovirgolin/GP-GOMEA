@@ -4,7 +4,7 @@ This code implements the Gene-pool Optimal Mixing Evolutionary Algorithm for Gen
 ## Dependencies
 You need the following libraries to use GP-GOMEA:
 * Armadillo http://arma.sourceforge.net (see ARMADILLO_NOTICE.txt)
-* OpenMP https://www.openmp.org/
+* OpenMP https://www.openmp.org/ (compile using -fopenmp)
 * Boost https://www.boost.org/
 
 ## Datasets
