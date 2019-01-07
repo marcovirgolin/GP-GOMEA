@@ -38,7 +38,7 @@ ea.run('--file params_gpgomea.txt')
 I'll make a scikit-learn compatible version in the future.
 
 ### Datasets
-Datasets must be organized as follows. Each row is an example, and each column is a feature. The last column must contain the target variable. Values should be separated by spaces. Do not include any textual header.
+Datasets must be organized as follows. Each row is an example, and each column is a feature, with exception for the last column, which is the target variable. Values should be separated by spaces. Do not include any textual header.
 You can find examples at: https://goo.gl/9D2z3b 
 
 ### Output
