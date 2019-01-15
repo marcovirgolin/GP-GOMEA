@@ -66,7 +66,6 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 50</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 50 --caching</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 100 --caching</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" --prob symbreg --train "../datasets/rw/boston_train.dat" --test "../datasets/rw/boston_test.dat" --functions +_-_aq_* --maxtreeheight 6 --initmaxtreeheight 6 --linearscaling  --seed 1 --generations 100 </runcommandpicklistitem>
@@ -77,6 +76,7 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" --file params.txt</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" --file params_sgp.txt
 </runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" --file params_sgp.txt</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}" --file params_sgp.txt</runcommand>
         <rundir></rundir>

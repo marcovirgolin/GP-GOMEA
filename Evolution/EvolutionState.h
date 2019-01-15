@@ -74,6 +74,7 @@ public:
         for (Operator * op : all_operators) {
             delete op;
         }
+        instance = NULL;
     }
 
     void SetOptions(int argc, char* argv[]);

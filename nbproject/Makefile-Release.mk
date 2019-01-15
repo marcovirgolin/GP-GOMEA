@@ -65,8 +65,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-fopenmp
-CXXFLAGS=-fopenmp
+CCFLAGS=-fopenmp -fPIC -shared
+CXXFLAGS=-fopenmp -fPIC -shared
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -88,122 +88,122 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea: ${OBJECTFILES}
 ${OBJECTDIR}/_ext/61f3bb6/main.o: /export/scratch1/virgolin/GP-GOMEA/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/61f3bb6
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/61f3bb6/main.o /export/scratch1/virgolin/GP-GOMEA/main.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/61f3bb6/main.o /export/scratch1/virgolin/GP-GOMEA/main.cpp
 
 ${OBJECTDIR}/Evolution/EvolutionRun.o: Evolution/EvolutionRun.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Evolution
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/EvolutionRun.o Evolution/EvolutionRun.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/EvolutionRun.o Evolution/EvolutionRun.cpp
 
 ${OBJECTDIR}/Evolution/EvolutionState.o: Evolution/EvolutionState.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Evolution
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/EvolutionState.o Evolution/EvolutionState.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/EvolutionState.o Evolution/EvolutionState.cpp
 
 ${OBJECTDIR}/Evolution/GenerationHandler.o: Evolution/GenerationHandler.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Evolution
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/GenerationHandler.o Evolution/GenerationHandler.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/GenerationHandler.o Evolution/GenerationHandler.cpp
 
 ${OBJECTDIR}/Evolution/PopulationInitializer.o: Evolution/PopulationInitializer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Evolution
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/PopulationInitializer.o Evolution/PopulationInitializer.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/PopulationInitializer.o Evolution/PopulationInitializer.cpp
 
 ${OBJECTDIR}/Fitness/Fitness.o: Fitness/Fitness.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Fitness
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/Fitness.o Fitness/Fitness.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/Fitness.o Fitness/Fitness.cpp
 
 ${OBJECTDIR}/Fitness/SymbolicRegressionFitness.o: Fitness/SymbolicRegressionFitness.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Fitness
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/SymbolicRegressionFitness.o Fitness/SymbolicRegressionFitness.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/SymbolicRegressionFitness.o Fitness/SymbolicRegressionFitness.cpp
 
 ${OBJECTDIR}/Fitness/SymbolicRegressionLinearScalingFitness.o: Fitness/SymbolicRegressionLinearScalingFitness.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Fitness
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/SymbolicRegressionLinearScalingFitness.o Fitness/SymbolicRegressionLinearScalingFitness.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/SymbolicRegressionLinearScalingFitness.o Fitness/SymbolicRegressionLinearScalingFitness.cpp
 
 ${OBJECTDIR}/GOMEA/GOMEAFOS.o: GOMEA/GOMEAFOS.cpp 
 	${MKDIR} -p ${OBJECTDIR}/GOMEA
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEAFOS.o GOMEA/GOMEAFOS.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEAFOS.o GOMEA/GOMEAFOS.cpp
 
 ${OBJECTDIR}/GOMEA/GOMEAGenerationHandler.o: GOMEA/GOMEAGenerationHandler.cpp 
 	${MKDIR} -p ${OBJECTDIR}/GOMEA
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEAGenerationHandler.o GOMEA/GOMEAGenerationHandler.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEAGenerationHandler.o GOMEA/GOMEAGenerationHandler.cpp
 
 ${OBJECTDIR}/GOMEA/GOMEATreeInitializer.o: GOMEA/GOMEATreeInitializer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/GOMEA
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEATreeInitializer.o GOMEA/GOMEATreeInitializer.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEATreeInitializer.o GOMEA/GOMEATreeInitializer.cpp
 
 ${OBJECTDIR}/GOMEA/GOMVariator.o: GOMEA/GOMVariator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/GOMEA
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMVariator.o GOMEA/GOMVariator.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMVariator.o GOMEA/GOMVariator.cpp
 
 ${OBJECTDIR}/Genotype/Node.o: Genotype/Node.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Genotype
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Genotype/Node.o Genotype/Node.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Genotype/Node.o Genotype/Node.cpp
 
 ${OBJECTDIR}/Operators/Operator.o: Operators/Operator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Operators
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Operators/Operator.o Operators/Operator.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Operators/Operator.o Operators/Operator.cpp
 
 ${OBJECTDIR}/RunHandling/IMSHandler.o: RunHandling/IMSHandler.cpp 
 	${MKDIR} -p ${OBJECTDIR}/RunHandling
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RunHandling/IMSHandler.o RunHandling/IMSHandler.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RunHandling/IMSHandler.o RunHandling/IMSHandler.cpp
 
 ${OBJECTDIR}/Selection/TournamentSelection.o: Selection/TournamentSelection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Selection
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Selection/TournamentSelection.o Selection/TournamentSelection.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Selection/TournamentSelection.o Selection/TournamentSelection.cpp
 
 ${OBJECTDIR}/Semantics/SemanticBackpropagator.o: Semantics/SemanticBackpropagator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Semantics
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Semantics/SemanticBackpropagator.o Semantics/SemanticBackpropagator.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Semantics/SemanticBackpropagator.o Semantics/SemanticBackpropagator.cpp
 
 ${OBJECTDIR}/Semantics/SemanticLibrary.o: Semantics/SemanticLibrary.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Semantics
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Semantics/SemanticLibrary.o Semantics/SemanticLibrary.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Semantics/SemanticLibrary.o Semantics/SemanticLibrary.cpp
 
 ${OBJECTDIR}/Utils/KDTree.o: Utils/KDTree.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/KDTree.o Utils/KDTree.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/KDTree.o Utils/KDTree.cpp
 
 ${OBJECTDIR}/Utils/Logger.o: Utils/Logger.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/Logger.o Utils/Logger.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/Logger.o Utils/Logger.cpp
 
 ${OBJECTDIR}/Utils/Utils.o: Utils/Utils.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/Utils.o Utils/Utils.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/Utils.o Utils/Utils.cpp
 
 ${OBJECTDIR}/Variation/SubtreeVariator.o: Variation/SubtreeVariator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Variation
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Variation/SubtreeVariator.o Variation/SubtreeVariator.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Variation/SubtreeVariator.o Variation/SubtreeVariator.cpp
 
 ${OBJECTDIR}/Variation/TreeInitializer.o: Variation/TreeInitializer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Variation
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Variation/TreeInitializer.o Variation/TreeInitializer.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Variation/TreeInitializer.o Variation/TreeInitializer.cpp
 
 ${OBJECTDIR}/python_exposer.o: python_exposer.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O3 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/python_exposer.o python_exposer.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/python_exposer.o python_exposer.cpp
 
 # Subprojects
 .build-subprojects:

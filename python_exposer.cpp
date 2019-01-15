@@ -38,6 +38,7 @@ struct GPGOMEA {
         imsh->Start();
         delete imsh;
 
+	delete &st;
     };
 
 };
