@@ -35,8 +35,8 @@ from gpgomea import GPGOMEA
 ea = GPGOMEA()
 # display usage
 ea.run('--help') 
-# run using parameter settings from file
-ea.run('--file params_gpgomea.txt')
+# run using parameter settings from file and verbose
+ea.run('--file params_gpgomea.txt', True)
 ```
 I'll make a scikit-learn compatible version in the future.
 
