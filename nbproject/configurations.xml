@@ -367,7 +367,7 @@
           <linkerLibItems>
             <linkerOptionItem>`pkg-config --libs python-2.7`</linkerOptionItem>
           </linkerLibItems>
-          <commandLine>-larmadillo -lboost_program_options -lboost_python -lboost_system</commandLine>
+          <commandLine>-larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy</commandLine>
         </linkerTool>
       </compileType>
       <item path="/export/scratch1/virgolin/GP-GOMEA/main.cpp"

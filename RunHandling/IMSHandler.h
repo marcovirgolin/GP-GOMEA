@@ -54,6 +54,8 @@ public:
     void Start();
 
     void Terminate();
+    
+    Node * GetFinalElitist();
 
     EvolutionState * st;
 

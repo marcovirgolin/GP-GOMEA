@@ -19,7 +19,10 @@ You need the following libraries to use GP-GOMEA:
 * Boost https://www.boost.org/
 
 ### Python packaging
-You can compile the code into a python-callable library. To do so, compile using the `-shared` flag to produce a library (`gpgomea.so`), and link Boost.Python (`-libboost_python` or `-lboost_python` depending on your system). Add the library to your library path.
+You can compile the code into a python-callable library. To do so, compile using the `-shared` and `-fPIC` flags to produce a library (`gpgomea.so`), and add the library to your library path.
+
+### Linking
+You need to link to: `-larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy` (or `-lib[...]` depending on your OS)
 
 ## Usage
 Call `./gp-gomea --help` to get a comprehensive list of parameters. Some parameters are mandatory, some others have defaults. You can set the parameters when calling the executable with `gp-gomea --param1 value1 --param2 value2`; or write them in a parameter file (see the examples for GP-GOMEA, standard GP, and Semantic Backpropagation-based GP), and finally call `./gp-gomea --file param_file.txt`.

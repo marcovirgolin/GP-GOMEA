@@ -165,14 +165,7 @@ void IMSHandler::Start() {
 
 }
 
-void IMSHandler::Terminate() {
-    // Terminate
-    cout << " -=-=-=-=-=-= TERMINATED =-=-=-=-=-=- " << endl;
-
-    string msg = "";
-    string out = "";
-
-    // find best solution
+Node * IMSHandler::GetFinalElitist() {
     Node * final_elitist;
     size_t final_elitist_idx = 0;
     if (st->fitness->ValidationY.empty()) {
@@ -196,6 +189,18 @@ void IMSHandler::Terminate() {
         }
     }
     final_elitist = elitist_per_run[final_elitist_idx];
+    return final_elitist;
+}
+
+void IMSHandler::Terminate() {
+    // Terminate
+    cout << " -=-=-=-=-=-= TERMINATED =-=-=-=-=-=- " << endl;
+
+    string msg = "";
+    string out = "";
+
+    // find best solution
+    Node * final_elitist = GetFinalElitist();
 
     // best solution found
     out = "Best solution found:\t" + final_elitist->GetSubtreeHumanExpression() + "\n";

@@ -83,7 +83,7 @@ LDLIBSOPTIONS=`pkg-config --libs python-2.7`
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea ${OBJECTFILES} ${LDLIBSOPTIONS} -larmadillo -lboost_program_options -lboost_python -lboost_system
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea ${OBJECTFILES} ${LDLIBSOPTIONS} -larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy
 
 ${OBJECTDIR}/_ext/61f3bb6/main.o: /export/scratch1/virgolin/GP-GOMEA/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/61f3bb6
