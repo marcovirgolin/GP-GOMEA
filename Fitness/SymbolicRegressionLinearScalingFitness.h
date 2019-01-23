@@ -25,8 +25,6 @@ public:
 
     double_t ComputeFitness(Node* n, bool use_caching) override;;
 
-    void SetFitnessCases(const arma::mat & X, FitnessCasesType fct) override;
-    
     double_t GetTestFit(Node * n) override;
     
     double_t GetValidationFit(Node* n) override;

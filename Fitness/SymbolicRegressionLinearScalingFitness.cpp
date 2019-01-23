@@ -34,11 +34,6 @@ double_t SymbolicRegressionLinearScalingFitness::ComputeLinearScalingMSE(const a
 
 }
 
-void SymbolicRegressionLinearScalingFitness::SetFitnessCases(const arma::mat& X, FitnessCasesType fct) {
-    arma::vec Y = X.col(X.n_cols - 1);
-    SymbolicRegressionFitness::SetFitnessCases(X, fct);
-}
-
 double_t SymbolicRegressionLinearScalingFitness::GetTestFit(Node * n) {
     vec P = n->GetOutput( TrainX, false );
     pair<double_t,double_t> ab = Utils::ComputeLinearScalingTerms(P, TrainY, &trainY_mean, &var_comp_trainY);
