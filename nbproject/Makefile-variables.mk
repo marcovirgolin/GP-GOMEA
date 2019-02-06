@@ -30,6 +30,14 @@ CND_ARTIFACT_PATH_Valgrind=dist/Valgrind/GNU-Linux/gp-gomea
 CND_PACKAGE_DIR_Valgrind=dist/Valgrind/GNU-Linux/package
 CND_PACKAGE_NAME_Valgrind=gp-gomea.tar
 CND_PACKAGE_PATH_Valgrind=dist/Valgrind/GNU-Linux/package/gp-gomea.tar
+# Python_Release configuration
+CND_PLATFORM_Python_Release=GNU-Linux
+CND_ARTIFACT_DIR_Python_Release=dist/Python_Release/GNU-Linux
+CND_ARTIFACT_NAME_Python_Release=gpgomea
+CND_ARTIFACT_PATH_Python_Release=dist/Python_Release/GNU-Linux/gpgomea
+CND_PACKAGE_DIR_Python_Release=dist/Python_Release/GNU-Linux/package
+CND_PACKAGE_NAME_Python_Release=gp-gomea.tar
+CND_PACKAGE_PATH_Python_Release=dist/Python_Release/GNU-Linux/package/gp-gomea.tar
 #
 # include compiler specific variables
 #

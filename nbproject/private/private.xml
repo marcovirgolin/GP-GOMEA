@@ -2,25 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <data xmlns="http://www.netbeans.org/ns/make-project-private/1">
         <activeConfTypeElem>1</activeConfTypeElem>
-        <activeConfIndexElem>1</activeConfIndexElem>
+        <activeConfIndexElem>3</activeConfIndexElem>
     </data>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/GOMEA/GOMEAGenerationHandler.cpp</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/params.txt</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/Variation/SubtreeVariator.cpp</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/Evolution/EvolutionRun.cpp</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/Utils/ConfigurationOptions.h</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/Variation/SubtreeVariator.h</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/Evolution/GenerationHandler.cpp</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/Evolution/GenerationHandler.h</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/Evolution/EvolutionState.cpp</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/Utils/Utils.cpp</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/Utils/Utils.h</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/nbproject/private/private.xml</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/main.cpp</file>
-            <file>file:/ufs/virgolin/Dev/EA/VirgoGP2.0/Genotype/Node.cpp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

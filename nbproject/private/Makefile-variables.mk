@@ -6,3 +6,4 @@
 # Debug configuration
 # Release configuration
 # Valgrind configuration
+# Python_Release configuration

@@ -354,7 +354,7 @@
           <incDir>
             <pElem>/usr/include/python2.7</pElem>
           </incDir>
-          <commandLine>-fopenmp -fPIC -shared</commandLine>
+          <commandLine>-fopenmp</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -569,6 +569,224 @@
         </ccTool>
         <linkerTool>
           <commandLine>-larmadillo -lboost_program_options</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/main.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionRun.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionRun.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/EvolutionState.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/GenerationHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evolution/GenerationHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Evolution/PopulationInitializer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Evolution/PopulationInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Fitness/Fitness.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Fitness/Fitness.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionLinearScalingFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Fitness/SymbolicRegressionLinearScalingFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAFOS.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAFOS.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAGenerationHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEAGenerationHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEATreeInitializer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMEATreeInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMVariator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="GOMEA/GOMVariator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Genotype/Node.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Genotype/Node.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="LICENSE" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/OpVariable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Operator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Operators/Operator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticLog_01.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticQuotient.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpAnalyticQuotient_01.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpCos.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpExp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpLog.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpMinus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpPlus.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpRegrConstant.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSin.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSquare.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpSquareRoot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Operators/Regression/OpTimes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Vectorial/OpM.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Vectorial/OpMProduct.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Operators/Vectorial/OpMVariables.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="RunHandling/IMSHandler.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="RunHandling/IMSHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Selection/TournamentSelection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Selection/TournamentSelection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticBackpropagator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="Semantics/SemanticBackpropagator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticLibrary.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Semantics/SemanticLibrary.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Semantics/TestDerivatives.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Tests/TestsSemanticBackpropagation.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="Utils/ConfigurationOptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Exceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/KDTree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/KDTree.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Logger.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/Logger.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Utils/Utils.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Utils/Utils.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Variation/SubtreeVariator.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Variation/SubtreeVariator.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Variation/TreeInitializer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Variation/TreeInitializer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="params.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="params_valgrind.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="python_exposer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="result.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="stats_generations.txt" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Python_Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <standard>11</standard>
+          <incDir>
+            <pElem>/usr/include/python2.7</pElem>
+          </incDir>
+          <commandLine>-fopenmp -fPIC -shared</commandLine>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <linkerTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea</output>
+          <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs python-2.7`</linkerOptionItem>
+          </linkerLibItems>
+          <commandLine>-larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy</commandLine>
         </linkerTool>
       </compileType>
       <item path="/export/scratch1/virgolin/GP-GOMEA/main.cpp"

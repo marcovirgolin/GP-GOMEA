@@ -23,7 +23,7 @@ AS=as
 # Macros
 CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
-CND_CONF=Release
+CND_CONF=Python_Release
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -65,8 +65,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-fopenmp
-CXXFLAGS=-fopenmp
+CCFLAGS=-fopenmp -fPIC -shared
+CXXFLAGS=-fopenmp -fPIC -shared
 
 # Fortran Compiler Flags
 FFLAGS=
