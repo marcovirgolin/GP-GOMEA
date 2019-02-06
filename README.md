@@ -22,7 +22,7 @@ You need the following libraries to use GP-GOMEA:
 * Boost https://www.boost.org/
 
 ### Python packaging
-You can compile the code into a python-callable library. To do so, compile using the `-shared` and `-fPIC` flags to produce a library (`gpgomea.so`), and add the library to your library path.
+You can compile the code into a python-callable library. To do so, compile using the `-shared` and `-fPIC` flags to produce a library (`gpgomea.so`), and add the library to your library path. In alternative, use the premade `nbproject/Makefile-Python_Release.mk`.
 
 ### Linking
 You need to link to: `-larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy` (or `-lib[...]` depending on your OS)
@@ -41,12 +41,12 @@ ea.run('--help')
 # run using parameter settings from file and verbose
 ea.run('--file params_gpgomea.txt', True)
 ```
-I'll make a scikit-learn compatible version in the future.
+There's also a scikit-learn compatible version in the `SklearnGPGOMEA` folder. Take a look at `SklearnGPGOMEA\test.py`.
 
 ### Datasets
 Datasets must be organized as follows. Each row is an example, and each column is a feature, with exception for the last column, which is the target variable. Values should be separated by spaces. Do not include any textual header.
 You can find examples at: https://goo.gl/9D2z3b 
 
 ### Output
-The file `stats_generations.txt` contains information that is logged every generation (iteration) of the algorithm. When the run terminates, an output `result.txt` is produced, that also contains the symbolic expression found by GP.
+The file `stats_generations.txt` contains information that is logged every generation (iteration) of the algorithm. When the run terminates, an output `result.txt` is produced, that also contains the symbolic expression found by GP. By default, these files are not written when the code is run from Python.
 
