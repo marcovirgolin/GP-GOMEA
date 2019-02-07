@@ -6,6 +6,20 @@
     </data>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/RunHandling/IMSHandler.cpp</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/python_exposer.cpp</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Semantics/SemanticLibrary.cpp</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Evolution/PopulationInitializer.cpp</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/params_sgp.txt</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Regression/OpLog.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Evolution/EvolutionRun.cpp</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Variation/TreeInitializer.cpp</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Utils/ConfigurationOptions.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Evolution/GenerationHandler.cpp</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Evolution/EvolutionState.cpp</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Utils/Logger.cpp</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Evolution/EvolutionState.h</file>
+        </group>
     </open-files>
 </project-private>

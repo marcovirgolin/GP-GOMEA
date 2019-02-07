@@ -53,12 +53,6 @@ public:
         new OpAnalyticQuotient01(), new OpAnalyticLog01(),
         new OpExp(), new OpLog(), new OpSin(), new OpCos(), new OpSquare(), new OpSquareRoot()};
 
-    static EvolutionState * GetInstance() {
-        if (!instance)
-            instance = new EvolutionState();
-        return instance;
-    }
-
     ~EvolutionState() {
         for (Node * n : population)
             n->ClearSubtree();
@@ -70,11 +64,10 @@ public:
             delete semantic_backprop;
         if (semantic_library)
             delete semantic_library;
-        
+
         for (Operator * op : all_operators) {
             delete op;
         }
-        instance = NULL;
     }
 
     void SetOptions(int argc, char* argv[]);
@@ -92,11 +85,11 @@ public:
 
     arma::wall_clock timer;
 
-private:
-
     EvolutionState() {
     };
-    static EvolutionState * instance;
+
+private:
+
 
     void SetOptionsFromFile(std::string filename);
 };

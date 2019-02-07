@@ -26,11 +26,11 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-    EvolutionState & st = *EvolutionState::GetInstance();
+    EvolutionState * st = new EvolutionState();
 
-    st.SetOptions(argc, argv);
+    st->SetOptions(argc, argv);
 
-    IMSHandler * imsh = new IMSHandler(&st);
+    IMSHandler * imsh = new IMSHandler(st);
     imsh->Start();
     delete imsh;
 

@@ -4,8 +4,6 @@ using namespace std;
 using namespace arma;
 namespace po = boost::program_options;
 
-EvolutionState * EvolutionState::instance = NULL;
-
 void EvolutionState::SetOptions(int argc, char* argv[]) {
 
     po::options_description desc("Allowed options");
@@ -64,7 +62,7 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
     }
 
     cout << "######################################### SETTINGS #######################################" << endl;
-    
+
     // SEED
     if (vm.count("seed")) {
         config->rng_seed = vm["seed"].as<size_t>();
@@ -72,10 +70,10 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
         srand(time(NULL));
         config->rng_seed = rand() % 999999;
     }
-    
+
     arma_rng::set_seed(config->rng_seed);
     cout << "# rng seed set to " << config->rng_seed << endl;
-    
+
     // THREADS
     omp_set_dynamic(0); // Explicitly disable dynamic threads
     if (vm.count("parallel")) {
@@ -84,7 +82,7 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
     }
     omp_set_num_threads(config->threads);
 
- 
+
     // CACHING
     if (!vm.count("caching") && vm.count("gomfos")) { // triggers
         if (vm["gomfos"].as<string>().compare("SC") == 0 ||
@@ -141,6 +139,11 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             config->terminals.push_back(new OpRegrConstant(constant));
         }
     }
+    
+    if (vm.count("erc")) {
+        config->use_ERC = true;
+        // is set later based on feature values
+    }
 
     // PROBLEM
     assert(vm.count("prob"));
@@ -157,48 +160,50 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             fitness = new SymbolicRegressionFitness();
         cout << endl;
 
-        string train = vm["train"].as<string>();
-        string test;
-        if (vm.count("test"))
-            test = vm["test"].as<string>();
-        else
-            test = train;
+        if (!config->running_from_python) {
+            string train = vm["train"].as<string>();
+            string test;
+            if (vm.count("test"))
+                test = vm["test"].as<string>();
+            else
+                test = train;
 
-        mat TR = fitness->ReadFitnessCases(train);
-        mat TE = fitness->ReadFitnessCases(test);
-        mat V;
-        double_t validation_perc;
-        if (vm.count("validation")) {
-            validation_perc = vm["validation"].as<double_t>();
-            size_t nrows_validation = TR.n_rows * validation_perc;
-            while (V.n_rows < nrows_validation) {
-                size_t which_row = randu() * TR.n_rows;
-                mat x = TR.row(which_row);
-                V = join_vert(V, x);
-                TR.shed_row(which_row);
+            mat TR = fitness->ReadFitnessCases(train);
+            mat TE = fitness->ReadFitnessCases(test);
+            mat V;
+            double_t validation_perc;
+            if (vm.count("validation")) {
+                validation_perc = vm["validation"].as<double_t>();
+                size_t nrows_validation = TR.n_rows * validation_perc;
+                while (V.n_rows < nrows_validation) {
+                    size_t which_row = randu() * TR.n_rows;
+                    mat x = TR.row(which_row);
+                    V = join_vert(V, x);
+                    TR.shed_row(which_row);
+                }
+                fitness->SetFitnessCases(V, FitnessCasesType::FitnessCasesVALIDATION);
             }
-            fitness->SetFitnessCases(V, FitnessCasesType::FitnessCasesVALIDATION);
-        }
 
-        fitness->SetFitnessCases(TR, FitnessCasesType::FitnessCasesTRAIN);
-        fitness->SetFitnessCases(TE, FitnessCasesType::FitnessCasesTEST);
+            fitness->SetFitnessCases(TR, FitnessCasesType::FitnessCasesTRAIN);
+            fitness->SetFitnessCases(TE, FitnessCasesType::FitnessCasesTEST);
 
-        cout << "# train: " << train << " ( " << TR.n_rows << "x" << TR.n_cols - 1 << " )" << endl;
-        if (!V.empty())
-            cout << "# validation: " << validation_perc << " of train ( " << V.n_rows << "x" << V.n_cols - 1 << " )" << endl;
-        cout << "# test: " << test << " ( " << TE.n_rows << "x" << TE.n_cols - 1 << " )" << endl;
+            cout << "# train: " << train << " ( " << TR.n_rows << "x" << TR.n_cols - 1 << " )" << endl;
+            if (!V.empty())
+                cout << "# validation: " << validation_perc << " of train ( " << V.n_rows << "x" << V.n_cols - 1 << " )" << endl;
+            cout << "# test: " << test << " ( " << TE.n_rows << "x" << TE.n_cols - 1 << " )" << endl;
 
 
-        // ADD VARIABLE TERMINALS  
-        for (size_t i = 0; i < TR.n_cols - 1; i++)
-            config->terminals.push_back(new OpVariable(i));
+            // ADD VARIABLE TERMINALS  
+            for (size_t i = 0; i < TR.n_cols - 1; i++)
+                config->terminals.push_back(new OpVariable(i));
 
-        // ADD SR ERC
-        if (vm.count("erc")) {
-            double_t biggest_val = arma::max(arma::max(arma::abs(fitness->TrainX)));
-            double_t min_erc = -5*biggest_val; //min(fitness->TrainY);
-            double_t max_erc = 5*biggest_val; //max(fitness->TrainY);
-            config->terminals.push_back(new OpRegrConstant(min_erc, max_erc));
+            // ADD SR ERC
+            if (config->use_ERC) {
+                double_t biggest_val = arma::max(arma::max(arma::abs(fitness->TrainX)));
+                double_t min_erc = -5 * biggest_val; //min(fitness->TrainY);
+                double_t max_erc = 5 * biggest_val; //max(fitness->TrainY);
+                config->terminals.push_back(new OpRegrConstant(min_erc, max_erc));
+            }
         }
 
     } else {
@@ -255,7 +260,7 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
     }
 
     // SEMANTIC VARIATION 
-    if (vm.count("sblibtype") || vm.count("sbrdo") || vm.count("sbagx")) // triggers
+    if (vm.count("sblibtype") || (vm.count("sbrdo") && vm["sbrdo"].as<double_t>() > 0) || (vm.count("sbagx") && vm["sbagx"].as<double_t>() > 0) ) // triggers
         config->semantic_variation = true;
 
     if (config->semantic_variation) {
@@ -436,7 +441,8 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
 void EvolutionState::SetOptionsFromFile(string filename) {
 
     string line;
-    vector<string> argv_v = {"dummy"}; argv_v.reserve(100);
+    vector<string> argv_v = {"dummy"};
+    argv_v.reserve(100);
     vector<string> split_line;
     ifstream file(filename);
     if (file.is_open()) {
@@ -461,5 +467,5 @@ void EvolutionState::SetOptionsFromFile(string filename) {
         argv[i] = (char*) argv_v[i].c_str();
 
     SetOptions(argc, argv);
-    
+
 }

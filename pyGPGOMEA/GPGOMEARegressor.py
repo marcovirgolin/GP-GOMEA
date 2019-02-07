@@ -4,10 +4,10 @@ from sklearn.metrics import mean_squared_error
 import inspect
 import copyreg
 
+
 class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 	
 	''' GP-GOMEA as scikit-learn regressor '''
-
 	def __init__(self, 
 		time=60, generations=-1, evaluations=-1, 
 		prob='symbreg', linearscaling=True, functions='+_*_-_aq', erc=True,
@@ -27,7 +27,8 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 		hp_string = self._build_hyperparameters_string()
 		self._ea = GPGOMEA(hp_string)
 
-	
+	def __del__(self):
+		del self._ea
 
 
 	def get_params(self, deep=True):
@@ -45,7 +46,6 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 			setattr(self, parameter, value)
 
 		hp_string = self._build_hyperparameters_string()
-
 		self._ea = GPGOMEA(hp_string)
 
 		return self
@@ -67,7 +67,7 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 
 		return result
 
-	def fit(self, X, y=None):
+	def fit(self, X, y):
 		self._ea.run(X, y.reshape((-1,1)))
 		return self
 
@@ -81,3 +81,6 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 		prediction = self._ea.predict(X)
 		neg_mse = -1.0 * mean_squared_error(prediction , y)
 		return neg_mse
+
+	def get_model(self):
+		return self._ea.get_model()

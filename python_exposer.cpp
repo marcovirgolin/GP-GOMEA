@@ -5,6 +5,8 @@
 #include <armadillo>
 #include <boost/python.hpp>
 #include <boost/python/numpy.hpp>
+#include <boost/mem_fn.hpp>
+#include <boost/shared_ptr.hpp>
 
 
 #include "Evolution/EvolutionState.h"
@@ -16,15 +18,55 @@ namespace py = boost::python;
 namespace np = boost::python::numpy;
 
 struct GPGOMEA {
+public:
 
-    GPGOMEA() {
+    GPGOMEA(std::string hyperparams_string) {
+
         Py_Initialize();
         np::initialize();
+
+        this->hyperparams_string = hyperparams_string;
+
+        bool silent = false;
+        silent_output_stream = new std::stringstream();
+
+        std::vector<std::string> opts = Utils::SplitStringByChar(hyperparams_string, ' ');
+        std::vector<std::string> argv_v = {"dummy"};
+        argv_v.reserve(100);
+        for (size_t i = 0; i < opts.size(); i++) {
+            if (opts[i].compare("--silent") == 0) {
+                silent = true;
+                continue;
+            }
+            argv_v.push_back(opts[i]);
+        }
+        size_t argc = argv_v.size();
+        char * argv[argc];
+        for (size_t i = 0; i < argc; i++)
+            argv[i] = (char*) argv_v[i].c_str();
+
+        if (silent) {
+            std::cout.rdbuf(silent_output_stream->rdbuf());
+        } else {
+            std::cout.rdbuf(default_output_stream);
+        }
+
+        // setting options
+        st = new EvolutionState();
+        st->config->running_from_python = true;
+        st->SetOptions(argc, argv);
+
     }
+
+    ~GPGOMEA() {
+    };
 
     Node * solution = NULL;
     EvolutionState * st = NULL;
     IMSHandler * imsh = NULL;
+    std::string hyperparams_string = "";
+    std::streambuf * default_output_stream = std::cout.rdbuf();
+    std::stringstream * silent_output_stream = NULL;
 
     template <class T>
     py::list toPythonList(std::vector<T> vector) {
@@ -63,65 +105,22 @@ struct GPGOMEA {
     }
 
     void reset() {
-        solution->ClearSubtree();
-        delete imsh;
-        delete st;
+        if (solution)
+            solution->ClearSubtree();
+        if (imsh)
+            delete imsh;
+        if (st)
+            delete st;
+        if (silent_output_stream)
+            delete silent_output_stream;
         solution = NULL;
         imsh = NULL;
         st = NULL;
+        silent_output_stream = NULL;
+        std::cout.rdbuf(default_output_stream);
     }
 
-    void run(std::string options, bool verbose = true) {
-
-        if (solution) {
-            // reset
-            reset();
-        }
-
-        std::streambuf * old = std::cout.rdbuf();
-        std::stringstream * ss = NULL;
-        if (!verbose) {
-            ss = new std::stringstream();
-            std::cout.rdbuf(ss->rdbuf());
-        }
-
-        std::vector<std::string> opts = Utils::SplitStringByChar(options, ' ');
-        std::vector<std::string> argv_v = {"dummy"};
-        argv_v.reserve(100);
-        for (size_t i = 0; i < opts.size(); i++) {
-            argv_v.push_back(opts[i]);
-        }
-        size_t argc = argv_v.size();
-        char * argv[argc];
-        for (size_t i = 0; i < argc; i++)
-            argv[i] = (char*) argv_v[i].c_str();
-
-        // setting options
-        st = EvolutionState::GetInstance();
-        st->SetOptions(argc, argv);
-
-        // running
-        imsh = new IMSHandler(st);
-        imsh->Start();
-
-        solution = imsh->GetFinalElitist()->CloneSubtree();
-
-        std::cout << std::endl;
-        
-        if (ss) {
-            delete ss;
-            ss = NULL;
-            std::cout.rdbuf(old);
-        }
-    };
-
-    np::ndarray predict(np::ndarray npX) {
-
-        if (!solution) {
-            std::cout << "predict error: calling before having run" << std::endl;
-            py::throw_error_already_set();
-        }
-
+    arma::mat convertNumpyToArma(np::ndarray npX) {
         if (npX.get_dtype() != np::dtype::get_builtin<double_t>()) {
             PyErr_SetString(PyExc_TypeError, "predict error: wrong data type");
             py::throw_error_already_set();
@@ -140,6 +139,56 @@ struct GPGOMEA {
                 X(i, j) = *reinterpret_cast<double_t const *> (data + i * strides[0] + j * strides[1]);
             }
         }
+        return X;
+    }
+
+    void run(np::ndarray npX, np::ndarray npY) {
+
+
+        arma::mat X = convertNumpyToArma(npX);
+        arma::mat Y = convertNumpyToArma(npY);
+
+        arma::mat TR = arma::join_horiz(X, Y);
+        st->fitness->SetFitnessCases(TR, FitnessCasesType::FitnessCasesTRAIN);
+        st->fitness->SetFitnessCases(TR, FitnessCasesType::FitnessCasesTEST);
+
+        // ADD VARIABLE TERMINALS  
+        for (size_t i = 0; i < TR.n_cols - 1; i++)
+            st->config->terminals.push_back(new OpVariable(i));
+
+        // ADD SR ERC
+        if (st->config->use_ERC) {
+            double_t biggest_val = arma::max(arma::max(arma::abs(st->fitness->TrainX)));
+            double_t min_erc = -5 * biggest_val;
+            double_t max_erc = 5 * biggest_val;
+            st->config->terminals.push_back(new OpRegrConstant(min_erc, max_erc));
+        }
+
+        // generate run handler
+        imsh = new IMSHandler(st);
+
+        // reset state that may impact the run
+        st->fitness->evaluations = 0;
+
+        // run
+        imsh->Start();
+
+        // save anything that is interesting in the state of the object
+        solution = imsh->GetFinalElitist()->CloneSubtree();
+
+        // delete run handler
+        delete imsh;
+        imsh = NULL;
+    };
+
+    np::ndarray predict(np::ndarray npX) {
+
+        if (!solution) {
+            PyErr_SetString(PyExc_TypeError, "predict error: called before fitting");
+            py::throw_error_already_set();
+        }
+
+        arma::mat X = convertNumpyToArma(npX);
 
         arma::vec out = solution->GetOutput(X, false);
         std::pair<double_t, double_t> ab = std::make_pair(0.0, 1.0);
@@ -148,17 +197,53 @@ struct GPGOMEA {
             ab = Utils::ComputeLinearScalingTerms(trainout, st->fitness->TrainY, &st->fitness->trainY_mean, &st->fitness->var_comp_trainY);
         }
         out = ab.first + out * ab.second;
-
         np::ndarray res = toNumpyArray(out);
 
         return res;
     };
 
+    std::string get_model() {
+        if (!solution) {
+            PyErr_SetString(PyExc_TypeError, "get_model error: called before fitting");
+            py::throw_error_already_set();
+        }
+
+        return solution->GetSubtreeHumanExpression();
+    };
+
+    /*void destroy() {
+        reset();
+        delete this;
+    };*/
+
+private:
+
+
+};
+
+/*boost::shared_ptr<GPGOMEA> create_GPGOMEA(std::string hyperparams_string) {
+    return boost::shared_ptr<GPGOMEA>(
+            new GPGOMEA(hyperparams_string),
+            boost::mem_fn(&GPGOMEA::destroy));
+}*/
+
+struct GPGOMEA_pickle_suite : boost::python::pickle_suite {
+    static
+    boost::python::tuple
+    getinitargs(GPGOMEA const& g) {
+        return boost::python::make_tuple(g.hyperparams_string);
+    }
 };
 
 BOOST_PYTHON_MODULE(gpgomea) {
-    py::class_<GPGOMEA>("GPGOMEA")
+    //py::class_<GPGOMEA, std::auto_ptr<GPGOMEA>, boost::noncopyable >
+    //        ("GPGOMEA", py::no_init) //("GPGOMEA", py::init<std::string>())
+    //.def("__init__", py::make_constructor(&create_GPGOMEA))
+
+    py::class_<GPGOMEA, std::auto_ptr<GPGOMEA> >("GPGOMEA", py::init<std::string>())
             .def("run", &GPGOMEA::run)
             .def("predict", &GPGOMEA::predict)
+            .def("get_model", &GPGOMEA::get_model)
+            .def_pickle(GPGOMEA_pickle_suite())
             ;
 }

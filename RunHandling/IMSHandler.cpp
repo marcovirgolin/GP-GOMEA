@@ -19,7 +19,8 @@ void IMSHandler::Start() {
 
     string stats_file = "stats_generations.txt";
     string heading = "gen\ttime\tevals\tbest_fit\tbest_size\tpop_size";
-    Logger::GetInstance()->Log(heading, stats_file);
+    if (!st->config->running_from_python)
+        Logger::GetInstance()->Log(heading, stats_file);
 
     macro_generation = 0;
 
@@ -35,7 +36,8 @@ void IMSHandler::Start() {
 
     // begin timer
     st->timer.tic();
-    
+
+    size_t current_pop_size = st->config->population_size;
     size_t biggest_pop_size_reached = 0;
 
     while (true) {
@@ -63,8 +65,8 @@ void IMSHandler::Start() {
             // check if run should start
             if (!terminated_runs[i] && // must not be terminated, AND
                     (i == min_run_idx // it is the smallest run, OR
-                || (subgenerations_performed[prev_run_idx] == pow((int) st->config->num_sugen_IMS, i - prev_run_idx) ) // previous active run did enough subgenerations
-                )) {
+                    || (subgenerations_performed[prev_run_idx] == pow((int) st->config->num_sugen_IMS, i - prev_run_idx)) // previous active run did enough subgenerations
+                    )) {
 
                 if (i != min_run_idx) { // reset counter for previous run
                     subgenerations_performed[prev_run_idx] = 0;
@@ -74,13 +76,13 @@ void IMSHandler::Start() {
                 if (!initialized_runs[i]) {
                     if (max_num_runs > 1)
                         cout << " ! IMS: ";
-                    cout << " Initialized run " << i << " with population size " << st->config->population_size << " and initial tree height " << st->config->initial_maximum_tree_height << endl;
+                    cout << " Initialized run " << i << " with population size " << current_pop_size << " and initial tree height " << st->config->initial_maximum_tree_height << endl;
                     runs[i] = new EvolutionRun(*st);
 
                     runs[i]->Initialize();
                     initialized_runs[i] = true;
-                    biggest_pop_size_reached = st->config->population_size;
-                    st->config->population_size *= 2;
+                    biggest_pop_size_reached = current_pop_size;
+                    current_pop_size *= 2;
 
                     max_run_idx++;
                 }
@@ -132,7 +134,7 @@ void IMSHandler::Start() {
                 }
 
                 if (should_terminate) {
-                    
+
                     terminated_runs[i] = true;
                     delete runs[i];
                     runs[i] = NULL;
@@ -155,8 +157,11 @@ void IMSHandler::Start() {
 
         macro_generation++;
 
-        string generation_stats = to_string(macro_generation) + "\t" + to_string(st->timer.toc()) + "\t" + to_string(st->fitness->evaluations) + "\t" + to_string(elitist_fit) + "\t" + to_string(elitist_size) +  "\t" + to_string(biggest_pop_size_reached);
-        Logger::GetInstance()->Log(generation_stats, stats_file);
+        string generation_stats = to_string(macro_generation) + "\t" + to_string(st->timer.toc()) + "\t" + to_string(st->fitness->evaluations) + "\t" + to_string(elitist_fit) + "\t" + to_string(elitist_size) + "\t" + to_string(biggest_pop_size_reached);
+
+        if (!st->config->running_from_python)
+            Logger::GetInstance()->Log(generation_stats, stats_file);
+
         cout << " > generation " << macro_generation << " - best fit: " << elitist_fit << endl;
 
     }
@@ -249,5 +254,6 @@ void IMSHandler::Terminate() {
     cout << out;
     msg += out;
 
-    Logger::GetInstance()->Log(msg, "result.txt");
+    if (!st->config->running_from_python)
+        Logger::GetInstance()->Log(msg, "result.txt");
 }

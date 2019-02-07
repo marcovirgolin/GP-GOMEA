@@ -54,6 +54,7 @@ public:
     int semantic_uniqueness_tries = -1;
     std::vector<Operator *> functions;
     std::vector<Operator *> terminals;
+    bool use_ERC = false;
     bool use_IMS = false;
     size_t num_sugen_IMS = 10;
     size_t early_stopping_IMS = 1;
@@ -98,6 +99,8 @@ public:
 
     // Extra
     bool linear_scaling = false;
+    
+    bool running_from_python = false;
 
 };
 

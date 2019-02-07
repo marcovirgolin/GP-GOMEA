@@ -29,6 +29,7 @@ Node * TreeInitializer::InitializeRandomTree(TreeInitShape init_shape, size_t ma
     }
 
     throw std::runtime_error("TreeInitializer::InitializeRandomTree invalid tree initialization type");
+    
 }
 
 Node* TreeInitializer::GenerateTreeFull(size_t height_left, const std::vector<Operator*>& functions, const std::vector<Operator*>& terminals) const {
