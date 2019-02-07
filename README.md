@@ -19,34 +19,37 @@ This code can be compiled on Linux (tested on Ubuntu and Fedora). Use g++ with C
 You need the following libraries to use GP-GOMEA:
 * Armadillo http://arma.sourceforge.net (see ARMADILLO_NOTICE.txt)
 * OpenMP https://www.openmp.org/ (compile using -fopenmp)
-* Boost https://www.boost.org/
-
-### Python packaging
-You can compile the code into a python-callable library. To do so, compile using the `-shared` and `-fPIC` flags to produce a library (`gpgomea.so`), and add the library to your library path. In alternative, use the premade `nbproject/Makefile-Python_Release.mk`.
+* Boost https://www.boost.org/ (program options, python, numpy, system)
 
 ### Linking
 You need to link to: `-larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy` (or `-lib[...]` depending on your OS)
 
+### Python packaging
+Run `python setup.py install [--user]` to install a scikit-learn-compatible Python interface.
+
 ## Usage
+### Using the C++ executable
 Call `./gp-gomea --help` to get a comprehensive list of parameters. Some parameters are mandatory, some others have defaults. You can set the parameters when calling the executable with `gp-gomea --param1 value1 --param2 value2`; or write them in a parameter file (see the examples for GP-GOMEA, standard GP, and Semantic Backpropagation-based GP), and finally call `./gp-gomea --file param_file.txt`.
 
-### Usage from Python
+### Using the Python interface
 If you built the code into a library, then you can call it from python. For example:
 ```python
-from gpgomea import GPGOMEA
+from pyGPGOMEA import GPGOMEARegressor as GPGR
+from sklearn.datasets import load_boston
+import numpy as np
 
-ea = GPGOMEA()
-# display usage
-ea.run('--help') 
-# run using parameter settings from file and verbose
-ea.run('--file params_gpgomea.txt', True)
+X, y = load_boston(return_X_y=True)
+model = GPGR( gomea=True, ims='5_1', generations=10, seed=42 )
+model.fit(X, y)
+print 'Model found:', model.get_model()
+print 'RMSE:', np.sqrt( np.mean( np.square( model.predict(X) - y ) ) ) 
 ```
-There's also a scikit-learn compatible version in the `SklearnGPGOMEA` folder. Take a look at `SklearnGPGOMEA\test.py`.
+Take a look at `test.py` for more details.
 
 ### Datasets
-Datasets must be organized as follows. Each row is an example, and each column is a feature, with exception for the last column, which is the target variable. Values should be separated by spaces. Do not include any textual header.
+For the C++ executable, datasets must be organized as follows. Each row is an example, and each column is a feature, with exception for the last column, which is the target variable. Values should be separated by spaces. Do not include any textual header.
 You can find examples at: https://goo.gl/9D2z3b 
 
 ### Output
-The file `stats_generations.txt` contains information that is logged every generation (iteration) of the algorithm. When the run terminates, an output `result.txt` is produced, that also contains the symbolic expression found by GP. By default, these files are not written when the code is run from Python.
+The file `stats_generations.txt` contains information that is logged every generation (iteration) of the algorithm. When the run terminates, an output `result.txt` is produced, that also contains the symbolic expression found by GP. These files are not generated when the code is run from Python.
 
