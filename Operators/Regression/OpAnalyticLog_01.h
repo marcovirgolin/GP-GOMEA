@@ -21,7 +21,7 @@ public:
     
     OpAnalyticLog01() {
         arity = 1;
-        name = "alog0.01";
+        name = "alog0.1";
         type = OperatorType::opFunction;
     }
     
@@ -30,7 +30,7 @@ public:
     }
 
     arma::vec ComputeOutput(const arma::mat& x) override {
-        arma::vec res = arma::log( arma::sqrt( 0.01 + arma::square(x.col(0))) );
+        arma::vec res = arma::log( arma::sqrt( 0.1 + arma::square(x.col(0))) );
         return res;
     }
     
@@ -45,7 +45,7 @@ public:
     }
     
     arma::vec ComputeDerivative( const arma::mat & x, const arma::mat & dx ) override {
-        return x.col(0) / (0.01 + arma::square(x.col(0))) % dx.col(0);
+        return x.col(0) / (0.1 + arma::square(x.col(0))) % dx.col(0);
     }
    
 private:
