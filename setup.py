@@ -22,6 +22,7 @@ def setup_GPGOMEA_Cpp():
 	# switch to python makefile
 	os.system('mv Makefile Makefile.backup')
 	os.system('mv pyMakefile Makefile')
+	os.system('cp Makefile-impl-py.mk nbproject/')
 
 	# make
 	os.system('make')

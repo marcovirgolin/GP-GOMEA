@@ -68,6 +68,8 @@ public:
     std::streambuf * default_output_stream = std::cout.rdbuf();
     std::stringstream * silent_output_stream = NULL;
 
+    size_t evaluations = 0;
+
     template <class T>
     py::list toPythonList(std::vector<T> vector) {
         typename std::vector<T>::iterator iter;
@@ -118,6 +120,7 @@ public:
         st = NULL;
         silent_output_stream = NULL;
         std::cout.rdbuf(default_output_stream);
+        evaluations = 0;
     }
 
     arma::mat convertNumpyToArma(np::ndarray npX) {
@@ -143,7 +146,6 @@ public:
     }
 
     void run(np::ndarray npX, np::ndarray npY) {
-
 
         arma::mat X = convertNumpyToArma(npX);
         arma::mat Y = convertNumpyToArma(npY);
@@ -175,6 +177,7 @@ public:
 
         // save anything that is interesting in the state of the object
         solution = imsh->GetFinalElitist()->CloneSubtree();
+        evaluations = st->fitness->evaluations;
 
         // delete run handler
         delete imsh;
@@ -211,6 +214,10 @@ public:
         return solution->GetSubtreeHumanExpression();
     };
 
+    size_t get_evaluations(){
+        return evaluations;
+    }
+
     /*void destroy() {
         reset();
         delete this;
@@ -244,6 +251,7 @@ BOOST_PYTHON_MODULE(gpgomea) {
             .def("run", &GPGOMEA::run)
             .def("predict", &GPGOMEA::predict)
             .def("get_model", &GPGOMEA::get_model)
+            .def("get_evaluations", &GPGOMEA::get_evaluations)
             .def_pickle(GPGOMEA_pickle_suite())
             ;
 }
