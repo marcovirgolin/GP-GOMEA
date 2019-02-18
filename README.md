@@ -20,6 +20,7 @@ You need the following libraries to use GP-GOMEA:
 * Armadillo http://arma.sourceforge.net (see ARMADILLO_NOTICE.txt)
 * OpenMP https://www.openmp.org/ (compile using -fopenmp)
 * Boost https://www.boost.org/ (program options, python, numpy, system)
+* Python developer (`python-dev` or `python-devel` depending on your OS)
 
 ### Linking
 You need to link to: `-larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy` (or `-lib[...]` depending on your OS)
