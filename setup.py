@@ -19,6 +19,10 @@ for a in sys.argv:
 print install_path
 
 def setup_GPGOMEA_Cpp():
+	# create dir for make
+	os.system('mkdir dist')
+	os.system('mkdir dist/Python_Release')
+	
 	# switch to python makefile
 	os.system('mv Makefile Makefile.backup')
 	os.system('mv pyMakefile Makefile')
