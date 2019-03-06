@@ -34,9 +34,15 @@ def setup_GPGOMEA_Cpp():
 	# restore original makefile
 	os.system('mv Makefile pyMakefile')
 	os.system('mv Makefile.backup Makefile')
-
+	
 	# set the library
 	os.system('mv dist/Python_Release/*/gpgomea pyGPGOMEA/gpgomea.so')
+	
+	# check C++ library has been created, otherwise abort
+	if not os.path.isfile('pyGPGOMEA/gpgomea.so'):
+		print('Whoops, something went wrong when compiling the C++ source code. Take a look at the error message(s) above!')
+		quit()
+
 
 class Custom_GPGOMEA_Install(DistutilsInstall):
 	def run(self):
