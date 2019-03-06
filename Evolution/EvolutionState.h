@@ -49,11 +49,9 @@
 class EvolutionState {
 public:
 
-    std::vector<Operator*> all_operators = {new OpPlus(), new OpMinus(), new OpTimes(), new OpAnalyticQuotient(),
-        new OpAnalyticQuotient01(), new OpAnalyticLog01(),
-        new OpExp(), new OpLog(), new OpSin(), new OpCos(), new OpSquare(), new OpSquareRoot()};
-
     ~EvolutionState() {
+        delete config;
+        
         for (Node * n : population)
             n->ClearSubtree();
         delete tree_initializer;
@@ -64,15 +62,11 @@ public:
             delete semantic_backprop;
         if (semantic_library)
             delete semantic_library;
-
-        for (Operator * op : all_operators) {
-            delete op;
-        }
     }
 
     void SetOptions(int argc, char* argv[]);
 
-    ConfigurationOptions * config = new ConfigurationOptions();
+    ConfigurationOptions * config;
 
     std::vector<Node *> population;
 
@@ -86,12 +80,13 @@ public:
     arma::wall_clock timer;
 
     EvolutionState() {
+        config = new ConfigurationOptions();
     };
 
 private:
 
-
     void SetOptionsFromFile(std::string filename);
+
 };
 
 

@@ -55,7 +55,6 @@ public:
         st = new EvolutionState();
         st->config->running_from_python = true;
         st->SetOptions(argc, argv);
-
     }
 
     ~GPGOMEA() {

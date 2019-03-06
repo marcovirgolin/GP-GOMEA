@@ -119,15 +119,15 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
     if (vm.count("terminals"))
         str_terminals = Utils::SplitStringByChar(vm["terminals"].as<string>(), '_');
 
-    for (Operator * op : all_operators) {
+    for (Operator * op : config->all_operators) {
         for (string s : str_functions) {
             if (s.compare(op->name) == 0) {
-                config->functions.push_back(op->Clone());
+                config->functions.push_back( op->Clone());
             }
         }
         for (string s : str_terminals) {
             if (s.compare(op->name) == 0) {
-                config->terminals.push_back(op->Clone());
+                config->terminals.push_back( op->Clone());
             }
         }
     }

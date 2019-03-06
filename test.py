@@ -10,7 +10,7 @@ X, y = load_boston(return_X_y=True)
 X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.25, random_state=42 )
 
 print 'Running GP-GOMEA...'
-ea = GPG( gomea=True, ims='5_1', generations=10, seed=42 )
+ea = GPG( gomea=True, ims='5_1', generations=10, seed=42, silent=False )
 ea.fit(X_train, y_train)
 print 'Model found:', ea.get_model()
 print 'Evaluations taken:', ea.get_evaluations() # care: this is not correct if multiple threads were used when fitting

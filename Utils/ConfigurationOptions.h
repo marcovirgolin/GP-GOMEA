@@ -1,9 +1,3 @@
-/*
- 
-
-
- */
-
 /* 
  * File:   ConfigurationOptions.h
  * Author: virgolin
@@ -36,7 +30,20 @@
 #include "../Operators/Regression/OpRegrConstant.h"
 
 class ConfigurationOptions {
+
 public:
+
+    // Add here a new operator! (of course, include the .h file above)
+    std::vector<Operator *> all_operators = { new OpPlus(), new OpMinus(), new OpTimes(), new OpAnalyticQuotient(),
+        new OpAnalyticQuotient01(), new OpAnalyticLog01(),
+        new OpExp(), new OpLog(), new OpSin(), new OpCos(), new OpSquare(), new OpSquareRoot() };
+
+    ~ConfigurationOptions() {
+        // TODO: for some reason, clearing up this memory makes python crash on subsequent instantiations
+        /*for (Operator * op : all_operators) {
+            delete op;
+        }*/
+    }
 
     /* Meta-Options */
     size_t rng_seed;
