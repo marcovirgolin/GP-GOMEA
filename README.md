@@ -30,7 +30,7 @@ Run `python setup.py install [--user]` to install a scikit-learn-compatible Pyth
 
 ## Usage
 ### Using the C++ executable
-Call `./gp-gomea --help` to get a comprehensive list of parameters. Some parameters are mandatory, some others have defaults. You can set the parameters when calling the executable with `gp-gomea --param1 value1 --param2 value2`; or write them in a parameter file (see the examples for GP-GOMEA, standard GP, and Semantic Backpropagation-based GP), and finally call `./gp-gomea --file param_file.txt`.
+Call `./gpgomea --help` to get a comprehensive list of parameters. Some parameters are mandatory, some others have defaults. You can set the parameters when calling the executable with `gpgomea --param1 value1 --param2 value2`; or write them in a parameter file (see the examples for GP-GOMEA, standard GP, and Semantic Backpropagation-based GP), and finally call `./gpgomea --file param_file.txt`.
 
 ### Using the Python interface
 If you built the code into a library, then you can call it from python. For example:
