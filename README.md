@@ -9,7 +9,9 @@ This code also implements the Interlaved Multistart Scheme (IMS), that makes GP 
 If you use our code for academic purposes, please support our research by citing the paper that most applies, from the following:
 * M. Virgolin, T. Alderliesten, C. Witteveen, and P.A.N. Bosman. *Scalable genetic programming by gene-pool optimal mixing and input-space entropy-based building block learning*. In Proceedings of the Genetic and Evolutionary Computation Conference - GECCO-2017, pages 1041-1048, ACM Press, New York, New York, 2017. (The source code for this paper is available on Peter's website: https://homepages.cwi.nl/~bosman/source_code.php)
 * M. Virgolin, T. Alderliesten, A. Bel, C. Witteveen, and P.A.N. Bosman. *Symbolic Regression and Feature Construction with GP-GOMEA applied to Radiotherapy Dose Reconstruction of Childhood Cancer Survivors*. In Proceedings of the Genetic and Evolutionary Computation Conference - GECCO-2018, ACM Press, New York, New York, 2018.
-* *More coming soon...*
+* M. Virgolin, T. Alderliesten, P.A.N. Bosman. *Linear Scaling with and within Semantic Backpropagation-based Genetic Programming for Symbolic Regression*. Recently accepted as full paper at GECCO 2019.
+* *MORE COMING SOON*
+
 
 ## Setup
 ### Compilation
