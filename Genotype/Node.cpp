@@ -146,8 +146,6 @@ Operator* Node::ChangeOperator(const Operator & other) {
     return old;
 }
 
-/* PRIVATE FUNCTIONS */
-
 void Node::ComputeHeightRecursive(size_t & h, bool only_active) const {
     size_t arity;
     if (only_active)
