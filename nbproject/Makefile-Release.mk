@@ -85,10 +85,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea ${OBJECTFILES} ${LDLIBSOPTIONS} -larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy
 
-${OBJECTDIR}/_ext/61f3bb6/main.o: /export/scratch1/virgolin/GP-GOMEA/main.cpp 
+${OBJECTDIR}/_ext/61f3bb6/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/61f3bb6
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/61f3bb6/main.o /export/scratch1/virgolin/GP-GOMEA/main.cpp
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/61f3bb6/main.o main.cpp
 
 ${OBJECTDIR}/Evolution/EvolutionRun.o: Evolution/EvolutionRun.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Evolution
