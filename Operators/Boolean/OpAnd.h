@@ -8,7 +8,7 @@
  * File:   OpPlus.h
  * Author: virgolin
  *
- * Created on June 27, 2018, 12:37 PM
+ * Created on May 30, 2019, 12:37 PM
  */
 
 #ifndef OPAND_H
@@ -33,7 +33,7 @@ public:
         arma::vec res(x.n_rows);
 
         for (int i = 0; i < x.n_rows; i++)
-            res[i] = (bool) x(0, i) & (bool) x(1, i);
+            res[i] = (bool) x.at(i, 0) & (bool) x.at(i, 1);
 
         return res;
     }
