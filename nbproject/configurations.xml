@@ -45,6 +45,14 @@
         <itemPath>GOMEA/GOMVariator.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="Operators" projectFiles="true">
+        <logicalFolder name="Boolean" displayName="Boolean" projectFiles="true">
+          <itemPath>/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpAnd.h</itemPath>
+          <itemPath>/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNand.h</itemPath>
+          <itemPath>/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNor.h</itemPath>
+          <itemPath>/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNot.h</itemPath>
+          <itemPath>/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpOr.h</itemPath>
+          <itemPath>/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpXor.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f2" displayName="Matricial" projectFiles="true">
           <itemPath>Operators/Vectorial/OpM.h</itemPath>
           <itemPath>Operators/Vectorial/OpMProduct.h</itemPath>
@@ -152,6 +160,36 @@
           <commandLine>-larmadillo -lboost_program_options -lboost_python -lboost_system</commandLine>
         </linkerTool>
       </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpAnd.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNand.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpOr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpXor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/export/scratch1/virgolin/GP-GOMEA/main.cpp"
             ex="false"
             tool="1"
@@ -370,6 +408,36 @@
           <commandLine>-larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy</commandLine>
         </linkerTool>
       </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpAnd.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNand.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpOr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpXor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/export/scratch1/virgolin/GP-GOMEA/main.cpp"
             ex="false"
             tool="1"
@@ -571,6 +639,36 @@
           <commandLine>-larmadillo -lboost_program_options</commandLine>
         </linkerTool>
       </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpAnd.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNand.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpOr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpXor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/export/scratch1/virgolin/GP-GOMEA/main.cpp"
             ex="false"
             tool="1"
@@ -789,6 +887,36 @@
           <commandLine>-larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy</commandLine>
         </linkerTool>
       </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpAnd.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNand.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNot.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpOr.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpXor.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/export/scratch1/virgolin/GP-GOMEA/main.cpp"
             ex="false"
             tool="1"

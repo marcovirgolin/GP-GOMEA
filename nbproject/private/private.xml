@@ -2,10 +2,25 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <data xmlns="http://www.netbeans.org/ns/make-project-private/1">
         <activeConfTypeElem>1</activeConfTypeElem>
-        <activeConfIndexElem>3</activeConfIndexElem>
+        <activeConfIndexElem>1</activeConfIndexElem>
     </data>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Regression/OpAnalyticLog_01.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Regression/OpSquare.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Operator.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNor.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNot.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpXor.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Regression/OpTimes.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Operator.cpp</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpNand.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Utils/ConfigurationOptions.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Regression/OpAnalyticQuotient_01.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpAnd.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpOr.h</file>
+            <file>file:/export/scratch1/virgolin/GP-GOMEA/Operators/Regression/OpExp.h</file>
+        </group>
     </open-files>
 </project-private>

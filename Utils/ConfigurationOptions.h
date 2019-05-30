@@ -29,14 +29,25 @@
 #include "../Operators/Regression/OpSquareRoot.h"
 #include "../Operators/Regression/OpRegrConstant.h"
 
-class ConfigurationOptions {
+// BOOLEAN
+#include "../Operators/Boolean/OpAnd.h"
+#include "../Operators/Boolean/OpNand.h"
+#include "../Operators/Boolean/OpOr.h"
+#include "../Operators/Boolean/OpNor.h"
+#include "../Operators/Boolean/OpXor.h"
+#include "../Operators/Boolean/OpNot.h"
 
+
+
+class ConfigurationOptions {
 public:
 
     // Add here a new operator! (of course, include the .h file above)
-    std::vector<Operator *> all_operators = { new OpPlus(), new OpMinus(), new OpTimes(), new OpAnalyticQuotient(),
+    std::vector<Operator *> all_operators = {new OpPlus(), new OpMinus(), new OpTimes(), new OpAnalyticQuotient(),
         new OpAnalyticQuotient01(), new OpAnalyticLog01(),
-        new OpExp(), new OpLog(), new OpSin(), new OpCos(), new OpSquare(), new OpSquareRoot() };
+        new OpExp(), new OpLog(), new OpSin(), new OpCos(), new OpSquare(), new OpSquareRoot(),
+        new OpAnd(), new OpOr(), new OpNand(), new OpNor(), new OpNot(), new OpXor()
+    };
 
     ~ConfigurationOptions() {
         // TODO: for some reason, clearing up this memory makes python crash on subsequent instantiations
@@ -106,7 +117,7 @@ public:
 
     // Extra
     bool linear_scaling = false;
-    
+
     bool running_from_python = false;
 
 };
