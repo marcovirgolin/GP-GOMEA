@@ -77,6 +77,7 @@ void IMSHandler::Start() {
                     if (max_num_runs > 1)
                         cout << " ! IMS: ";
                     cout << " Initialized run " << i << " with population size " << current_pop_size << " and initial tree height " << st->config->initial_maximum_tree_height << endl;
+                    st->config->population_size = current_pop_size;
                     runs[i] = new EvolutionRun(*st);
 
                     runs[i]->Initialize();
