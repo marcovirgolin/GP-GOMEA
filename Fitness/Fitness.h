@@ -27,6 +27,7 @@ enum FitnessCasesType {
 class Fitness {
     
 public:
+    
     Fitness();
     Fitness(const Fitness& orig);
     virtual ~Fitness();
