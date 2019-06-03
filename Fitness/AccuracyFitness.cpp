@@ -20,9 +20,12 @@ void AccuracyFitness::SetFitnessCases(const arma::mat& X, FitnessCasesType fct) 
     arma::mat Xx = X;
     Xx.shed_col(Xx.n_cols - 1);
 
-    std::map<size_t, size_t> class_count_map;
 
     if (fct == FitnessCasesTRAIN) {
+
+        class_count_map.clear();
+        weighted_denom = 0;
+
         TrainY = Y;
         TrainX = Xx;
 
@@ -32,9 +35,10 @@ void AccuracyFitness::SetFitnessCases(const arma::mat& X, FitnessCasesType fct) 
 
         class_weights = arma::vec(class_count_map.size(), arma::fill::ones);
 
-        if (use_weightening) {
+        if (use_weighting) {
             for (auto it = class_count_map.begin(); it != class_count_map.end(); it++) {
-                class_weights[ it->first ] = 1.0 * Y.n_elem / it->second;
+                class_weights[ it->first ] = 1.0 * it->second / Y.n_elem;
+                weighted_denom += it->second * class_weights[it->first];
             }
         }
 
@@ -48,6 +52,17 @@ void AccuracyFitness::SetFitnessCases(const arma::mat& X, FitnessCasesType fct) 
         throw std::runtime_error("Fitness::SetFitnessCases invalid fitness cases type provided.");
     }
 
+}
+
+void AccuracyFitness::SetCustomWeights(const arma::vec& custom_weights) {
+    assert(custom_weights.n_elem == class_weights.n_elem);
+    for (size_t i = 0; i < class_weights.n_elem; i++) {
+        class_weights[i] = custom_weights[i];
+    }
+    weighted_denom = 0;
+    for (auto it = class_count_map.begin(); it != class_count_map.end(); it++) {
+        weighted_denom += it->second * class_weights[it->first];
+    }
 }
 
 double_t AccuracyFitness::ComputeFitness(Node* n, bool use_caching) {
@@ -79,17 +94,22 @@ double_t AccuracyFitness::GetTestFit(Node* n) {
 }
 
 double_t AccuracyFitness::ComputeWeightedAccuracy(const arma::vec& P, const arma::vec& Y) {
-    arma::vec res = Y - P;
+
+    arma::vec Pr = arma::round(P);
+    arma::vec res = Y - Pr;
     double_t result = 0;
 
-    for (int i = 0; i < res.n_elem; i++) {
-
+    for (size_t i = 0; i < res.n_elem; i++) {
         if (res[i] == 0) {
-            result = result + class_weights[P[i]];
+            result = result + class_weights[ Pr[i] ];
         }
-
     }
 
-    result /= Y.n_elem;
-    return result ;
+    if (use_weighting) {
+        result /= weighted_denom;
+    } else
+        result /= Y.n_elem;
+
+    result = 1.0 - result;
+    return result;
 }

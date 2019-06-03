@@ -4,6 +4,53 @@ using namespace std;
 using namespace arma;
 namespace po = boost::program_options;
 
+void EvolutionState::ReadAndSetDataSets(po::variables_map& vm) {
+
+    string train = vm["train"].as<string>();
+    string test;
+    if (vm.count("test"))
+        test = vm["test"].as<string>();
+    else
+        test = train;
+
+    mat TR = fitness->ReadFitnessCases(train);
+    mat TE = fitness->ReadFitnessCases(test);
+    mat V;
+    double_t validation_perc;
+    if (vm.count("validation")) {
+        validation_perc = vm["validation"].as<double_t>();
+        size_t nrows_validation = TR.n_rows * validation_perc;
+        while (V.n_rows < nrows_validation) {
+            size_t which_row = randu() * TR.n_rows;
+            mat x = TR.row(which_row);
+            V = join_vert(V, x);
+            TR.shed_row(which_row);
+        }
+        fitness->SetFitnessCases(V, FitnessCasesType::FitnessCasesVALIDATION);
+    }
+
+    fitness->SetFitnessCases(TR, FitnessCasesType::FitnessCasesTRAIN);
+    fitness->SetFitnessCases(TE, FitnessCasesType::FitnessCasesTEST);
+
+    cout << "# train: " << train << " ( " << TR.n_rows << "x" << TR.n_cols - 1 << " )" << endl;
+    if (!V.empty())
+        cout << "# validation: " << validation_perc << " of train ( " << V.n_rows << "x" << V.n_cols - 1 << " )" << endl;
+    cout << "# test: " << test << " ( " << TE.n_rows << "x" << TE.n_cols - 1 << " )" << endl;
+
+
+    // ADD VARIABLE TERMINALS  
+    for (size_t i = 0; i < TR.n_cols - 1; i++)
+        config->terminals.push_back(new OpVariable(i));
+
+    // ADD SR ERC
+    if (config->use_ERC) {
+        double_t biggest_val = arma::max(arma::max(arma::abs(fitness->TrainX)));
+        double_t min_erc = -5 * biggest_val; //min(fitness->TrainY);
+        double_t max_erc = 5 * biggest_val; //max(fitness->TrainY);
+        config->terminals.push_back(new OpRegrConstant(min_erc, max_erc));
+    }
+}
+
 void EvolutionState::SetOptions(int argc, char* argv[]) {
 
     po::options_description desc("Allowed options");
@@ -45,7 +92,8 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             ("gomfos", po::value<string>(), "sets the FOS for Gene-pool Optimizal Mixing (default is LT: Linkage Tree)")
             ("gomfosnorootswap", "removes the root from the indices to swap in the FOS (enhances diversity, default is disabled)")
             ("gomeareplaceworst", po::value<double_t>(), "rate of worse performing population to remove and replace with new random solutions (default 0.0)")
-            ("linearscaling", "enables linear scaling in symbolic regression (defeault is disabled)");
+            ("linearscaling", "enables linear scaling in symbolic regression (defeault is disabled)")
+            ("classweights", po::value<string>(), "use class weighting for classification (default is disabled, use a single '_' to set to training set distribution, else specify manually by underscore-separated weights)");
 
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -122,12 +170,12 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
     for (Operator * op : config->all_operators) {
         for (string s : str_functions) {
             if (s.compare(op->name) == 0) {
-                config->functions.push_back( op->Clone());
+                config->functions.push_back(op->Clone());
             }
         }
         for (string s : str_terminals) {
             if (s.compare(op->name) == 0) {
-                config->terminals.push_back( op->Clone());
+                config->terminals.push_back(op->Clone());
             }
         }
     }
@@ -139,7 +187,7 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             config->terminals.push_back(new OpRegrConstant(constant));
         }
     }
-    
+
     if (vm.count("erc")) {
         config->use_ERC = true;
         // is set later based on feature values
@@ -161,50 +209,42 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
         cout << endl;
 
         if (!config->running_from_python) {
-            string train = vm["train"].as<string>();
-            string test;
-            if (vm.count("test"))
-                test = vm["test"].as<string>();
-            else
-                test = train;
-
-            mat TR = fitness->ReadFitnessCases(train);
-            mat TE = fitness->ReadFitnessCases(test);
-            mat V;
-            double_t validation_perc;
-            if (vm.count("validation")) {
-                validation_perc = vm["validation"].as<double_t>();
-                size_t nrows_validation = TR.n_rows * validation_perc;
-                while (V.n_rows < nrows_validation) {
-                    size_t which_row = randu() * TR.n_rows;
-                    mat x = TR.row(which_row);
-                    V = join_vert(V, x);
-                    TR.shed_row(which_row);
-                }
-                fitness->SetFitnessCases(V, FitnessCasesType::FitnessCasesVALIDATION);
-            }
-
-            fitness->SetFitnessCases(TR, FitnessCasesType::FitnessCasesTRAIN);
-            fitness->SetFitnessCases(TE, FitnessCasesType::FitnessCasesTEST);
-
-            cout << "# train: " << train << " ( " << TR.n_rows << "x" << TR.n_cols - 1 << " )" << endl;
-            if (!V.empty())
-                cout << "# validation: " << validation_perc << " of train ( " << V.n_rows << "x" << V.n_cols - 1 << " )" << endl;
-            cout << "# test: " << test << " ( " << TE.n_rows << "x" << TE.n_cols - 1 << " )" << endl;
-
-
-            // ADD VARIABLE TERMINALS  
-            for (size_t i = 0; i < TR.n_cols - 1; i++)
-                config->terminals.push_back(new OpVariable(i));
-
-            // ADD SR ERC
-            if (config->use_ERC) {
-                double_t biggest_val = arma::max(arma::max(arma::abs(fitness->TrainX)));
-                double_t min_erc = -5 * biggest_val; //min(fitness->TrainY);
-                double_t max_erc = 5 * biggest_val; //max(fitness->TrainY);
-                config->terminals.push_back(new OpRegrConstant(min_erc, max_erc));
-            }
+            ReadAndSetDataSets(vm);
         }
+
+    } else if (prob.compare("accuracy") == 0) {
+        cout << "# problem: accuracy";
+
+        fitness = new AccuracyFitness();
+
+        arma::vec cw;
+
+        if (vm.count("classweights")) {
+            cout << " (class weights:";
+            ((AccuracyFitness*) fitness)->use_weighting = true;
+            if (vm["classweights"].as<string>().size() > 1) {
+                cout << " " << vm["classweights"].as<string>();
+                std::vector<string> weights = Utils::SplitStringByChar(vm["classweights"].as<string>(), '_');
+                cw = arma::vec(weights.size());
+                for (int wi = 0; wi < weights.size(); wi++) {
+                    cw[wi] = stof(weights[wi]);
+                }
+            } else {
+                cout << "auto";
+            }
+            cout << ")";
+        }
+
+        cout << endl;
+
+        if (!config->running_from_python) {
+            ReadAndSetDataSets(vm);
+        }
+
+        if (cw.n_elem > 1) {
+            ((AccuracyFitness*) fitness)->SetCustomWeights(cw);
+        }
+
 
     } else {
         throw std::runtime_error("EvolutionState::SetOptions unrecognized problem type");
@@ -260,7 +300,7 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
     }
 
     // SEMANTIC VARIATION 
-    if (vm.count("sblibtype") || (vm.count("sbrdo") && vm["sbrdo"].as<double_t>() > 0) || (vm.count("sbagx") && vm["sbagx"].as<double_t>() > 0) ) // triggers
+    if (vm.count("sblibtype") || (vm.count("sbrdo") && vm["sbrdo"].as<double_t>() > 0) || (vm.count("sbagx") && vm["sbagx"].as<double_t>() > 0)) // triggers
         config->semantic_variation = true;
 
     if (config->semantic_variation) {

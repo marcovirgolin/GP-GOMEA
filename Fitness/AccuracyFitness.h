@@ -24,17 +24,24 @@ public:
 
     virtual void SetFitnessCases(const arma::mat & X, FitnessCasesType fct) override;
 
+    void SetCustomWeights(const arma::vec & custom_weights);
+
     double_t ComputeFitness(Node * n, bool use_caching) override;
 
     double_t GetTestFit(Node * n) override;
 
     double_t GetValidationFit(Node * n) override;
 
-    arma::vec class_weights;
-    
-    bool use_weightening = false;
+    bool use_weighting = false;
+
+
 
 private:
+
+    arma::vec class_weights;
+    double_t weighted_denom;
+    std::map<size_t, size_t> class_count_map;
+
 
     double_t ComputeWeightedAccuracy(const arma::vec & P, const arma::vec & Y);
 

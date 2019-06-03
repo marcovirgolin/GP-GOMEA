@@ -25,6 +25,7 @@
 // PROB TYPES
 #include "../Fitness/SymbolicRegressionFitness.h"
 #include "../Fitness/SymbolicRegressionLinearScalingFitness.h"
+#include "../Fitness/AccuracyFitness.h"
 
 // GOMEA
 #include "../GOMEA/GOMEATreeInitializer.h"
@@ -51,7 +52,7 @@ public:
 
     ~EvolutionState() {
         delete config;
-        
+
         for (Node * n : population)
             n->ClearSubtree();
         delete tree_initializer;
@@ -85,6 +86,7 @@ public:
 
 private:
 
+    void ReadAndSetDataSets(boost::program_options::variables_map& vm);
     void SetOptionsFromFile(std::string filename);
 
 };

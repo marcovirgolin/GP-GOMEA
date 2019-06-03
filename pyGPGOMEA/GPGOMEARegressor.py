@@ -11,6 +11,7 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 	def __init__(self, 
 		time=60, generations=-1, evaluations=-1, 
 		prob='symbreg', linearscaling=True, functions='+_*_-_aq', erc=True,
+                classweights = False,
 		gomea=True, gomfos='LT',
 		subcross=0.5, submut=0.5, reproduction=0.0,
 		sblibtype=False, sbrdo=0.0, sbagx=0.0,
@@ -78,9 +79,8 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 	def score(self, X, y=None):
 		if y is None:
 			raise ValueError('The ground truth y was not set.')
-		prediction = self._ea.predict(X)
-		neg_mse = -1.0 * mean_squared_error(prediction , y)
-		return neg_mse
+		sc = self._ea.score(X, y.reshape((-1,1)))
+		return sc
 
 	def get_model(self):
 		return self._ea.get_model()

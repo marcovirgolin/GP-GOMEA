@@ -203,6 +203,24 @@ public:
 
         return res;
     };
+    
+    double_t score(np::ndarray npX, np::ndarray npY) {
+        
+        if (!solution) {
+            PyErr_SetString(PyExc_TypeError, "score error: called before fitting");
+            py::throw_error_already_set();
+        }
+        
+        arma::mat X = convertNumpyToArma(npX);
+        arma::mat Y = convertNumpyToArma(npY);
+        
+        arma::mat TE = arma::join_horiz(X, Y);
+        st->fitness->SetFitnessCases(TE, FitnessCasesType::FitnessCasesTEST);
+        
+        double_t neg_err = -1.0 * st->fitness->GetTestFit(solution);
+        return neg_err;
+        
+    }
 
     std::string get_model() {
         if (!solution) {
@@ -249,8 +267,10 @@ BOOST_PYTHON_MODULE(gpgomea) {
     py::class_<GPGOMEA, std::auto_ptr<GPGOMEA> >("GPGOMEA", py::init<std::string>())
             .def("run", &GPGOMEA::run)
             .def("predict", &GPGOMEA::predict)
+            .def("score", &GPGOMEA::score)
             .def("get_model", &GPGOMEA::get_model)
             .def("get_evaluations", &GPGOMEA::get_evaluations)
             .def_pickle(GPGOMEA_pickle_suite())
             ;
+    
 }
