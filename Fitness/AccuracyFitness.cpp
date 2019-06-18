@@ -29,7 +29,7 @@ void AccuracyFitness::SetFitnessCases(const arma::mat& X, FitnessCasesType fct) 
         TrainY = Y;
         TrainX = Xx;
 
-        for (int i = 0; i < Y.n_elem; i++) {
+        for (size_t i = 0; i < Y.n_elem; i++) {
             class_count_map[Y[i]] = class_count_map[Y[i]] + 1;
         }
 
