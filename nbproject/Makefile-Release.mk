@@ -40,6 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Evolution/EvolutionState.o \
 	${OBJECTDIR}/Evolution/GenerationHandler.o \
 	${OBJECTDIR}/Evolution/PopulationInitializer.o \
+	${OBJECTDIR}/Fitness/PythonFitness.o \
 	${OBJECTDIR}/Fitness/AccuracyFitness.o \
 	${OBJECTDIR}/Fitness/Fitness.o \
 	${OBJECTDIR}/Fitness/SymbolicRegressionFitness.o \
@@ -115,6 +116,11 @@ ${OBJECTDIR}/Fitness/AccuracyFitness.o: Fitness/AccuracyFitness.cpp
 	${MKDIR} -p ${OBJECTDIR}/Fitness
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/AccuracyFitness.o Fitness/AccuracyFitness.cpp
+
+${OBJECTDIR}/Fitness/PythonFitness.o: Fitness/PythonFitness.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Fitness
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/PythonFitness.o Fitness/PythonFitness.cpp
 
 ${OBJECTDIR}/Fitness/Fitness.o: Fitness/Fitness.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Fitness
