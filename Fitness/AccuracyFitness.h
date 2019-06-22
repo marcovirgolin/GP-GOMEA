@@ -35,7 +35,6 @@ public:
     bool use_weighting = false;
 
 
-
 private:
 
     arma::vec class_weights;

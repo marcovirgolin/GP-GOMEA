@@ -93,7 +93,8 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             ("gomfosnorootswap", "removes the root from the indices to swap in the FOS (enhances diversity, default is disabled)")
             ("gomeareplaceworst", po::value<double_t>(), "rate of worse performing population to remove and replace with new random solutions (default 0.0)")
             ("linearscaling", "enables linear scaling in symbolic regression (defeault is disabled)")
-            ("classweights", po::value<string>(), "use class weighting for classification (default is disabled, use a single '_' to set to training set distribution, else specify manually by underscore-separated weights)");
+            ("classweights", po::value<string>(), "use class weighting for classification (default is disabled, use a single '_' to set to training set distribution, else specify manually by underscore-separated weights)")
+            ("pyprobdef", po::value<string>(), "necessary to set name of module and name of function to use to evaluate individuals (separated by '_', so do not use it in their names them)");
 
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -201,13 +202,27 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
 
         // LINEAR SCALING
         if (vm.count("linearscaling")) {
-            cout << " ( linear scaling enabled )";
+            cout << "( linear scaling enabled )";
             config->linear_scaling = true;
             fitness = new SymbolicRegressionLinearScalingFitness();
         } else
             fitness = new SymbolicRegressionFitness();
         cout << endl;
 
+        if (!config->running_from_python) {
+            ReadAndSetDataSets(vm);
+        }
+
+    } else if (prob.compare("pyprob") == 0) {
+        cout << "# problem: custom python evaluation function ";
+
+        assert(vm.count("pyprobdef"));
+        std::vector<string> file_n_fun_name = Utils::SplitStringByChar(vm["pyprobdef"].as<string>(), '_');
+        
+        fitness = new PythonFitness();
+        ((PythonFitness*) fitness)->SetPythonCallableFunction(file_n_fun_name[0], file_n_fun_name[1]);
+        cout << " (module: " << file_n_fun_name[0] << ", function: " << file_n_fun_name[1] << ")" << endl;
+        
         if (!config->running_from_python) {
             ReadAndSetDataSets(vm);
         }

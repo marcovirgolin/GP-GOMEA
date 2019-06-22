@@ -23,6 +23,13 @@
 #include <vector>
 #include <boost/functional/hash.hpp>
 
+
+#include <boost/python.hpp>
+#include <boost/python/numpy.hpp>
+#include <boost/mem_fn.hpp>
+#include <boost/shared_ptr.hpp>
+
+
 class Utils {
 public:
 
@@ -50,6 +57,16 @@ public:
 
     static bool IsNumber(const std::string s);
 
+    template <class T>
+    static boost::python::list ToPythonList(std::vector<T> vector);
+    static boost::python::list ToPythonList(arma::vec vector);
+
+    template <class T>
+    static boost::python::numpy::ndarray ToNumpyArray(std::vector<T> vector);
+    static boost::python::numpy::ndarray ToNumpyArray(arma::vec vector);
+
+    static arma::mat ConvertNumpyToArma(boost::python::numpy::ndarray npX);
+    
 private:
     Utils();
     ;

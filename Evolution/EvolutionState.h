@@ -26,6 +26,7 @@
 #include "../Fitness/SymbolicRegressionFitness.h"
 #include "../Fitness/SymbolicRegressionLinearScalingFitness.h"
 #include "../Fitness/AccuracyFitness.h"
+#include "../Fitness/PythonFitness.h"
 
 // GOMEA
 #include "../GOMEA/GOMEATreeInitializer.h"

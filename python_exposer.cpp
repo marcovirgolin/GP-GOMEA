@@ -13,6 +13,7 @@
 #include "Evolution/EvolutionRun.h"
 #include "RunHandling/IMSHandler.h"
 #include "Genotype/Node.h"
+#include "Utils/Utils.h"
 
 namespace py = boost::python;
 namespace np = boost::python::numpy;
@@ -69,42 +70,6 @@ public:
 
     size_t evaluations = 0;
 
-    template <class T>
-    py::list toPythonList(std::vector<T> vector) {
-        typename std::vector<T>::iterator iter;
-        boost::python::list list;
-        for (iter = vector.begin(); iter != vector.end(); ++iter) {
-            list.append(*iter);
-        }
-        return list;
-    }
-
-    py::list toPythonList(arma::vec vector) {
-        std::vector<double_t> x;
-        x.reserve(vector.n_elem);
-        for (size_t i = 0; i < vector.n_elem; i++)
-            x.push_back(vector[i]);
-        py::list result = toPythonList(x);
-        return result;
-    }
-
-    template <class T>
-    np::ndarray toNumpyArray(std::vector<T> vector) {
-        Py_intptr_t shape[1] = {vector.size()};
-        np::ndarray result = np::zeros(1, shape, np::dtype::get_builtin<double_t>());
-        std::copy(vector.begin(), vector.end(), reinterpret_cast<double_t*> (result.get_data()));
-        return result;
-    }
-
-    np::ndarray toNumpyArray(arma::vec vector) {
-        std::vector<double_t> x;
-        x.reserve(vector.n_elem);
-        for (size_t i = 0; i < vector.n_elem; i++)
-            x.push_back(vector[i]);
-        np::ndarray result = toNumpyArray(x);
-        return result;
-    }
-
     void reset() {
         if (solution)
             solution->ClearSubtree();
@@ -122,32 +87,12 @@ public:
         evaluations = 0;
     }
 
-    arma::mat convertNumpyToArma(np::ndarray npX) {
-        if (npX.get_dtype() != np::dtype::get_builtin<double_t>()) {
-            PyErr_SetString(PyExc_TypeError, "predict error: wrong data type");
-            py::throw_error_already_set();
-        }
-        if (npX.get_nd() != 2) {
-            PyErr_SetString(PyExc_TypeError, "predict error: wrong number of dimensions (2)");
-            py::throw_error_already_set();
-        }
-
-        Py_intptr_t const * shape = npX.get_shape();
-        Py_intptr_t const * strides = npX.get_strides();
-        char const * data = npX.get_data();
-        arma::mat X(shape[0], shape[1]);
-        for (size_t i = 0; i < shape[0]; i++) {
-            for (size_t j = 0; j < shape[1]; j++) {
-                X(i, j) = *reinterpret_cast<double_t const *> (data + i * strides[0] + j * strides[1]);
-            }
-        }
-        return X;
-    }
+    
 
     void run(np::ndarray npX, np::ndarray npY) {
 
-        arma::mat X = convertNumpyToArma(npX);
-        arma::mat Y = convertNumpyToArma(npY);
+        arma::mat X = Utils::ConvertNumpyToArma(npX);
+        arma::mat Y = Utils::ConvertNumpyToArma(npY);
 
         arma::mat TR = arma::join_horiz(X, Y);
         st->fitness->SetFitnessCases(TR, FitnessCasesType::FitnessCasesTRAIN);
@@ -190,7 +135,7 @@ public:
             py::throw_error_already_set();
         }
 
-        arma::mat X = convertNumpyToArma(npX);
+        arma::mat X = Utils::ConvertNumpyToArma(npX);
 
         arma::vec out = solution->GetOutput(X, false);
         std::pair<double_t, double_t> ab = std::make_pair(0.0, 1.0);
@@ -199,7 +144,7 @@ public:
             ab = Utils::ComputeLinearScalingTerms(trainout, st->fitness->TrainY, &st->fitness->trainY_mean, &st->fitness->var_comp_trainY);
         }
         out = ab.first + out * ab.second;
-        np::ndarray res = toNumpyArray(out);
+        np::ndarray res = Utils::ToNumpyArray(out);
 
         return res;
     };
@@ -211,8 +156,8 @@ public:
             py::throw_error_already_set();
         }
         
-        arma::mat X = convertNumpyToArma(npX);
-        arma::mat Y = convertNumpyToArma(npY);
+        arma::mat X = Utils::ConvertNumpyToArma(npX);
+        arma::mat Y = Utils::ConvertNumpyToArma(npY);
         
         arma::mat TE = arma::join_horiz(X, Y);
         st->fitness->SetFitnessCases(TE, FitnessCasesType::FitnessCasesTEST);

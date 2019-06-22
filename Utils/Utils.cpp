@@ -15,6 +15,8 @@
 
 using namespace std;
 using namespace arma;
+namespace py = boost::python;
+namespace np = boost::python::numpy;
 
 std::string Utils::ReplaceCharInString(const std::string original, char to_replace, char replacing) {
     std::string new_one(original);
@@ -121,7 +123,7 @@ std::pair<double_t, double_t> Utils::ComputeLinearScalingTerms(const arma::vec& 
         mean_P = *precomputed_mean_P;
     else
         mean_P = arma::mean(P);
-    
+
     arma::vec var_terms_P;
     if (precomputed_var_terms_P)
         var_terms_P = *precomputed_var_terms_P;
@@ -194,4 +196,62 @@ double_t Utils::ComputeDistance(const arma::vec& x, const arma::vec& y, bool lin
     }
     //dist = sqrt(dist);
     return dist;
+}
+
+template <class T>
+py::list Utils::ToPythonList(std::vector<T> vector) {
+    typename std::vector<T>::iterator iter;
+    boost::python::list list;
+    for (iter = vector.begin(); iter != vector.end(); ++iter) {
+        list.append(*iter);
+    }
+    return list;
+}
+
+py::list Utils::ToPythonList(arma::vec vector) {
+    std::vector<double_t> x;
+    x.reserve(vector.n_elem);
+    for (size_t i = 0; i < vector.n_elem; i++)
+        x.push_back(vector[i]);
+    py::list result = Utils::ToPythonList(x);
+    return result;
+}
+
+template <class T>
+np::ndarray Utils::ToNumpyArray(std::vector<T> vector) {
+    Py_intptr_t shape[1] = {vector.size()};
+    np::ndarray result = np::zeros(1, shape, np::dtype::get_builtin<double_t>());
+    std::copy(vector.begin(), vector.end(), reinterpret_cast<double_t*> (result.get_data()));
+    return result;
+}
+
+np::ndarray Utils::ToNumpyArray(arma::vec vector) {
+    std::vector<double_t> x;
+    x.reserve(vector.n_elem);
+    for (size_t i = 0; i < vector.n_elem; i++)
+        x.push_back(vector[i]);
+    np::ndarray result = Utils::ToNumpyArray(x);
+    return result;
+}
+
+arma::mat Utils::ConvertNumpyToArma(np::ndarray npX) {
+    if (npX.get_dtype() != np::dtype::get_builtin<double_t>()) {
+        PyErr_SetString(PyExc_TypeError, "predict error: wrong data type");
+        py::throw_error_already_set();
+    }
+    if (npX.get_nd() != 2) {
+        PyErr_SetString(PyExc_TypeError, "predict error: wrong number of dimensions (2)");
+        py::throw_error_already_set();
+    }
+
+    Py_intptr_t const * shape = npX.get_shape();
+    Py_intptr_t const * strides = npX.get_strides();
+    char const * data = npX.get_data();
+    arma::mat X(shape[0], shape[1]);
+    for (size_t i = 0; i < shape[0]; i++) {
+        for (size_t j = 0; j < shape[1]; j++) {
+            X(i, j) = *reinterpret_cast<double_t const *> (data + i * strides[0] + j * strides[1]);
+        }
+    }
+    return X;
 }
