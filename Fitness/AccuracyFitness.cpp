@@ -37,7 +37,7 @@ void AccuracyFitness::SetFitnessCases(const arma::mat& X, FitnessCasesType fct) 
 
         if (use_weighting) {
             for (auto it = class_count_map.begin(); it != class_count_map.end(); it++) {
-                class_weights[ it->first ] = 1.0 * it->second / Y.n_elem;
+                class_weights[ it->first ] = 1.0 * (Y.n_elem - it->second) / Y.n_elem;
                 weighted_denom += it->second * class_weights[it->first];
             }
         }
