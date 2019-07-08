@@ -10,7 +10,7 @@ If you use our code for academic purposes, please support our research by citing
 * M. Virgolin, T. Alderliesten, C. Witteveen, and P.A.N. Bosman. *Scalable Genetic Programming by Gene-pool Optimal Mixing and Input-space Entropy-based Building Block Learning*. In Proceedings of the Genetic and Evolutionary Computation Conference - GECCO-2017, pages 1041-1048, ACM Press, New York, New York, 2017. (The source code for this paper is available on Peter's website: https://homepages.cwi.nl/~bosman/source_code.php)
 * M. Virgolin, T. Alderliesten, A. Bel, C. Witteveen, and P.A.N. Bosman. *Symbolic Regression and Feature Construction with GP-GOMEA applied to Radiotherapy Dose Reconstruction of Childhood Cancer Survivors*. In Proceedings of the Genetic and Evolutionary Computation Conference - GECCO-2018, ACM Press, New York, New York, 2018.
 * M. Virgolin, T. Alderliesten, P.A.N. Bosman. *Linear Scaling with and within Semantic Backpropagation-based Genetic Programming for Symbolic Regression*. Recently accepted as full paper at GECCO 2019.
-* M. Virgolin, T. Alderliesten, C. Witteveen, P.A.N. Bosman. *A Model-based Genetic Programming Approach for Symbolic Regression of Small Expressions*. Preprint on arXiv 2019, submitted to IEEE Transactions on Evolutionary Computation.
+* M. Virgolin, T. Alderliesten, C. Witteveen, P.A.N. Bosman. *Improving Model-based Genetic Programming for Symbolic Regression of Small Expressions*. Preprint on arXiv 2019, submitted to Swarm and Evolutionary Computation.
 * *MORE COMING SOON*
 
 
