@@ -173,7 +173,15 @@ public:
             py::throw_error_already_set();
         }
 
-        return solution->GetSubtreeHumanExpression();
+        std::string human_expression = solution->GetSubtreeHumanExpression();
+        if (st->config->linear_scaling) {
+            arma::vec trainout = solution->GetOutput(st->fitness->TrainX, st->config->caching);
+            auto ab = Utils::ComputeLinearScalingTerms(trainout, st->fitness->TrainY, &st->fitness->trainY_mean, &st->fitness->var_comp_trainY);
+            human_expression = std::to_string(ab.first) + "+" + std::to_string(ab.second) + "*(" + human_expression + ")";
+        }
+
+        return human_expression;
+        
     };
 
     size_t get_evaluations(){
