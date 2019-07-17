@@ -83,8 +83,8 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             ("reproduction", po::value<double_t>(), "sets the proportion of parents for reproduction (default is 0.0)")
             ("elitism", po::value<size_t>(), "sets the number of best solutions to keep (default is 1)")
             ("graddesc", po::value<double_t>(), "sets the proportion of parents for gradient descent (only for symbolic regression, default is 0.0)")
-            ("sbrdo", po::value<double_t>(), "sets the proportion of parents for RDO (default is 0.0); if > 0, enables node output caching")
-            ("sbagx", po::value<double_t>(), "sets the proportion of parents for AGX (default is 0.0); if > 0, enables node output caching")
+            ("sbrdo", po::value<double_t>(), "sets the proportion of parents for RDO (default is 0.0)")
+            ("sbagx", po::value<double_t>(), "sets the proportion of parents for AGX (default is 0.0)")
             ("sblibtype", po::value<string>(), "sets the type of library for Semantic Backpropagation (default is RD, max tree height 4, size 500, w/o normalization, w k-d tree)")
             ("unifdepthvariation", "picks nodes for subtree variation at uniform random depth (default is disabled)")
             ("tournament", po::value<size_t>(), "sets the size of tournament selection (default is 4)")
@@ -139,7 +139,7 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
                 vm["gomfos"].as<string>().compare("SL") == 0)
             vm.insert(make_pair("caching", po::variable_value()));
     }
-    if ((vm.count("caching")) || vm.count("sbrdo") || vm.count("sbagx")) {
+    if ((vm.count("caching"))) {
         cout << "# node output caching enabled" << endl;
         config->caching = true;
     }
