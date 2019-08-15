@@ -23,8 +23,12 @@
         <itemPath>Evolution/PopulationInitializer.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f6" displayName="Fitness" projectFiles="true">
+        <itemPath>/export/scratch1/virgolin/GP-GOMEA/Fitness/AccuracyFitness.cpp</itemPath>
+        <itemPath>/export/scratch1/virgolin/GP-GOMEA/Fitness/AccuracyFitness.h</itemPath>
         <itemPath>Fitness/Fitness.cpp</itemPath>
         <itemPath>Fitness/Fitness.h</itemPath>
+        <itemPath>/export/scratch1/virgolin/GP-GOMEA/Fitness/PythonFitness.cpp</itemPath>
+        <itemPath>/export/scratch1/virgolin/GP-GOMEA/Fitness/PythonFitness.h</itemPath>
         <itemPath>Fitness/SymbolicRegressionFitness.cpp</itemPath>
         <itemPath>Fitness/SymbolicRegressionFitness.h</itemPath>
         <itemPath>Fitness/SymbolicRegressionLinearScalingFitness.cpp</itemPath>
@@ -160,6 +164,26 @@
           <commandLine>-larmadillo -lboost_program_options -lboost_python -lboost_system</commandLine>
         </linkerTool>
       </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/AccuracyFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/AccuracyFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/PythonFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/PythonFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpAnd.h"
             ex="false"
             tool="3"
@@ -408,6 +432,26 @@
           <commandLine>-larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy</commandLine>
         </linkerTool>
       </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/AccuracyFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/AccuracyFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/PythonFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/PythonFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpAnd.h"
             ex="false"
             tool="3"
@@ -639,6 +683,26 @@
           <commandLine>-larmadillo -lboost_program_options</commandLine>
         </linkerTool>
       </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/AccuracyFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/AccuracyFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/PythonFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/PythonFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpAnd.h"
             ex="false"
             tool="3"
@@ -887,6 +951,26 @@
           <commandLine>-larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy</commandLine>
         </linkerTool>
       </compileType>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/AccuracyFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/AccuracyFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/PythonFitness.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/export/scratch1/virgolin/GP-GOMEA/Fitness/PythonFitness.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/export/scratch1/virgolin/GP-GOMEA/Operators/Boolean/OpAnd.h"
             ex="false"
             tool="3"

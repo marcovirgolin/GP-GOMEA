@@ -35,13 +35,13 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/e869a06f/AccuracyFitness.o \
+	${OBJECTDIR}/_ext/e869a06f/PythonFitness.o \
 	${OBJECTDIR}/_ext/61f3bb6/main.o \
 	${OBJECTDIR}/Evolution/EvolutionRun.o \
 	${OBJECTDIR}/Evolution/EvolutionState.o \
 	${OBJECTDIR}/Evolution/GenerationHandler.o \
 	${OBJECTDIR}/Evolution/PopulationInitializer.o \
-	${OBJECTDIR}/Fitness/AccuracyFitness.o \
-	${OBJECTDIR}/Fitness/PythonFitness.o \
 	${OBJECTDIR}/Fitness/Fitness.o \
 	${OBJECTDIR}/Fitness/SymbolicRegressionFitness.o \
 	${OBJECTDIR}/Fitness/SymbolicRegressionLinearScalingFitness.o \
@@ -87,6 +87,16 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea ${OBJECTFILES} ${LDLIBSOPTIONS} -larmadillo -lboost_program_options -lboost_python -lboost_system -lboost_numpy
 
+${OBJECTDIR}/_ext/e869a06f/AccuracyFitness.o: Fitness/AccuracyFitness.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/e869a06f
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/e869a06f/AccuracyFitness.o Fitness/AccuracyFitness.cpp
+
+${OBJECTDIR}/_ext/e869a06f/PythonFitness.o: Fitness/PythonFitness.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/e869a06f
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/e869a06f/PythonFitness.o Fitness/PythonFitness.cpp
+
 ${OBJECTDIR}/_ext/61f3bb6/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/61f3bb6
 	${RM} "$@.d"
@@ -111,18 +121,6 @@ ${OBJECTDIR}/Evolution/PopulationInitializer.o: Evolution/PopulationInitializer.
 	${MKDIR} -p ${OBJECTDIR}/Evolution
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/PopulationInitializer.o Evolution/PopulationInitializer.cpp
-
-${OBJECTDIR}/Fitness/AccuracyFitness.o: Fitness/AccuracyFitness.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Fitness
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/AccuracyFitness.o Fitness/AccuracyFitness.cpp
-
-${OBJECTDIR}/Fitness/PythonFitness.o: Fitness/PythonFitness.cpp 
-	${MKDIR} -p ${OBJECTDIR}/Fitness
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/usr/include/python2.7 `pkg-config --cflags python-2.7` -std=c++14  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/PythonFitness.o Fitness/PythonFitness.cpp
-
-
 
 ${OBJECTDIR}/Fitness/Fitness.o: Fitness/Fitness.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Fitness
