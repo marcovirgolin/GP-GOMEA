@@ -82,7 +82,6 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             ("submut", po::value<double_t>(), "sets the proportion of parents for subtree mutation (default is 0.1)")
             ("reproduction", po::value<double_t>(), "sets the proportion of parents for reproduction (default is 0.0)")
             ("elitism", po::value<size_t>(), "sets the number of best solutions to keep (default is 1)")
-            ("graddesc", po::value<double_t>(), "sets the proportion of parents for gradient descent (only for symbolic regression, default is 0.0)")
             ("sbrdo", po::value<double_t>(), "sets the proportion of parents for RDO (default is 0.0)")
             ("sbagx", po::value<double_t>(), "sets the proportion of parents for AGX (default is 0.0)")
             ("sblibtype", po::value<string>(), "sets the type of library for Semantic Backpropagation (default is RD, max tree height 4, size 500, w/o normalization, w k-d tree)")
@@ -399,15 +398,6 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             config->subtree_mutation_proportion = vm["submut"].as<double_t>();
         }
         cout << "# subtree mutation probability: " << config->subtree_mutation_proportion << endl;
-
-        // GRADIENT DESCENT
-        if (vm.count("graddesc")) {
-            if (!dynamic_cast<SymbolicRegressionFitness *> (fitness) && !dynamic_cast<SymbolicRegressionLinearScalingFitness *> (fitness)) {
-                throw std::runtime_error("EvolutionState::SetOptions gradient descent set for invalid problem type");
-            }
-            config->gradient_descent_proportion = vm["graddesc"].as<double_t>();
-            cout << "# gradient descent probability: " << config->gradient_descent_proportion << endl;
-        }
 
         // REPRODUCTION
         if (vm.count("reproduction")) {

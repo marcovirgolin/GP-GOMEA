@@ -39,7 +39,6 @@ public:
     static Node * SubtreeRDO(const Node& p, int max_height, const arma::mat & X, const arma::vec & Y, SemanticLibrary & semlib, bool unif_depth_var, bool use_caching, bool is_linear_scaling_enabled);
     static std::vector<Node*> GetNodesAtUniformRandomDepth(Node* o, std::vector<Node*>& nodes_o);
     static std::pair<Node*, Node*> SubtreeAGX(Node & p1, Node & p2, int max_height, const arma::mat & X, SemanticLibrary & semlib, bool unif_depth_var, bool use_caching, bool is_linear_scaling_enabled);
-    static Node * GradientDescent(Node& parent, Fitness & fitness, bool unif_depth_var, bool use_caching, bool use_linear_scaling, double_t learning_rate = 1e-3, double_t min_step_size = 1e-6, size_t iterations = 10, bool only_on_constants = true);
     static Node * FindSubtreeForSemanticBackpropagationReplacement(std::vector<arma::vec> & desired_output, SemanticLibrary & semlib, size_t max_h);
     static std::pair<double_t, double_t> GenerateConstantFromDesiredOutput(std::vector<arma::vec> & desired_output, double_t thresh_dist);
 

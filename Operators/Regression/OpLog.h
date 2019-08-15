@@ -68,10 +68,6 @@ public:
         return name + "(" + args[0] + ")";
     }
 
-    arma::vec ComputeDerivative(const arma::mat& x, const arma::mat & dx) override {
-        return dx.col(0) / x.col(0);
-    }
-
 
 private:
 

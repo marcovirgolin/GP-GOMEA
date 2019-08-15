@@ -38,8 +38,6 @@ public:
     virtual Operator * Clone() const;
     virtual ~Operator();
 
-    virtual arma::vec ComputeDerivative(const arma::mat & x, const arma::mat & dx);
-
     virtual arma::vec ComputeOutput(const arma::mat & x);
 
     arma::vec InvertAndPostproc(const arma::vec & desired_elem, const arma::vec & output_siblings, size_t idx);

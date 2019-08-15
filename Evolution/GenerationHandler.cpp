@@ -132,23 +132,6 @@ std::vector<Node*> GenerationHandler::MakeOffspring(const std::vector<Node *> & 
         }
         offspring_size_pvt = variator_limit_pvt;
 
-        // Gradient Descent
-        variator_limit_pvt = min((size_t) (variator_limit_pvt + population.size() * conf->gradient_descent_proportion), (size_t) population.size());
-#pragma omp for schedule(static)
-        for (size_t i = offspring_size_pvt; i < variator_limit_pvt; i++) {
-            while (offspring[i] == NULL) {
-                offspring[i] = SubtreeVariator::GradientDescent(*selected_parents[i], *fitness, conf->uniform_depth_variation, conf->caching, conf->linear_scaling, 0.01, 1e-6, 100, true);
-                if (!ValidateOffspring(offspring[i], conf->maximum_tree_height, conf->maximum_solution_size)) {
-                    offspring[i]->ClearSubtree();
-                    offspring[i] = NULL;
-                    attempts_variation++;
-                    if (attempts_variation >= max_attempts_variation)
-                        offspring[i] = selected_parents[i]->CloneSubtree();
-                }
-            }
-        }
-        offspring_size_pvt = variator_limit_pvt;
-
         // Reproduction
         variator_limit_pvt = min((size_t) (variator_limit_pvt + population.size() * conf->reproduction_proportion), (size_t) population.size());
 #pragma omp for schedule(static)

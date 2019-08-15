@@ -42,10 +42,6 @@ arma::vec Operator::ComputeOutput(const arma::mat& x) {
     throw NotImplementedException("Operator::ComputeOutput not implemented");
 }
 
-arma::vec Operator::ComputeDerivative( const arma::mat & x, const arma::mat & dx) {
-    throw NotImplementedException("Operator::ComputeDerivative not implemented");
-}
-
 arma::vec Operator::Invert(const arma::vec& desired_elem, const arma::vec& output_siblings, size_t idx) {
     throw NotImplementedException("Operator::Invert not implemented");
 }

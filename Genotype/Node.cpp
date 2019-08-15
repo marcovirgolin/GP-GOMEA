@@ -56,27 +56,6 @@ arma::vec Node::GetOutput(const arma::mat & x, bool use_caching) {
     return out;
 }
 
-arma::vec Node::GetDerivative(const Node* target, const arma::mat & x, bool use_caching) {
-
-    if (this == target)
-        return vec(x.n_rows, fill::ones);
-
-    arma::vec result(x.n_rows, fill::zeros);
-    if (op->type == OperatorType::opFunction) {
-        size_t arity = this->GetArity();
-        mat xx(x.n_rows, arity);
-        mat dx(x.n_rows, arity);
-        for (size_t i = 0; i < arity; i++) {
-            xx.col(i) = children[i]->GetOutput(x, use_caching);
-            dx.col(i) = children[i]->GetDerivative(target, x, use_caching);
-        }
-        result = op->ComputeDerivative(xx, dx);
-    }
-
-    return result;
-
-}
-
 size_t Node::GetArity() const {
     return op->arity;
 }

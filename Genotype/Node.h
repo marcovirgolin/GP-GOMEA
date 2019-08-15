@@ -36,8 +36,6 @@ public:
 
     arma::vec GetOutput(const arma::mat & x, bool use_caching);
 
-    arma::vec GetDerivative(const Node * target, const arma::mat & x, bool use_caching);
-
     void ClearCachedOutput(bool also_ancestors);
 
     Node * CloneSubtree() const;

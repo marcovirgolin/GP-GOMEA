@@ -87,7 +87,6 @@ public:
     double_t subtree_crossover_proportion = 0.9;
     double_t subtree_mutation_proportion = 0.1;
     double_t reproduction_proportion = 0.0;
-    double_t gradient_descent_proportion = 0.0;
 
     double_t rdo_proportion = 0.0;
     double_t agx_proportion = 0.0;

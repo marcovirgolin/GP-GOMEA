@@ -79,9 +79,6 @@ public:
         return "(" + args[0] + "/ sqrt( 0.1 + (" + args[1] + ")^2 ) ) ";
     }
     
-    arma::vec ComputeDerivative( const arma::mat & x, const arma::mat & dx ) override {
-        return dx.col(0) % x.col(1) + x.col(0) % ( - x.col(1) / arma::pow( 0.1 + arma::square(x.col(1)), 1.5 ) ) % dx.col(1);
-    }
 
 private:
 

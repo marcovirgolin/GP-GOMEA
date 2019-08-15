@@ -1,8 +1,5 @@
-#train path_to_training_set.dat
-#test path_to_test_set.dat
-train /export/scratch1/virgolin/datasets/rw/boston_train.dat
-test /export/scratch1/virgolin/datasets/rw/boston_test.dat
-
+train path_to_training_set.dat
+test path_to_test_set.dat
 
 # Termination Criteria
 time -1
@@ -25,7 +22,6 @@ syntuniqinit 1000
 # Variation
 subcross 0.5
 submut 0.5
-graddesc 0.0
 reproduction 0.0
 unifdepthvar
 
