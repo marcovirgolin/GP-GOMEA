@@ -1,0 +1,36 @@
+# TODO: this still expects to read a dataset (e.g., to instantiate terminal variables), although the fitness is in a python piece of code
+#train path_to_training_set.dat
+#test path_to_test_set.dat
+
+# Termination Criteria
+time -1
+generations 100
+evaluations -1
+
+# Problem setting
+prob pyprob
+pyprobdef examplepythonprob_exampleFitnessFunction
+functions +_-_*_aq
+erc
+
+# Initialization
+initmaxtreeheight 4
+maxtreeheight 12
+maxsize 1000
+popsize 1000
+syntuniqinit 1000
+
+# Variation
+subcross 0.5
+submut 0.5
+reproduction 0.0
+unifdepthvar
+
+# Selection
+tournament 4
+elitism 1
+
+# Other
+seed 1
+# TODO: does not work in parallel
+parallel 1      
