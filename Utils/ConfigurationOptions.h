@@ -20,6 +20,7 @@
 #include "../Operators/Regression/OpTimes.h"
 #include "../Operators/Regression/OpAnalyticQuotient.h"
 #include "../Operators/Regression/OpAnalyticQuotient_01.h"
+#include "../Operators/Regression/OpNewProtectedDivision.h"
 #include "../Operators/Regression/OpExp.h"
 #include "../Operators/Regression/OpLog.h"
 #include "../Operators/Regression/OpAnalyticLog_01.h"
@@ -44,7 +45,7 @@ public:
 
     // Add here a new operator! (of course, include the .h file above)
     std::vector<Operator *> all_operators = {new OpPlus(), new OpMinus(), new OpTimes(), new OpAnalyticQuotient(),
-        new OpAnalyticQuotient01(), new OpAnalyticLog01(),
+        new OpAnalyticQuotient01(), new OpNewProtectedDivision(), new OpAnalyticLog01(),
         new OpExp(), new OpLog(), new OpSin(), new OpCos(), new OpSquare(), new OpSquareRoot(),
         new OpAnd(), new OpOr(), new OpNand(), new OpNor(), new OpNot(), new OpXor()
     };
