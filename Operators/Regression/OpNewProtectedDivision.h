@@ -30,8 +30,15 @@ public:
     }
 
     arma::vec ComputeOutput(const arma::mat& x) override {
-        arma::vec absb = arma::abs(x.col(1));
-        return x.col(1)/absb % ( x.col(0) / (1e-3 + absb) );
+        arma::vec b = x.col(1);
+        arma::vec protb = arma::abs(1e-3 + b);
+        arma::vec signb = arma::ones(b.n_elem);
+        
+        for(size_t i=0; i < b.n_elem; i++)
+          if (b[i] < 0)
+             signb[i] = -1;
+     
+        return signb % ( x.col(0) / protb );
     }
 
     std::string GetHumanReadableExpression(const std::vector<std::string>& args) override {
