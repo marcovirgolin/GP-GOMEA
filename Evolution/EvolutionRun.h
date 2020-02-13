@@ -42,6 +42,9 @@ public:
             if (st.semantic_library)
                 generation_handler->semlib = semantic_library;
         }
+     
+        // set correct handler to config
+        generation_handler->conf = config;
 
         tree_initializer = st.tree_initializer; // share same tree initializer
         fitness = st.fitness; // share same fitness
