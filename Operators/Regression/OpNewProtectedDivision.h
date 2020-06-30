@@ -31,7 +31,7 @@ public:
 
     arma::vec ComputeOutput(const arma::mat& x) override {
         arma::vec b = x.col(1);
-        arma::vec protb = arma::abs(1e-3 + b);
+        arma::vec protb = 1e-6 + arma::abs(b);
         arma::vec signb = arma::ones(b.n_elem);
         
         for(size_t i=0; i < b.n_elem; i++)
