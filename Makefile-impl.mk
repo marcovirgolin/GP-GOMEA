@@ -8,7 +8,6 @@
 #
 # NOCDDL
 
-
 # Building and Cleaning subprojects are done by default, but can be controlled with the SUB
 # macro. If SUB=no, subprojects will not be built or cleaned. The following macro
 # statements set BUILD_SUB-CONF and CLEAN_SUB-CONF to .build-reqprojects-conf
@@ -27,23 +26,22 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=GP-GOMEA
 
 # Active Configuration
-DEFAULTCONF=Python_Release
-CONF=${DEFAULTCONF}
+CONF=Python_Release
 
 # All Configurations
-ALLCONFS=Debug Release Valgrind Python_Release 
+ALLCONFS=Python_Release
 
 
 # build
 .build-impl: .build-pre .validate-impl .depcheck-impl
 	@#echo "=> Running $@... Configuration=$(CONF)"
-	"${MAKE}" -f nbproject/Makefile-${CONF}.mk QMAKE=${QMAKE} SUBPROJECTS=${SUBPROJECTS} .build-conf
+	"${MAKE}" -f ./Makefile-${CONF}.mk QMAKE=${QMAKE} SUBPROJECTS=${SUBPROJECTS} .build-conf
 
 
 # clean
 .clean-impl: .clean-pre .validate-impl .depcheck-impl
 	@#echo "=> Running $@... Configuration=$(CONF)"
-	"${MAKE}" -f nbproject/Makefile-${CONF}.mk QMAKE=${QMAKE} SUBPROJECTS=${SUBPROJECTS} .clean-conf
+	"${MAKE}" -f ./Makefile-${CONF}.mk QMAKE=${QMAKE} SUBPROJECTS=${SUBPROJECTS} .clean-conf
 
 
 # clobber 
@@ -51,7 +49,7 @@ ALLCONFS=Debug Release Valgrind Python_Release
 	@#echo "=> Running $@..."
 	for CONF in ${ALLCONFS}; \
 	do \
-	    "${MAKE}" -f nbproject/Makefile-$${CONF}.mk QMAKE=${QMAKE} SUBPROJECTS=${SUBPROJECTS} .clean-conf; \
+	    "${MAKE}" -f ./Makefile-$${CONF}.mk QMAKE=${QMAKE} SUBPROJECTS=${SUBPROJECTS} .clean-conf; \
 	done
 
 # all 
@@ -59,18 +57,18 @@ ALLCONFS=Debug Release Valgrind Python_Release
 	@#echo "=> Running $@..."
 	for CONF in ${ALLCONFS}; \
 	do \
-	    "${MAKE}" -f nbproject/Makefile-$${CONF}.mk QMAKE=${QMAKE} SUBPROJECTS=${SUBPROJECTS} .build-conf; \
+	    "${MAKE}" -f ./Makefile-$${CONF}.mk QMAKE=${QMAKE} SUBPROJECTS=${SUBPROJECTS} .build-conf; \
 	done
 
 # build tests
 .build-tests-impl: .build-impl .build-tests-pre
 	@#echo "=> Running $@... Configuration=$(CONF)"
-	"${MAKE}" -f nbproject/Makefile-${CONF}.mk SUBPROJECTS=${SUBPROJECTS} .build-tests-conf
+	"${MAKE}" -f ./Makefile-${CONF}.mk SUBPROJECTS=${SUBPROJECTS} .build-tests-conf
 
 # run tests
 .test-impl: .build-tests-impl .test-pre
 	@#echo "=> Running $@... Configuration=$(CONF)"
-	"${MAKE}" -f nbproject/Makefile-${CONF}.mk SUBPROJECTS=${SUBPROJECTS} .test-conf
+	"${MAKE}" -f ./Makefile-${CONF}.mk SUBPROJECTS=${SUBPROJECTS} .test-conf
 
 # dependency checking support
 .depcheck-impl:
@@ -87,7 +85,7 @@ ALLCONFS=Debug Release Valgrind Python_Release
 
 # configuration validation
 .validate-impl:
-	@if [ ! -f nbproject/Makefile-${CONF}.mk ]; \
+	@if [ ! -f ./Makefile-${CONF}.mk ]; \
 	then \
 	    echo ""; \
 	    echo "Error: can not find the makefile for configuration '${CONF}' in project ${PROJECTNAME}"; \
@@ -95,7 +93,7 @@ ALLCONFS=Debug Release Valgrind Python_Release
 	    echo "Current directory: " `pwd`; \
 	    echo ""; \
 	fi
-	@if [ ! -f nbproject/Makefile-${CONF}.mk ]; \
+	@if [ ! -f ./Makefile-${CONF}.mk ]; \
 	then \
 	    exit 1; \
 	fi

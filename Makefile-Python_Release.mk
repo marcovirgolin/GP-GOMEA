@@ -23,7 +23,7 @@ AS=as
 # Macros
 CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
-CND_CONF=Valgrind
+CND_CONF=Python_Release
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -35,9 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/e869a06f/AccuracyFitness.o \
-	${OBJECTDIR}/_ext/e869a06f/PythonFitness.o \
-	${OBJECTDIR}/_ext/61f3bb6/main.o \
+	${OBJECTDIR}/Fitness/AccuracyFitness.o \
+	${OBJECTDIR}/Fitness/PythonFitness.o \
+	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/Evolution/EvolutionRun.o \
 	${OBJECTDIR}/Evolution/EvolutionState.o \
 	${OBJECTDIR}/Evolution/GenerationHandler.o \
@@ -67,155 +67,150 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-lm -g -w -pipe -lpthread -Wall -W -DNO_DEBUG -fopenmp
-CXXFLAGS=-lm -g -w -pipe -lpthread -Wall -W -DNO_DEBUG -fopenmp
-
-# Fortran Compiler Flags
-FFLAGS=
-
-# Assembler Flags
-ASFLAGS=
+CXXFLAGS=-fopenmp -fPIC -shared `pkg-config --cflags $(PYTHON_VERSION)` -O2 -std=c++14
+CCFLAGS=${CXXFLAGS}
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=`pkg-config --libs $(PYTHON_VERSION)` `pkg-config --libs armadillo` -lboost_program_options -lboost_system \
+	$(LIB_BOOST_PYTHON) $(LIB_BOOST_NUMPY)
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea
+	"${MAKE}"  -f ./Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea ${OBJECTFILES} ${LDLIBSOPTIONS} -larmadillo -lboost_program_options
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/_ext/e869a06f/AccuracyFitness.o: Fitness/AccuracyFitness.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/e869a06f
+${OBJECTDIR}/Fitness/AccuracyFitness.o: Fitness/AccuracyFitness.cpp
+	${MKDIR} -p ${OBJECTDIR}/Fitness
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/e869a06f/AccuracyFitness.o Fitness/AccuracyFitness.cpp
+	$(COMPILE.cc) -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/AccuracyFitness.o Fitness/AccuracyFitness.cpp
 
-${OBJECTDIR}/_ext/e869a06f/PythonFitness.o: Fitness/PythonFitness.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/e869a06f
+${OBJECTDIR}/Fitness/PythonFitness.o: Fitness/PythonFitness.cpp
+	${MKDIR} -p ${OBJECTDIR}/Fitness
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/e869a06f/PythonFitness.o Fitness/PythonFitness.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/PythonFitness.o Fitness/PythonFitness.cpp
 
-${OBJECTDIR}/_ext/61f3bb6/main.o: main.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/61f3bb6
+${OBJECTDIR}/main.o: main.cpp
+	${MKDIR} -p ${OBJECTDIR}/
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/61f3bb6/main.o main.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
-${OBJECTDIR}/Evolution/EvolutionRun.o: Evolution/EvolutionRun.cpp 
+${OBJECTDIR}/Evolution/EvolutionRun.o: Evolution/EvolutionRun.cpp
 	${MKDIR} -p ${OBJECTDIR}/Evolution
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/EvolutionRun.o Evolution/EvolutionRun.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/EvolutionRun.o Evolution/EvolutionRun.cpp
 
-${OBJECTDIR}/Evolution/EvolutionState.o: Evolution/EvolutionState.cpp 
+${OBJECTDIR}/Evolution/EvolutionState.o: Evolution/EvolutionState.cpp
 	${MKDIR} -p ${OBJECTDIR}/Evolution
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/EvolutionState.o Evolution/EvolutionState.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/EvolutionState.o Evolution/EvolutionState.cpp
 
 ${OBJECTDIR}/Evolution/GenerationHandler.o: Evolution/GenerationHandler.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Evolution
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/GenerationHandler.o Evolution/GenerationHandler.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/GenerationHandler.o Evolution/GenerationHandler.cpp
 
 ${OBJECTDIR}/Evolution/PopulationInitializer.o: Evolution/PopulationInitializer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Evolution
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/PopulationInitializer.o Evolution/PopulationInitializer.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Evolution/PopulationInitializer.o Evolution/PopulationInitializer.cpp
 
 ${OBJECTDIR}/Fitness/Fitness.o: Fitness/Fitness.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Fitness
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/Fitness.o Fitness/Fitness.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/Fitness.o Fitness/Fitness.cpp
 
 ${OBJECTDIR}/Fitness/SymbolicRegressionFitness.o: Fitness/SymbolicRegressionFitness.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Fitness
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/SymbolicRegressionFitness.o Fitness/SymbolicRegressionFitness.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/SymbolicRegressionFitness.o Fitness/SymbolicRegressionFitness.cpp
 
 ${OBJECTDIR}/Fitness/SymbolicRegressionLinearScalingFitness.o: Fitness/SymbolicRegressionLinearScalingFitness.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Fitness
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/SymbolicRegressionLinearScalingFitness.o Fitness/SymbolicRegressionLinearScalingFitness.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Fitness/SymbolicRegressionLinearScalingFitness.o Fitness/SymbolicRegressionLinearScalingFitness.cpp
 
 ${OBJECTDIR}/GOMEA/GOMEAFOS.o: GOMEA/GOMEAFOS.cpp 
 	${MKDIR} -p ${OBJECTDIR}/GOMEA
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEAFOS.o GOMEA/GOMEAFOS.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEAFOS.o GOMEA/GOMEAFOS.cpp
 
 ${OBJECTDIR}/GOMEA/GOMEAGenerationHandler.o: GOMEA/GOMEAGenerationHandler.cpp 
 	${MKDIR} -p ${OBJECTDIR}/GOMEA
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEAGenerationHandler.o GOMEA/GOMEAGenerationHandler.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEAGenerationHandler.o GOMEA/GOMEAGenerationHandler.cpp
 
 ${OBJECTDIR}/GOMEA/GOMEATreeInitializer.o: GOMEA/GOMEATreeInitializer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/GOMEA
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEATreeInitializer.o GOMEA/GOMEATreeInitializer.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMEATreeInitializer.o GOMEA/GOMEATreeInitializer.cpp
 
 ${OBJECTDIR}/GOMEA/GOMVariator.o: GOMEA/GOMVariator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/GOMEA
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMVariator.o GOMEA/GOMVariator.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/GOMEA/GOMVariator.o GOMEA/GOMVariator.cpp
 
 ${OBJECTDIR}/Genotype/Node.o: Genotype/Node.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Genotype
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Genotype/Node.o Genotype/Node.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Genotype/Node.o Genotype/Node.cpp
 
 ${OBJECTDIR}/Operators/Operator.o: Operators/Operator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Operators
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Operators/Operator.o Operators/Operator.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Operators/Operator.o Operators/Operator.cpp
 
 ${OBJECTDIR}/RunHandling/IMSHandler.o: RunHandling/IMSHandler.cpp 
 	${MKDIR} -p ${OBJECTDIR}/RunHandling
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RunHandling/IMSHandler.o RunHandling/IMSHandler.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RunHandling/IMSHandler.o RunHandling/IMSHandler.cpp
 
 ${OBJECTDIR}/Selection/TournamentSelection.o: Selection/TournamentSelection.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Selection
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Selection/TournamentSelection.o Selection/TournamentSelection.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Selection/TournamentSelection.o Selection/TournamentSelection.cpp
 
 ${OBJECTDIR}/Semantics/SemanticBackpropagator.o: Semantics/SemanticBackpropagator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Semantics
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Semantics/SemanticBackpropagator.o Semantics/SemanticBackpropagator.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Semantics/SemanticBackpropagator.o Semantics/SemanticBackpropagator.cpp
 
 ${OBJECTDIR}/Semantics/SemanticLibrary.o: Semantics/SemanticLibrary.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Semantics
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Semantics/SemanticLibrary.o Semantics/SemanticLibrary.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Semantics/SemanticLibrary.o Semantics/SemanticLibrary.cpp
 
 ${OBJECTDIR}/Utils/KDTree.o: Utils/KDTree.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/KDTree.o Utils/KDTree.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/KDTree.o Utils/KDTree.cpp
 
 ${OBJECTDIR}/Utils/Logger.o: Utils/Logger.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/Logger.o Utils/Logger.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/Logger.o Utils/Logger.cpp
 
 ${OBJECTDIR}/Utils/Utils.o: Utils/Utils.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Utils
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/Utils.o Utils/Utils.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Utils/Utils.o Utils/Utils.cpp
 
 ${OBJECTDIR}/Variation/SubtreeVariator.o: Variation/SubtreeVariator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Variation
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Variation/SubtreeVariator.o Variation/SubtreeVariator.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Variation/SubtreeVariator.o Variation/SubtreeVariator.cpp
 
 ${OBJECTDIR}/Variation/TreeInitializer.o: Variation/TreeInitializer.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Variation
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Variation/TreeInitializer.o Variation/TreeInitializer.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Variation/TreeInitializer.o Variation/TreeInitializer.cpp
 
 ${OBJECTDIR}/python_exposer.o: python_exposer.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/python_exposer.o python_exposer.cpp
+	$(COMPILE.cc)   -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/python_exposer.o python_exposer.cpp
 
 # Subprojects
 .build-subprojects:
@@ -223,7 +218,7 @@ ${OBJECTDIR}/python_exposer.o: python_exposer.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gp-gomea
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/gpgomea
 
 # Subprojects
 .clean-subprojects:
@@ -232,3 +227,4 @@ ${OBJECTDIR}/python_exposer.o: python_exposer.cpp
 .dep.inc: .depcheck-impl
 
 include .dep.inc
+

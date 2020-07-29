@@ -8,7 +8,6 @@
 #include <boost/mem_fn.hpp>
 #include <boost/shared_ptr.hpp>
 
-
 #include "Evolution/EvolutionState.h"
 #include "Evolution/EvolutionRun.h"
 #include "RunHandling/IMSHandler.h"
@@ -224,6 +223,5 @@ BOOST_PYTHON_MODULE(gpgomea) {
             .def("get_model", &GPGOMEA::get_model)
             .def("get_evaluations", &GPGOMEA::get_evaluations)
             .def_pickle(GPGOMEA_pickle_suite())
-            ;
-    
+            ; 
 }

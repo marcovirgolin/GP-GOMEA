@@ -1,3 +1,8 @@
+import sys, os
+
+sys.path.insert(0, os.path.join(
+    os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'pyGPGOMEA'))
+
 from sklearn.base import BaseEstimator, RegressorMixin
 from gpgomea import GPGOMEA
 from sklearn.metrics import mean_squared_error
