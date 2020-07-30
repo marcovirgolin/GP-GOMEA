@@ -71,7 +71,7 @@ CXXFLAGS=-fopenmp -fPIC -shared `pkg-config --cflags $(PYTHON_VERSION)` -O2 -std
 CCFLAGS=${CXXFLAGS}
 
 # Link Libraries and Options
-LDLIBSOPTIONS=`pkg-config --libs $(PYTHON_VERSION)` `pkg-config --libs armadillo` -lboost_program_options -lboost_system \
+LDLIBSOPTIONS=`pkg-config --libs $(PYTHON_VERSION)` -larmadillo -lboost_program_options -lboost_system \
 	$(LIB_BOOST_PYTHON) $(LIB_BOOST_NUMPY)
 
 # Build Targets

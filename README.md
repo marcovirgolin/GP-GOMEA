@@ -15,19 +15,13 @@ If you use our code for academic purposes, please support our research by citing
 * M. Virgolin, T. Alderliesten, C. Witteveen, P.A.N. Bosman. *Improving Model-based Genetic Programming for Symbolic Regression of Small Expressions*. Preprint on arXiv https://arxiv.org/abs/1904.02050 2019, accepted in Evolutionary Computation.
 * M. Virgolin, T. Alderliesten, P.A.N. Bosman. *On Explaining Machine Learning Models by Evolving Crucial and Compact Features*. Swarm and Evolutionary Computation, v. 53, p. 100640, 2020.
 
-
 ## Installation
-### Compilation
-This code can be compiled on Linux (tested on Ubuntu and Fedora). 
+This code can be compiled on Linux, we tested on Ubuntu and Fedora (kudos to [@abouter](https://github.com/abouter) for helping out).
 There are a few steps to follow:
-* Inspect and potentially edit `Makefile-variables.mk` to set the right Python version for the `boost` library (bottom lines of the file)
-* Inspect and potentially edit the `m` file to align it to your system. It is currently set to run on Fedora using `dnf`. If you run from Ubuntu, replace `dnf` calls to `apt` calls, and set the correct library names (e.g., `boost-devel` becomes `libboost-dev`).
+* Inspect and potentially edit `Makefile-variables.mk` to set the right Python version for the `boost` library (bottom lines of the file). Typical values are `-lboost_python3`, `-lboost_python37`, `-lboost_python38` (same for `-lboost_numpyX`).
+* Inspect and potentially edit the `m_ubuntu` (or `m_fedora`) file to align it to your system (no change should be needed). 
 
-To install dependencies, compile the C++ code, and install the Python package, run `sudo ./m`. To test that everything works fine, run `python3 test.py`.
-
-### Do you want to build a C++ executable instead?
-Modify the file `Makefile-Python_Release.mk` by removing `-fPIC -shared` from `CXXFLAGS`, then run `make`. You will find a C++ executable called `gpgomea` in `dist/Python_Release/GNU-Linux/` that you can run using a parameter setting file, for example, `gpgomea --file params_sgp.txt`.
-
+Finally, run `sudo ./m_ubuntu` (or `sudo ./m_fedora`). To test that everything works fine, run `python3 test.py`.
 
 ## Using the Python interface
 See `test.py`. 
@@ -45,8 +39,9 @@ print 'RMSE:', np.sqrt( np.mean( np.square( model.predict(X) - y ) ) )
 ```
 Take a look at `test.py` for more details.
 
+## Do you want to build a C++ executable instead?
+Modify the file `Makefile-Python_Release.mk` by removing `-fPIC -shared` from `CXXFLAGS`, then run `make`. You will find a C++ executable called `gpgomea` in `dist/Python_Release/GNU-Linux/` that you can run using a parameter setting file, for example, `gpgomea --file params_sgp.txt`.
+
 ### Datasets
 For the C++ executable, datasets must be organized as follows. Each row is an example, and each column is a feature, with exception for the last column, which is the target variable. Values should be separated by spaces. Do not include any textual header.
 You can find examples at: https://goo.gl/9D2z3b 
-
-

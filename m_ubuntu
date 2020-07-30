@@ -1,0 +1,30 @@
+# install dependencies 
+# replace apt with apt if working from Debian/Ubuntu
+echo ">>> Installing g++..."
+apt install g++
+
+echo ">>> Installing pkg-config..."
+apt install pkg-config
+
+echo ">>> Installing armadillo..."
+apt install libarmadillo-dev
+
+echo ">>> Installing python developer..."
+apt install python3-dev 
+
+echo ">>> Installing all boost developer..."
+apt install libboost-all-dev
+
+# compile the c++ project
+echo ">>> Compiling GP-GOMEA source code..."
+make
+
+# copy the .so library into the python package
+cp dist/Python_Release/GNU-Linux/gpgomea pyGPGOMEA/gpgomea.so
+
+# launch pip install
+echo ">>> Running pip install..."
+pip3 install .
+
+# done
+echo ">>> ...Done."
