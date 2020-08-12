@@ -183,6 +183,10 @@ public:
         
     };
 
+    size_t get_n_nodes(){
+	return solution->GetSubtreeNodes(true).size();
+    }
+
     size_t get_evaluations(){
         return evaluations;
     }
@@ -222,6 +226,7 @@ BOOST_PYTHON_MODULE(gpgomea) {
             .def("score", &GPGOMEA::score)
             .def("get_model", &GPGOMEA::get_model)
             .def("get_evaluations", &GPGOMEA::get_evaluations)
+            .def("get_n_nodes", &GPGOMEA::get_n_nodes)
             .def_pickle(GPGOMEA_pickle_suite())
             ; 
 }

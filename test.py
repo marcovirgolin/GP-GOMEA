@@ -13,6 +13,7 @@ print('Running GP-GOMEA...')
 ea = GPG( gomea=True, ims='5_1', generations=10, seed=42, silent=False )
 ea.fit(X_train, y_train)
 print('Model found:', ea.get_model())
+print('Number of nodes:', ea.get_n_nodes())
 print('Evaluations taken:', ea.get_evaluations()) # care: this is not correct if multiple threads were used when fitting
 print('Test RMSE:', np.sqrt( mean_squared_error(y_test, ea.predict(X_test)) ))
 

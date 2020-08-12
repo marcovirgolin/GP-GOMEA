@@ -90,5 +90,8 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 	def get_model(self):
 		return self._ea.get_model()
 
+	def get_n_nodes(self):
+		return self._ea.get_n_nodes()
+
 	def get_evaluations(self):
 		return self._ea.get_evaluations()
