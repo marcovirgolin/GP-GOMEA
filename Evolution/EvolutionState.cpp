@@ -85,7 +85,7 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             ("sbrdo", po::value<double_t>(), "sets the proportion of parents for RDO (default is 0.0)")
             ("sbagx", po::value<double_t>(), "sets the proportion of parents for AGX (default is 0.0)")
             ("sblibtype", po::value<string>(), "sets the type of library for Semantic Backpropagation (default is RD, max tree height 4, size 500, w/o normalization, w k-d tree)")
-            ("unifdepthvariation", "picks nodes for subtree variation at uniform random depth (default is disabled)")
+            ("unifdepthvar", "picks nodes for subtree variation at uniform random depth (default is disabled)")
             ("tournament", po::value<size_t>(), "sets the size of tournament selection (default is 4)")
             ("gomea", "runs GP-GOMEA instead of tree-based GP")
             ("gomfos", po::value<string>(), "sets the FOS for Gene-pool Optimizal Mixing (default is LT: Linkage Tree)")
@@ -474,7 +474,7 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
     cout << "# elitism: " << config->elitism << endl;
 
     // UNIFORM DEPTH VARIATION
-    if (vm.count("unifdepthvariation")) {
+    if (vm.count("unifdepthvar")) {
         config->uniform_depth_variation = true;
         cout << "# uniform depth variation: enabled" << endl;
     }
