@@ -18,6 +18,12 @@ apt install libboost-all-dev
 # compile the c++ project
 echo ">>> Compiling GP-GOMEA source code..."
 make
+if [ $? -eq 0 ]; then
+    echo ">>> GP-GOMEA compilation successful"
+else
+    echo ">>> GP-GOMEA compilation FAILED, see log above"
+    exit 1
+fi
 
 # copy the .so library into the python package
 cp dist/Python_Release/GNU-Linux/gpgomea pyGPGOMEA/gpgomea.so
