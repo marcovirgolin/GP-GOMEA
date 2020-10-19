@@ -34,8 +34,8 @@ import numpy as np
 X, y = load_boston(return_X_y=True)
 model = GPGR( gomea=True, ims='5_1', generations=10, seed=42 )
 model.fit(X, y)
-print 'Model found:', model.get_model()
-print 'RMSE:', np.sqrt( np.mean( np.square( model.predict(X) - y ) ) ) 
+print('Model found:', model.get_model())
+print('RMSE:', np.sqrt( np.mean( np.square( model.predict(X) - y ) ) ))
 ```
 Take a look at `test.py` for more details.
 
