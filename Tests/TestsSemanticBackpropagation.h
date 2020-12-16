@@ -78,7 +78,7 @@ static void TestInversions() {
     o[0] = 0;
     res = op->Invert(d, o, 0);
 
-    assert(isnan(res[0]));
+    assert(std::isnan(res[0]));
 
     delete op;
 

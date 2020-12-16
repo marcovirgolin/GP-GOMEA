@@ -231,7 +231,7 @@ Node * SubtreeVariator::FindSubtreeForSemanticBackpropagationReplacement(std::ve
             for (size_t j = 0; j < desired_output[i].n_elem; j++) {
                 if (!isinf(desired_output[i][j])) {
                     vals[i] = desired_output[i][j];
-                    if (!isnan(vals[i])) {
+                    if (!std::isnan(vals[i])) {
                         vals_no_nans.push_back(vals[i]);
                         desired_vals_mean += vals[i];
                     }
@@ -255,7 +255,7 @@ Node * SubtreeVariator::FindSubtreeForSemanticBackpropagationReplacement(std::ve
             // could recompute desired_vals_mean, but that should be close to 0 anyway (current value) due to normal distributed samples above
 
         } else if (!use_lib_linear_parsing) { // compute the mean, make sure its ok
-            if (isinf(desired_vals_mean) || isnan(desired_vals_mean)) {
+            if (isinf(desired_vals_mean) || std::isnan(desired_vals_mean)) {
                 search_for_normalized_tree = false;
             }
         }
@@ -370,7 +370,7 @@ std::pair<double_t, double_t> SubtreeVariator::GenerateConstantFromDesiredOutput
         for (vec & x : desired_output) {
             double_t min_d_within_x = datum::inf;
             for (double_t v : x) {
-                if (isnan(v))
+                if (std::isnan(v))
                     continue;
                 double_t d = (v - c)*(v - c);
                 if (d < min_d_within_x) {
