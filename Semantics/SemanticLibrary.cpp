@@ -143,8 +143,9 @@ bool SemanticLibrary::AddToLibrary(Node* n, Fitness& fitness, bool caching) {
     pair<double_t, double_t> mean_std;
     if (normalize_outputs) {
         mean_std = Utils::ComputeMeanStdEfficiently(out);
-        if (isinf(mean_std.first) || isnan(mean_std.first) ||
-                mean_std.second == 0 || isinf(mean_std.second) || isnan(mean_std.second))
+        if (std::isinf(mean_std.first) || std::isnan(mean_std.first) ||
+                mean_std.second == 0 || std::isinf(mean_std.second) 
+                || std::isnan(mean_std.second))
             return false;
         if (!linear_parse_library)
             out = out - mean_std.first;
@@ -296,7 +297,7 @@ std::pair< Node *, double_t> SemanticLibrary::GetClosestSubtree(const std::vecto
         }
     }
 
-    if (isinf(best_min_dist)) {
+    if (std::isinf(best_min_dist)) {
         return make_pair(best_sol, best_min_dist);
     }
 

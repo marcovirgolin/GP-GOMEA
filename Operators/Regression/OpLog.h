@@ -46,9 +46,9 @@ public:
             v1 = exp(desired_elem[i]);
             v2 = -exp(desired_elem[i]);
             
-            if (!isinf(v1) && !isnan(v1))
+            if (!std::isinf(v1) && !std::isnan(v1))
                 res_v.push_back(v1);
-            if (!isinf(v2) && !isnan(v2))
+            if (!std::isinf(v2) && !std::isnan(v2))
                 res_v.push_back(v2);
         }
         
