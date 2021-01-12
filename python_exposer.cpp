@@ -29,6 +29,9 @@ public:
 
         bool silent = false;
         silent_output_stream = new std::stringstream();
+        output_file_stream = new std::ofstream();
+        bool log_to_file = false;
+        std::string logfile;
 
         std::vector<std::string> opts = Utils::SplitStringByChar(hyperparams_string, ' ');
         std::vector<std::string> argv_v = {"dummy"};
@@ -36,6 +39,11 @@ public:
         for (size_t i = 0; i < opts.size(); i++) {
             if (opts[i].compare("--silent") == 0) {
                 silent = true;
+                continue;
+            }
+            if (opts[i].compare("--logtofile") == 0) {
+                log_to_file = true;
+                logfile = opts[++i]; // get the value as next element, while also increase i as to skip the value next iteration
                 continue;
             }
             argv_v.push_back(opts[i]);
@@ -49,6 +57,10 @@ public:
             std::cout.rdbuf(silent_output_stream->rdbuf());
         } else {
             std::cout.rdbuf(default_output_stream);
+        }
+        if (log_to_file) {
+            output_file_stream = new std::ofstream(logfile.c_str());
+            std::cout.rdbuf(output_file_stream->rdbuf());
         }
 
         // setting options
@@ -65,6 +77,7 @@ public:
     IMSHandler * imsh = NULL;
     std::string hyperparams_string = "";
     std::streambuf * default_output_stream = std::cout.rdbuf();
+    std::ofstream * output_file_stream = NULL;
     std::stringstream * silent_output_stream = NULL;
 
     size_t evaluations = 0;
@@ -78,6 +91,8 @@ public:
             delete st;
         if (silent_output_stream)
             delete silent_output_stream;
+        if (output_file_stream)
+            delete output_file_stream;
         solution = NULL;
         imsh = NULL;
         st = NULL;

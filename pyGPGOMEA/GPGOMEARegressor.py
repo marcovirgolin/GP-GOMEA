@@ -16,14 +16,15 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 	def __init__(self, 
 		time=60, generations=-1, evaluations=-1, 
 		prob='symbreg', linearscaling=True, functions='+_*_-_aq', erc=True,
-                classweights = False,
+    classweights = False,
 		gomea=True, gomfos='LT',
 		subcross=0.5, submut=0.5, reproduction=0.0,
 		sblibtype=False, sbrdo=0.0, sbagx=0.0,
 		unifdepthvar=True, tournament=4, elitism=1,
 		ims='5_1', syntuniqinit=1000, popsize=500,
 		initmaxtreeheight=4, maxtreeheight=17, maxsize=1000,
-		seed = -1, parallel=1, caching=False, silent=True):
+		seed = -1, parallel=1, caching=False, 
+		silent=True, logtofile=False):
 
 		args, _, _, values = inspect.getargvalues(inspect.currentframe())
 		values.pop("self")
