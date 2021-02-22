@@ -27,8 +27,3 @@ RUN echo ">>> Running pip install..." && pip install -r ./requirements.txt
 
 # Test the installation
 RUN echo ">>> Test installation..." &&  python3 test.py
-
-
-##### OTHER TODOS
-# - Document how this script was built
-# - Remove m_ubuntu and m_fedora from docker image?
