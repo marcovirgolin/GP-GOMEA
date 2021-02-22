@@ -18,6 +18,6 @@ CND_PACKAGE_PATH_Python_Release=dist/Python_Release/GNU-Linux/package/gp-gomea.t
 
 # PYTHON LIB VERSIONS
 PYTHON_VERSION=python3
-LIB_BOOST_PYTHON=-lboost_python37
-LIB_BOOST_NUMPY=-lboost_numpy37
+LIB_BOOST_PYTHON=-lpython3.6m
+LIB_BOOST_NUMPY=-lboost_numpy3
 
