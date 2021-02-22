@@ -33,8 +33,8 @@ docker build -t gp-gomea .
 ```
 
 This will:
-* Add all the files present in the directory.
-* Compile the code based
+* Add all the files present in the directory (except for `m_ubuntu` and `m_fedora`).
+* Compile the code (implementation derived from on `m_ubuntu`).
 * Test that everything is fine using `python3 test.py`.
 
 You can run the container in interactive mode using `docker run -it gp-gomea` and issue for instance `python3 test.py` or execute your own script.
