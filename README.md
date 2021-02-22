@@ -16,12 +16,28 @@ If you use our code for academic purposes, please support our research by citing
 * M. Virgolin, T. Alderliesten, P.A.N. Bosman. *On Explaining Machine Learning Models by Evolving Crucial and Compact Features*. Swarm and Evolutionary Computation, v. 53, p. 100640, 2020.
 
 ## Installation
+
+### Native
 This code can be compiled on Linux, we tested on Ubuntu and Fedora (kudos to [@abouter](https://github.com/abouter) for helping out).
 There are a few steps to follow:
 * Inspect and potentially edit `Makefile-variables.mk` to set the right Python version for the `boost` library (bottom lines of the file). Typical values are `-lboost_python3`, `-lboost_python37`, `-lboost_python38` (same for `-lboost_numpyX`).
 * Inspect and potentially edit the `m_ubuntu` (or `m_fedora`) file to align it to your system (no change should be needed). 
 
 Finally, run `sudo ./m_ubuntu` (or `sudo ./m_fedora`). To test that everything works fine, run `python3 test.py`.
+
+### Docker
+This code can also be compiled and run inside a [Docker](https://www.docker.com/why-docker) container:
+
+```bash
+docker build -t gp-gomea .
+```
+
+This will:
+* Add all the files present in the directory.
+* Compile the code based
+* Test that everything is fine using `python3 test.py`.
+
+You can run the container in interactive mode using `docker run -it gp-gomea` and issue for instance `python3 test.py` or execute your own script.
 
 ## Using the Python interface
 See `test.py`. 

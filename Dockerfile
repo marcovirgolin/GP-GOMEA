@@ -16,19 +16,8 @@ RUN curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 # Install dependencies
 RUN apt-get -y install g++ pkg-config libarmadillo-dev make build-essential autotools-dev libicu-dev libbz2-dev wget libboost-all-dev
 
-
-# Check numpy installation
-RUN ld -lpython3.6m -lboost_numpy3 --verbose
-# TODO: Remove?
-
 # compile the c++ project
-# TODO: remove these
-#RUN python3 --version
-#RUN pkg-config --variable pc_path pkg-config
-#RUN ls /usr/lib/pkgconfig
-#RUN ls /usr/share/pkgconfig
-
-RUN echo ">>> Compiling GP-GOMEA source code..." && make
+RUN echo ">>> Compiling GP-GOMEA source code..." && make LIB_BOOST_PYTHON=-lpython3.6m LIB_BOOST_NUMPY=-lboost_numpy3
 
 # copy the .so library into the python package
 RUN cp dist/Python_Release/GNU-Linux/gpgomea pyGPGOMEA/gpgomea.so

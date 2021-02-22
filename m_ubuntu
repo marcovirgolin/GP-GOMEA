@@ -30,7 +30,7 @@ cp dist/Python_Release/GNU-Linux/gpgomea pyGPGOMEA/gpgomea.so
 
 # launch pip install
 echo ">>> Running pip install..."
-pip3 install .
+pip install -r ./requirements.txt
 
 # done
 echo ">>> ...Done."
