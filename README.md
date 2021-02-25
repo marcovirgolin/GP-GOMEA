@@ -26,7 +26,7 @@ There are a few steps to follow:
 Finally, run `sudo ./m_ubuntu` (or `sudo ./m_fedora`). To test that everything works fine, run `python3 test.py`.
 
 ### Docker
-This code can also be compiled and run inside a [Docker](https://www.docker.com/why-docker) container:
+This code can also be compiled and run inside a [Docker](https://www.docker.com/why-docker) container (kudos to [@roy-tc](https://github.com/roy-tc) for providing this!):
 
 ```bash
 docker build -t gp-gomea .
