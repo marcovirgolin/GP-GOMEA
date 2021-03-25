@@ -20,11 +20,14 @@ using namespace arma;
 void GenerationHandler::PerformGeneration(std::vector<Node*> & population) {
 
     // Selection
+    // Classic selection with replacement
     std::vector<Node *> selected_parents;
     selected_parents.reserve(population.size());
     for (size_t i = 0; i < population.size(); i++) {
         selected_parents.push_back(TournamentSelection::GetTournamentSelectionWinner(population, conf->tournament_selection_size));
     }
+    // Alternative: pop-wise tournament selection that visits all population members
+    //std::vector<Node *> selected_parents = TournamentSelection::PopulationWiseTournamentSelection(population, population.size(), conf->tournament_selection_size);
 
     // Variation
     vector<Node*> offspring = MakeOffspring(population, selected_parents);
