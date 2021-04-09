@@ -29,7 +29,7 @@ The project is built using CMake (kudos to [@EviSijben](https://github.com/EviSi
 This code can also be compiled and run inside a [Docker](https://www.docker.com/why-docker) container (kudos to [@roy-tc](https://github.com/roy-tc) for providing this!):
 
 ```bash
-docker build -t gp-gomea.
+docker build -t gp-gomea .
 ```
 
 This will:
