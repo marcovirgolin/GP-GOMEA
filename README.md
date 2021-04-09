@@ -23,27 +23,21 @@ There are a few steps to follow:
 * Inspect and potentially edit the `deps_ubuntu` (or `deps_fedora`) file to align it to your system (no change should be needed). This installs the dependencies that are needed for GP-GOMEA.
 * Run `sudo ./deps_ubuntu` (or `sudo ./deps_fedora)` to install the needed dependencies on your system.
 
-Finally, run `make` (or `make debug` for a debug build). To test that everything works fine, run `python3 test.py`. You can use Ninja to speed up builds, by prefixing the make command with `GEN=ninja` (e.g. `GEN=ninja make release`).
+The project is built using CMake (kudos to [@EviSijben](https://github.com/EviSijben)). Run `make` (or `make debug` for a debug build). To test that everything works fine, run `python3 test.py`. You can use Ninja to speed up builds, by prefixing the make command with `GEN=ninja` (e.g. `GEN=ninja make release`).
 
 ### Docker
 This code can also be compiled and run inside a [Docker](https://www.docker.com/why-docker) container (kudos to [@roy-tc](https://github.com/roy-tc) for providing this!):
 
-Ubuntu docker
 ```bash
-docker build -t gp-gomea-ubuntu -f docker/ubuntu .
-```
-
-Fedora docker
-```bash
-docker build -t gp-gomea-fedora -f docker/fedora .
+docker build -t gp-gomea.
 ```
 
 This will:
-* Install dependencies (implementation derived from on `deps_ubuntu`/`deps_fedora`).
+* Install dependencies (implementation derived from on `deps_ubuntu`).
 * Build the project.
 * Test that everything is fine using `python3 test.py`.
 
-You can run the container in interactive mode using `docker run -it gp-gomea-ubuntu` (or `docker run -it gp-gomea-fedora`) and issue for instance `python3 test.py` or execute your own script.
+You can run the container in interactive mode using `docker run -it gp-gomea` and issue for instance `python3 test.py` or execute your own script.
 
 ## Using the Python interface
 See `test.py`. 

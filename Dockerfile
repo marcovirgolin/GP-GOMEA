@@ -17,6 +17,7 @@ RUN apt-get -y install g++ pkg-config libarmadillo-dev make build-essential auto
 RUN mkdir /GP-GOMEA
 WORKDIR /GP-GOMEA
 ADD . .
+RUN rm -rf build
 
 ENV GEN=ninja
 
