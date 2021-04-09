@@ -1,0 +1,27 @@
+train train_path
+test test_path
+
+
+# Termination Criteria
+time 600
+generations 5
+evaluations -1
+
+# Problem setting
+prob symbreg
+linearscaling
+functions +_-_*_aq
+erc
+
+# GP-GOMEA specific
+gomea	# This enables GP-GOMEA over traditional GP
+gomfos LT	# This sets the FOS for GP-GOMEA
+
+# Initialization
+ims 5_1		# Uses interleaved multiple runs instead of a single run
+initmaxtreeheight 4
+syntuniqinit 1000
+
+# Other
+seed 1
+parallel 2

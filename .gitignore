@@ -6,6 +6,7 @@
 *.lo
 *.o
 *.obj
+*.pyc
 
 # Precompiled Headers
 *.gch
@@ -34,8 +35,17 @@
 # Directories
 build/
 dist/
+data/
+cmake*
 
 # Other
 params_valgrind.txt
 stats_generations.txt
 result.txt
+
+# IDE
+.idea/
+.vscode/
+
+# pycache
+*/__pycache__/

@@ -20,24 +20,30 @@ If you use our code for academic purposes, please support our research by citing
 ### Native
 This code can be compiled on Linux, we tested on Ubuntu and Fedora (kudos to [@abouter](https://github.com/abouter) for helping out).
 There are a few steps to follow:
-* Inspect and potentially edit `Makefile-variables.mk` to set the right Python version for the `boost` library (bottom lines of the file). Typical values are `-lboost_python3`, `-lboost_python37`, `-lboost_python38` (same for `-lboost_numpyX`).
-* Inspect and potentially edit the `m_ubuntu` (or `m_fedora`) file to align it to your system (no change should be needed). 
+* Inspect and potentially edit the `deps_ubuntu` (or `deps_fedora`) file to align it to your system (no change should be needed). This installs the dependencies that are needed for GP-GOMEA.
+* Run `sudo ./deps_ubuntu` (or `sudo ./deps_fedora)` to install the needed dependencies on your system.
 
-Finally, run `sudo ./m_ubuntu` (or `sudo ./m_fedora`). To test that everything works fine, run `python3 test.py`.
+Finally, run `make` (or `make debug` for a debug build). To test that everything works fine, run `python3 test.py`. You can use Ninja to speed up builds, by prefixing the make command with `GEN=ninja` (e.g. `GEN=ninja make release`).
 
 ### Docker
 This code can also be compiled and run inside a [Docker](https://www.docker.com/why-docker) container (kudos to [@roy-tc](https://github.com/roy-tc) for providing this!):
 
+Ubuntu docker
 ```bash
-docker build -t gp-gomea .
+docker build -t gp-gomea-ubuntu -f docker/ubuntu .
+```
+
+Fedora docker
+```bash
+docker build -t gp-gomea-fedora -f docker/fedora .
 ```
 
 This will:
-* Add all the files present in the directory (except for `m_ubuntu` and `m_fedora`).
-* Compile the code (implementation derived from on `m_ubuntu`).
+* Install dependencies (implementation derived from on `deps_ubuntu`/`deps_fedora`).
+* Build the project.
 * Test that everything is fine using `python3 test.py`.
 
-You can run the container in interactive mode using `docker run -it gp-gomea` and issue for instance `python3 test.py` or execute your own script.
+You can run the container in interactive mode using `docker run -it gp-gomea-ubuntu` (or `docker run -it gp-gomea-fedora`) and issue for instance `python3 test.py` or execute your own script.
 
 ## Using the Python interface
 See `test.py`. 
@@ -55,8 +61,8 @@ print('RMSE:', np.sqrt( np.mean( np.square( model.predict(X) - y ) ) ))
 ```
 Take a look at `test.py` for more details.
 
-## Do you want to build a C++ executable instead?
-Modify the file `Makefile-Python_Release.mk` by removing `-fPIC -shared` from `CXXFLAGS`, then run `make`. You will find a C++ executable called `gpgomea` in `dist/Python_Release/GNU-Linux/` that you can run using a parameter setting file, for example, `gpgomea --file params_sgp.txt`.
+## Do you want to run a C++ executable instead?
+After running `make`, you will find a C++ executable called `main` in `build/release/src/` that you can run using a parameter setting file, for example, `gpgomea --file params_sgp.txt`.
 
 ### Datasets
 For the C++ executable, datasets must be organized as follows. Each row is an example, and each column is a feature, with exception for the last column, which is the target variable. Values should be separated by spaces. Do not include any textual header.
