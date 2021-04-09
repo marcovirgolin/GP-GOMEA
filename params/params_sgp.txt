@@ -1,5 +1,5 @@
-train train_path
-test test_path
+train path_to_training_set.dat
+test path_to_test_set.dat
 
 # Termination Criteria
 time -1

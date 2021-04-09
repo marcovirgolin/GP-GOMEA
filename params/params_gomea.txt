@@ -1,10 +1,9 @@
-train train_path
-test test_path
-
+train path_to_training_set.dat
+test path_to_test_set.dat
 
 # Termination Criteria
 time 600
-generations 5
+generations -1
 evaluations -1
 
 # Problem setting
