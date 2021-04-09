@@ -1,0 +1,29 @@
+# install dependencies 
+echo ">>> Installing g++..."
+dnf install gcc-c++
+
+echo ">>> Installing developer tools"
+dnf groupinstall "Development Tools"
+dnf install make autoconf automake libicu-devel bzip2-devel cmake ninja-build ccache
+
+echo ">>> Installing pkg-config..."
+dnf install pkg-config
+
+echo ">>> Installing armadillo..."
+dnf install armadillo-devel
+
+echo ">>> Installing python developer..."
+dnf install python3-devel python3-setuptools python3-numpy python3-Cython
+
+echo ">>> Installing boost developer..."
+dnf install boost-devel boost-program-options
+
+echo ">>> Installing boost python3 developer..."
+dnf install boost-python3-devel
+
+echo ">>> Installing sklearn ..."
+python3 -m pip install -r pythonpkg/requirements.txt --user
+
+# done
+echo ">>> ...Done."
+

@@ -1,7 +1,5 @@
 FROM ubuntu:20.10
 
-ADD . .
-
 # Upgrade installed packages
 RUN apt-get update && apt-get upgrade -y && apt-get clean
 
@@ -14,16 +12,17 @@ RUN curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     rm get-pip.py
 
 # Install dependencies
-RUN apt-get -y install g++ pkg-config libarmadillo-dev make build-essential autotools-dev libicu-dev libbz2-dev wget libboost-all-dev
+RUN apt-get -y install g++ pkg-config libarmadillo-dev make build-essential autotools-dev libicu-dev libbz2-dev wget libboost-all-dev cmake ninja-build ccache
+
+RUN mkdir /GP-GOMEA
+WORKDIR /GP-GOMEA
+ADD . .
+RUN rm -rf build
+
+ENV GEN=ninja
 
 # compile the c++ project
-RUN echo ">>> Compiling GP-GOMEA source code..." && make LIB_BOOST_PYTHON=-lpython3.8 LIB_BOOST_NUMPY=-lboost_numpy38
-
-# copy the .so library into the python package
-RUN cp dist/Python_Release/GNU-Linux/gpgomea pyGPGOMEA/gpgomea.so
-
-# launch pip install
-RUN echo ">>> Running pip install..." && pip install -r ./requirements.txt
+RUN echo ">>> Compiling GP-GOMEA source code..." && make
 
 # Test the installation
 RUN echo ">>> Test installation..." &&  python3 test.py

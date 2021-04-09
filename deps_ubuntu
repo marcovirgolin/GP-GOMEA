@@ -1,0 +1,22 @@
+# install dependencies 
+echo ">>> Installing g++..."
+apt install g++ 
+
+echo ">>> Installing developer tools"
+apt install make build-essential autotools-dev libicu-dev libbz2-dev cmake ninja-build ccache
+
+echo ">>> Installing pkg-config..."
+apt install pkg-config
+
+echo ">>> Installing armadillo..."
+apt install libarmadillo-dev
+
+echo ">>> Installing python developer..."
+apt install python3-dev python3-distutils python3-numpy
+
+echo ">>> Installing all boost developer..."
+apt install libboost-all-dev
+
+# done
+echo ">>> ...Done."
+
