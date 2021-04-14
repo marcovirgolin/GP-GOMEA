@@ -71,6 +71,10 @@ public:
 
     void ClearSubtree();
 
+    bool Dominates(Node * o);
+
+    int Count_N_NaComp(int count=-1);
+
 
     Node * parent;
     std::vector<Node *> children;
@@ -79,6 +83,10 @@ public:
     arma::vec cached_output;
 
     double_t cached_fitness = arma::datum::inf;
+
+    arma::vec cached_objectives;
+    double_t crowding_distance;
+    size_t rank;
 
 
 private:

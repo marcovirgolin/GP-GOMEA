@@ -16,6 +16,7 @@ print('Model found:', ea.get_model())
 print('Number of nodes:', ea.get_n_nodes())
 print('Evaluations taken:', ea.get_evaluations()) # care: this is not correct if multiple threads were used when fitting
 print('Test RMSE:', np.sqrt( mean_squared_error(y_test, ea.predict(X_test)) ))
+print('A population member:', ea.get_final_population(X_train)[0])
 
 
 # Grid search

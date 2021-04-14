@@ -57,6 +57,8 @@ public:
     
     Node * GetFinalElitist();
 
+    std::vector<Node*> GetAllActivePopulations(bool copy_solutions);
+
     EvolutionState * st;
 
     std::vector<size_t> subgenerations_performed;

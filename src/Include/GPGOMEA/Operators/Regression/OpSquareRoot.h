@@ -23,6 +23,7 @@ public:
         arity = 1;
         name = "sqrt";
         type = OperatorType::opFunction;
+        is_arithmetic = false;
     }
 
     Operator * Clone() const override {

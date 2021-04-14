@@ -135,7 +135,6 @@ void IMSHandler::Start() {
                 }
 
                 if (should_terminate) {
-
                     terminated_runs[i] = true;
                     delete runs[i];
                     runs[i] = NULL;
@@ -198,6 +197,22 @@ Node * IMSHandler::GetFinalElitist() {
     return final_elitist;
 }
 
+std::vector<Node*> IMSHandler::GetAllActivePopulations(bool copy_solutions) {
+    vector<Node*> result;
+    result.reserve(10000);
+    for(int i = 0 ; i < runs.size(); i++) {
+        if (runs[i]){
+            for(Node * n : runs[i]->population) {
+                if (copy_solutions)
+                    result.push_back(n->CloneSubtree());
+                else
+                    result.push_back(n);
+            }
+        }
+    }
+    return result;
+}
+
 void IMSHandler::Terminate() {
     // Terminate
     cout << " -=-=-=-=-=-= TERMINATED =-=-=-=-=-=- " << endl;
@@ -251,7 +266,7 @@ void IMSHandler::Terminate() {
     msg += out;
 
     // Evaluations
-    out = "Evaluations:\t" + to_string(st->fitness->evaluations);
+    out = "Evaluations:\t" + to_string(st->fitness->evaluations) + "\n";
     cout << out;
     msg += out;
 

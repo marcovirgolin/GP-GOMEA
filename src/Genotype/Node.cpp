@@ -29,6 +29,10 @@ Node::Node(const Node& orig) {
     parent = NULL;
     children.clear();
     cached_fitness = orig.cached_fitness;
+    cached_objectives = orig.cached_objectives;
+    cached_output = orig.cached_output;
+    rank = orig.rank;
+    crowding_distance = orig.crowding_distance;
 }
 
 Node::~Node() {
@@ -351,4 +355,52 @@ std::vector<arma::vec> Node::GetDesiredOutput(const std::vector<arma::vec> & Y, 
 
     return inversion;
 
+}
+
+
+
+bool Node::Dominates(Node * o) {
+    bool strictly_better_somewhere = false;
+    for(size_t i = 0; i < cached_objectives.n_elem; i++) {
+        if (cached_objectives[i] < o->cached_objectives[i])
+            strictly_better_somewhere = true;
+        else if (cached_objectives[i] > o->cached_objectives[i])
+            return false;
+    }
+    return strictly_better_somewhere;
+}
+
+
+
+int Node::Count_N_NaComp(int count) {
+    if (count == -1)
+        count = 0;
+    if (!op->is_arithmetic) {
+        count += 1;
+        vector<int> count_args; count_args.reserve(10);
+        for(Node * c : children) {
+            count_args.push_back(c->Count_N_NaComp(count));
+        }
+        int max_count = 0;
+        for(int arg : count_args) {
+            if (arg > max_count)
+                max_count = arg;
+        }
+        count = max_count;
+    }
+    else {
+        if (op->type == OperatorType::opFunction) {
+            vector<int> count_args; count_args.reserve(10);
+            for(Node * c : children) {
+                count_args.push_back(c->Count_N_NaComp(count));
+            }
+            int max_count = 0;
+            for(int arg : count_args) {
+                if (arg > max_count)
+                    max_count = arg;
+            }
+            count = max_count;
+        }
+    }
+    return count;
 }

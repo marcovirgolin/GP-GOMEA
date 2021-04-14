@@ -23,6 +23,7 @@ public:
         arity = 2;
         name = "*";
         type = OperatorType::opFunction;
+        is_arithmetic = true;
     }
 
     Operator* Clone() const override {

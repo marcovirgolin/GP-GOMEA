@@ -20,6 +20,8 @@
 #include "GPGOMEA/Utils/Logger.h"
 #include "GPGOMEA/GOMEA/GOMEAGenerationHandler.h"
 #include "GPGOMEA/Evolution/GenerationHandler.h"
+#include "GPGOMEA/Evolution/NSGA2GenerationHandler.h"
+#include "GPGOMEA/Fitness/MOFitness.h"
 
 #include <iostream>
 #include <vector>
@@ -38,7 +40,12 @@ public:
                 ((GOMEAGenerationHandler*) generation_handler)->linkage_normalization_matrix = new arma::mat(); // detach pointer to previous linkage normalization matrix
             ((GOMEAGenerationHandler*) generation_handler)->gomea_converged = false;
         } else {
-            generation_handler = new GenerationHandler(*st.generation_handler);
+            if (dynamic_cast<MOFitness*>(st.fitness)){
+                generation_handler = new NSGA2GenerationHandler(*dynamic_cast<NSGA2GenerationHandler*>(st.generation_handler));
+                is_multiobj = true;
+            }
+            else
+                generation_handler = new GenerationHandler(*st.generation_handler);
             if (st.semantic_library)
                 generation_handler->semlib = semantic_library;
         }
@@ -80,6 +87,8 @@ public:
     double_t elitist_fit = arma::datum::inf;
     size_t elitist_size;
 
+    bool is_multiobj = false;
+    std::vector<Node*> mo_archive;
 
 private:
 

@@ -79,6 +79,7 @@ public:
     std::streambuf * default_output_stream = std::cout.rdbuf();
     std::ofstream * output_file_stream = NULL;
     std::stringstream * silent_output_stream = NULL;
+    std::vector<Node*> final_population;
 
     size_t evaluations = 0;
 
@@ -93,6 +94,8 @@ public:
             delete silent_output_stream;
         if (output_file_stream)
             delete output_file_stream;
+        for (Node * n : final_population)
+            n->ClearSubtree();
         solution = NULL;
         imsh = NULL;
         st = NULL;
@@ -134,6 +137,7 @@ public:
         // save anything that is interesting in the state of the object
         solution = imsh->GetFinalElitist()->CloneSubtree();
         evaluations = st->fitness->evaluations;
+        final_population = imsh->GetAllActivePopulations(true);
 
         // delete run handler
         delete imsh;
@@ -201,20 +205,52 @@ public:
         return evaluations;
     }
 
-    /*void destroy() {
-        reset();
-        delete this;
-    };*/
+    boost::python::list get_final_population(np::ndarray npX) {
+
+        if (!solution || final_population.empty()) {
+            PyErr_SetString(PyExc_TypeError, "get_final_population error: called before fitting");
+            py::throw_error_already_set();
+        }
+
+        boost::python::list return_population;
+
+        for(Node * n : final_population) {
+            // human_expression
+            std::pair<double_t, double_t> ab = std::make_pair(0.0, 1.0);
+            std::string prefix_expression = n->GetSubtreeExpression();
+            std::string human_expression = n->GetSubtreeHumanExpression();
+            if (st->config->linear_scaling) {
+                arma::vec trainout = n->GetOutput(st->fitness->TrainX, st->config->caching);
+                ab = Utils::ComputeLinearScalingTerms(trainout, st->fitness->TrainY, &st->fitness->trainY_mean, &st->fitness->var_comp_trainY);
+                prefix_expression = "+" + std::to_string(ab.first) + "*" + std::to_string(ab.second) + prefix_expression;
+                human_expression = std::to_string(ab.first) + "+" + std::to_string(ab.second) + "*(" + human_expression + ")";
+            }
+
+            // test set prediction
+            arma::mat X = Utils::ConvertNumpyToArma(npX);
+            arma::vec out = n->GetOutput(X, false);
+            out = ab.first + out * ab.second;
+            np::ndarray prediction = Utils::ToNumpyArray(out);
+
+            // 2nd objective
+            boost::python::tuple tuple;
+            if (n->cached_objectives.n_elem > 1){
+                double_t second_obj = n->cached_objectives[1];
+                tuple = boost::python::make_tuple(prediction, n->cached_fitness, second_obj, human_expression, prefix_expression);
+            }
+            else {
+                tuple = boost::python::make_tuple(prediction, n->cached_fitness, human_expression, prefix_expression);
+            }   
+
+            return_population.append(tuple);
+        }
+
+        return return_population;
+    };
 
 private:
 
 };
-
-/*boost::shared_ptr<GPGOMEA> create_GPGOMEA(std::string hyperparams_string) {
-    return boost::shared_ptr<GPGOMEA>(
-            new GPGOMEA(hyperparams_string),
-            boost::mem_fn(&GPGOMEA::destroy));
-}*/
 
 struct GPGOMEA_pickle_suite : boost::python::pickle_suite {
     static boost::python::tuple getinitargs(pyGPGOMEA const& g) {
@@ -223,10 +259,7 @@ struct GPGOMEA_pickle_suite : boost::python::pickle_suite {
 };
 
 BOOST_PYTHON_MODULE(gpgomea) {
-    //py::class_<GPGOMEA, std::auto_ptr<GPGOMEA>, boost::noncopyable >
-    //        ("GPGOMEA", py::no_init) //("GPGOMEA", py::init<std::string>())
-    //.def("__init__", py::make_constructor(&create_GPGOMEA))
-
+    
     py::class_<pyGPGOMEA, std::auto_ptr<pyGPGOMEA> >("GPGOMEA", py::init<std::string>())
             .def("run", &pyGPGOMEA::run)
             .def("predict", &pyGPGOMEA::predict)
@@ -234,6 +267,7 @@ BOOST_PYTHON_MODULE(gpgomea) {
             .def("get_model", &pyGPGOMEA::get_model)
             .def("get_evaluations", &pyGPGOMEA::get_evaluations)
             .def("get_n_nodes", &pyGPGOMEA::get_n_nodes)
+            .def("get_final_population", &pyGPGOMEA::get_final_population)
             .def_pickle(GPGOMEA_pickle_suite())
             ;
 }

@@ -30,7 +30,6 @@ void EvolutionRun::Initialize() {
     // create semantic library if needed
     if (config->semantic_variation && config->semback_library_type == SemanticLibraryType::SemLibRandomStatic)
         semantic_library->GenerateRandomLibrary(config->semback_library_max_height, config->semback_library_max_size, *fitness, config->functions, config->terminals, *tree_initializer, config->caching);
-
 }
 
 void EvolutionRun::DoGeneration() {
@@ -59,5 +58,51 @@ void EvolutionRun::DoGeneration() {
         elitist = best->CloneSubtree();
         elitist_size = best_size;
     }
+
+    // update mo_archive
+    if (is_multiobj){
+        // For each solution in the population with best rank, try to fit it in the archive
+        for(Node * solution : population) {
+            if (solution->rank != 0)
+                continue;
+            // check if worth inserting in the archive_size
+            bool solution_is_dominated = false;
+            bool identical_objectives_already_exist;
+            for(size_t i = 0; i < mo_archive.size(); i++) {
+                // check domination
+                Node * n = mo_archive[i];
+                solution_is_dominated = n->Dominates(solution);
+                if (solution_is_dominated)
+                    break;
+
+                identical_objectives_already_exist = true;
+                for(size_t j = 0; j < solution->cached_objectives.n_elem; j++){
+                    if (solution->cached_objectives[j] != n->cached_objectives[j]) {
+                        identical_objectives_already_exist = false;
+                        break;
+                    }
+                }
+                if (identical_objectives_already_exist)
+                    break;
+
+                bool n_is_dominated = solution->Dominates(n);
+                if (n_is_dominated) {
+                    n->ClearSubtree();
+                    mo_archive[i] = NULL;  // keep this guy 
+                }
+            }
+
+            if (!solution_is_dominated && !identical_objectives_already_exist) {
+                mo_archive.push_back(solution->CloneSubtree());    // clone it
+            }
+
+            vector<Node*> updated_archive; updated_archive.reserve(mo_archive.size());
+            for(size_t i = 0; i < mo_archive.size(); i++)
+                if (mo_archive[i])
+                    updated_archive.push_back(mo_archive[i]);
+            mo_archive = updated_archive;
+        }
+    }
+
 
 }

@@ -22,6 +22,7 @@ class TournamentSelection {
 public:
 
     static Node * GetTournamentSelectionWinner(const std::vector<Node*> & candidates, size_t tournament_size);
+    static Node * GetMOTournamentSelectionWinner(const std::vector<Node*> & candidates, size_t tournament_size);
     static std::vector<Node*> PopulationWiseTournamentSelection(const std::vector<Node*> input_population, size_t selection_size, size_t tournament_size);
 
 private:

@@ -55,31 +55,5 @@ arma::vec Operator::InvertAndPostproc(const arma::vec& desired_elem, const arma:
     arma::vec res = Invert(desired_elem, output_siblings, idx);
     if (std::isinf(res[0]) || std::isnan(res[0]))
         return res;
-
-    /*std::set<double_t> res_s;
-    double_t v;
-    double_t av;
-    for (size_t i = 0; i < res.size(); i++) {
-        v = res[i];
-
-        if (v > 1e100) {
-            v = 1e100;
-        } else if (v < -1e100) {
-            v = -1e100;
-        } else {
-            av = abs(v);
-            if (av < 1e-100)
-                v = 0;
-        }
-        res_s.insert(v);
-    }
-
-    res = arma::vec(res_s.size());
-    size_t i = 0;
-    for (double_t v : res_s) {
-        res[i] = v;
-        i++;
-    }*/
-
     return res;
 }

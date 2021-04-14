@@ -20,6 +20,7 @@
 #include "GPGOMEA/Fitness/Fitness.h"
 #include "GPGOMEA/Utils/Utils.h"
 #include "GPGOMEA/Evolution/GenerationHandler.h"
+#include "GPGOMEA/Evolution/NSGA2GenerationHandler.h"
 #include "GPGOMEA/Utils/ConfigurationOptions.h"
 
 // PROB TYPES
@@ -27,6 +28,9 @@
 #include "GPGOMEA/Fitness/SymbolicRegressionLinearScalingFitness.h"
 #include "GPGOMEA/Fitness/AccuracyFitness.h"
 #include "GPGOMEA/Fitness/PythonFitness.h"
+#include "GPGOMEA/Fitness/MOFitness.h"
+#include "GPGOMEA/Fitness/SolutionSizeFitness.h"
+#include "GPGOMEA/Fitness/InterpretabilityPHIFitness.h"
 
 // GOMEA
 #include "GPGOMEA/GOMEA/GOMEATreeInitializer.h"
@@ -68,11 +72,14 @@ public:
 
     void SetOptions(int argc, char* argv[]);
 
-    ConfigurationOptions * config;
+    Fitness * FetchFitnessFunctionGivenProbName(std::string prob_name);
 
+    boost::program_options::variables_map vm;
+    
     std::vector<Node *> population;
 
     // OBJECTS
+    ConfigurationOptions * config;
     TreeInitializer * tree_initializer;
     Fitness * fitness;
     GenerationHandler * generation_handler;

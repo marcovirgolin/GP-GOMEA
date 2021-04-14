@@ -23,6 +23,7 @@ public:
         arity = 2;
         name = "aq0.1";
         type = OperatorType::opFunction;
+        is_arithmetic = false;
     }
 
     Operator* Clone() const override {

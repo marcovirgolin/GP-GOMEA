@@ -15,8 +15,8 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 	''' GP-GOMEA as scikit-learn regressor '''
 	def __init__(self, 
 		time=60, generations=-1, evaluations=-1, 
-		prob='symbreg', linearscaling=True, functions='+_*_-_aq', erc=True,
-    classweights = False,
+		prob='symbreg', multiobj=False, linearscaling=True, functions='+_*_-_aq', erc=True,
+    	classweights = False,
 		gomea=True, gomfos='LT',
 		subcross=0.5, submut=0.5, reproduction=0.0,
 		sblibtype=False, sbrdo=0.0, sbagx=0.0,
@@ -90,6 +90,9 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 
 	def get_model(self):
 		return self._ea.get_model()
+	
+	def get_final_population(self, X):
+		return self._ea.get_final_population(X)
 
 	def get_n_nodes(self):
 		return self._ea.get_n_nodes()

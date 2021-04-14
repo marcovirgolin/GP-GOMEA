@@ -51,6 +51,69 @@ void EvolutionState::ReadAndSetDataSets(po::variables_map& vm) {
     }
 }
 
+Fitness * EvolutionState::FetchFitnessFunctionGivenProbName(string prob_name) {
+    Fitness * fitness;
+    if (prob_name.compare("symbreg") == 0) {
+        cout << "symbolic regression ";
+
+        // LINEAR SCALING
+        if (vm.count("linearscaling")) {
+            cout << "(linear scaling enabled)";
+            config->linear_scaling = true;
+            fitness = new SymbolicRegressionLinearScalingFitness();
+        } else
+            fitness = new SymbolicRegressionFitness();
+
+    } else if (prob_name.compare("pyprob") == 0) {
+        cout << "custom python evaluation function ";
+
+        assert(vm.count("pyprobdef"));
+        std::vector<string> file_n_fun_name = Utils::SplitStringByChar(vm["pyprobdef"].as<string>(), '_');
+        
+        fitness = new PythonFitness();
+        ((PythonFitness*) fitness)->SetPythonCallableFunction(file_n_fun_name[0], file_n_fun_name[1]);
+        cout << " (module: " << file_n_fun_name[0] << ", function: " << file_n_fun_name[1] << ")";
+     
+    } else if (prob_name.compare("accuracy") == 0) {
+        cout << "accuracy";
+
+        fitness = new AccuracyFitness();
+
+        arma::vec cw;
+
+        if (vm.count("classweights")) {
+            cout << " (class weights:";
+            ((AccuracyFitness*) fitness)->use_weighting = true;
+            if (vm["classweights"].as<string>().size() > 1) {
+                cout << " " << vm["classweights"].as<string>();
+                std::vector<string> weights = Utils::SplitStringByChar(vm["classweights"].as<string>(), '_');
+                cw = arma::vec(weights.size());
+                for (int wi = 0; wi < weights.size(); wi++) {
+                    cw[wi] = stof(weights[wi]);
+                }
+            } else {
+                cout << "auto";
+            }
+            cout << ")";
+        }
+
+        if (cw.n_elem > 1) {
+            ((AccuracyFitness*) fitness)->SetCustomWeights(cw);
+        }
+
+    } else if (prob_name.compare("size") == 0) {
+        cout << "solution size";
+        fitness = new SolutionSizeFitness();
+    } else if (prob_name.compare("phi") == 0) {
+        cout << "interpretability phi";
+        fitness = new InterpretabilityPHIFitness();
+    }
+    else {
+        throw std::runtime_error("EvolutionState::FetchFitnessFunctionGivenProbName unrecognized problem type");
+    }
+    return fitness;
+}
+
 void EvolutionState::SetOptions(int argc, char* argv[]) {
 
     po::options_description desc("Allowed options");
@@ -63,7 +126,8 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             ("generations", po::value<int>(), "sets generations limit (default 100)")
             ("evaluations", po::value<int>(), "sets evaluations limit (default disabled)")
             ("time", po::value<int>(), "sets time limit [seconds] (default disabled)")
-            ("prob", po::value<string>(), "sets the problem (e.g., symbreg)")
+            ("prob", po::value<string>(), "sets the problem (e.g., symbreg, multiobj)")
+            ("multiobj", po::value<string>(), "sets the objectives for multiobj problem (e.g., 'symbreg_phi')")
             ("functions", po::value<string>(), "sets the functions to use")
             ("terminals", po::value<string>(), "sets the terminals to use")
             ("erc", "uses ephemeral random constants (default: enabled, sampled from -5*max(abs(features)) to 5*max(abs(features))")
@@ -95,7 +159,6 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             ("classweights", po::value<string>(), "use class weighting for classification (default is disabled, use a single '_' to set to training set distribution, else specify manually by underscore-separated weights)")
             ("pyprobdef", po::value<string>(), "necessary to set name of module and name of function to use to evaluate individuals (separated by '_', so do not use it in their names them)");
 
-    po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
     po::notify(vm);
 
@@ -195,73 +258,25 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
 
     // PROBLEM
     assert(vm.count("prob"));
-    string prob = vm["prob"].as<string>();
-    if (prob.compare("symbreg") == 0) {
-        cout << "# problem: symbolic regression ";
-
-        // LINEAR SCALING
-        if (vm.count("linearscaling")) {
-            cout << "( linear scaling enabled )";
-            config->linear_scaling = true;
-            fitness = new SymbolicRegressionLinearScalingFitness();
-        } else
-            fitness = new SymbolicRegressionFitness();
-        cout << endl;
-
-        if (!config->running_from_python) {
-            ReadAndSetDataSets(vm);
+    string prob_name = vm["prob"].as<string>();
+    if (prob_name.compare("multiobj") == 0) {
+        cout << "# problem: multi-objective [";
+        vector<string> sub_probs = Utils::SplitStringByChar(vm["multiobj"].as<string>(), '_');
+        vector<Fitness*> sub_fitnesses; sub_fitnesses.reserve(sub_probs.size());
+        for(string sub_prob : sub_probs) {
+            cout << "<";
+            sub_fitnesses.push_back(FetchFitnessFunctionGivenProbName(sub_prob));
+            cout << ">";
         }
-
-    } else if (prob.compare("pyprob") == 0) {
-        cout << "# problem: custom python evaluation function ";
-
-        assert(vm.count("pyprobdef"));
-        std::vector<string> file_n_fun_name = Utils::SplitStringByChar(vm["pyprobdef"].as<string>(), '_');
-        
-        fitness = new PythonFitness();
-        ((PythonFitness*) fitness)->SetPythonCallableFunction(file_n_fun_name[0], file_n_fun_name[1]);
-        cout << " (module: " << file_n_fun_name[0] << ", function: " << file_n_fun_name[1] << ")" << endl;
-        
-        if (!config->running_from_python) {
-            ReadAndSetDataSets(vm);
-        }
-
-    } else if (prob.compare("accuracy") == 0) {
-        cout << "# problem: accuracy";
-
-        fitness = new AccuracyFitness();
-
-        arma::vec cw;
-
-        if (vm.count("classweights")) {
-            cout << " (class weights:";
-            ((AccuracyFitness*) fitness)->use_weighting = true;
-            if (vm["classweights"].as<string>().size() > 1) {
-                cout << " " << vm["classweights"].as<string>();
-                std::vector<string> weights = Utils::SplitStringByChar(vm["classweights"].as<string>(), '_');
-                cw = arma::vec(weights.size());
-                for (size_t wi = 0; wi < weights.size(); wi++) {
-                    cw[wi] = stof(weights[wi]);
-                }
-            } else {
-                cout << "auto";
-            }
-            cout << ")";
-        }
-
-        cout << endl;
-
-        if (!config->running_from_python) {
-            ReadAndSetDataSets(vm);
-        }
-
-        if (cw.n_elem > 1) {
-            ((AccuracyFitness*) fitness)->SetCustomWeights(cw);
-        }
-
-
+        cout << "]";
+        this->fitness = new MOFitness(sub_fitnesses);
     } else {
-        throw std::runtime_error("EvolutionState::SetOptions unrecognized problem type");
+        cout << "# problem: ";
+        this->fitness = FetchFitnessFunctionGivenProbName(prob_name);
+    }
+    cout << endl;
+    if (!config->running_from_python) {
+        ReadAndSetDataSets(vm);
     }
 
     // POPSIZE 
@@ -272,6 +287,11 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
 
     // IMS
     if (vm.count("ims")) {
+
+        if (prob_name.compare("multiobj")==0){
+            throw std::runtime_error("EvolutionState::SetOptions IMS not impletemented for multi-obj problems");
+        }
+
         config->use_IMS = true;
         vector<string> ims_params = Utils::SplitStringByChar(vm["ims"].as<string>(), '_');
         config->num_sugen_IMS = stoi(ims_params[0]);
@@ -331,6 +351,9 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
 
     // GOMEA
     if (vm.count("gomea")) {
+        if (prob_name.compare("multiobj")==0){
+            throw std::runtime_error("EvolutionState::SetOptions Multi-objective GOMEA not impletemented");
+        }
         config->gomea = true;
         cout << "# evolutionary algorithm: GOMEA";
         if (vm.count("gomfos")) {
@@ -371,9 +394,15 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
     } else {
 
         tree_initializer = new TreeInitializer(config->tree_init_type);
-        generation_handler = new GenerationHandler(config, tree_initializer, fitness, semantic_library, semantic_backprop);
+        if (prob_name.compare("multiobj") == 0){
+            generation_handler = new NSGA2GenerationHandler(config, tree_initializer, fitness, semantic_library, semantic_backprop);
+            cout << "# evolutionary algorithm: tree-based NSGA-II GP " << endl;
+        }
+        else {
+            generation_handler = new GenerationHandler(config, tree_initializer, fitness, semantic_library, semantic_backprop);
+            cout << "# evolutionary algorithm: tree-based Standard GP" << endl;
+        }
 
-        cout << "# evolutionary algorithm: tree-based GP" << endl;
 
         // MAXIMUM TREE HEIGHT
         if (vm.count("maxtreeheight")) {
