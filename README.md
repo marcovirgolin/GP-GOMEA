@@ -1,11 +1,13 @@
 # Genetic Programming - GOMEA, Standard & Semantic
-Implementations of the **Gene-pool Optimal Mixing Evolutionary Algorithm for Genetic Programming** (GP-GOMEA), **standard tree-based GP**, and **Semantic Backpropagation-based GP** (the latter two can be run in a multi-objective setting via **NSGA-II**).
+Implementations of the **Gene-pool Optimal Mixing Evolutionary Algorithm for Genetic Programming** (GP-GOMEA), **standard tree-based GP**, and **Semantic Backpropagation-based GP**.
 This code uses **C++** under the hood for speed, and has a **Python 3** interface to **scikit-learn**.
 
 ## Algorithms
 By estimating interdependencies between model components, and appropriately mixing them, GP-GOMEA is especially proficient in finding models in the form of small symbolic expressions, that can often be interpreted. Semantic Backpropagation-based GP works well when high accuracy is demanded, at the cost of producing very complex models, which are hard or impossible to interpret. Standard GP is a good baseline to compare the other methods with.
 
 This code also implements the Interlaved Multistart Scheme (IMS), that makes GP more robust w.r.t. setting a specific population size. Setting the population size is tricky: if too small, GP will find models with poor accuracy; If too big, GP will waste computation time. The IMS starts and executes multiple evolutionary runs in an interleaved fashion, with subsequent runs using bigger population sizes. It terminates ongoing runs that perform poorly, according to some heuristics. The IMS is largely inspired from the Parameter-free Genetic Algorithm of Harik and Lobo: https://dl.acm.org/citation.cfm?id=2933949
+
+It is also possible to run GP to optimize multiple objectives at once (in which case NSGA-II is used: https://doi.org/10.1007/3-540-45356-3_83). **Note**: Multi-objective versions of GP-GOMEA and IMS have yet to be implemented.
 
 ## Related research work
 If you use our code for academic purposes, please support our research by citing the paper that most applies, from the following:
