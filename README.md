@@ -1,5 +1,5 @@
 # Genetic Programming - GOMEA, Standard & Semantic
-Implementations of the **Gene-pool Optimal Mixing Evolutionary Algorithm for Genetic Programming** (GP-GOMEA), **standard tree-based GP**, and **Semantic Backpropagation-based GP**.
+Implementations of the **Gene-pool Optimal Mixing Evolutionary Algorithm for Genetic Programming** (GP-GOMEA), **standard tree-based GP**, and **Semantic Backpropagation-based GP** (the latter two can be run in a multi-objective setting via **NSGA-II**).
 This code uses **C++** under the hood for speed, and has a **Python 3** interface to **scikit-learn**.
 
 ## Algorithms
