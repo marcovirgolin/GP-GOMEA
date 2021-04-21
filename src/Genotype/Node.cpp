@@ -299,7 +299,7 @@ std::vector<arma::vec> Node::GetDesiredOutput(const std::vector<arma::vec> & Y, 
     }
 
     size_t idx = GetRelativeIndex();
-    size_t num_siblings = parent->GetArity() - 1;
+    int num_siblings = parent->GetArity() - 1;
     arma::mat output_siblings(X.n_rows, num_siblings);
 
     size_t j = 0;

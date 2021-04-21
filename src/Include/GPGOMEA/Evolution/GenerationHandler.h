@@ -40,7 +40,7 @@ public:
     virtual bool CheckPopulationConverged(const std::vector<Node*>& population);
 
     std::vector<Node*> MakeOffspring(const std::vector<Node *> & population, const std::vector<Node*> & parents);
-    bool ValidateOffspring(Node * offspring, size_t max_height, size_t max_size);
+    bool ValidateOffspring(Node * offspring, int max_height, int max_size);
 
     ConfigurationOptions * conf;
     TreeInitializer * tree_initializer;

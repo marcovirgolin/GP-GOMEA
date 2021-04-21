@@ -51,7 +51,7 @@ std::vector<std::vector<size_t>> GOMEAFOS::BuildLinkageTreeFromSimilarityMatrix(
 
     vector<vector < int >> mpm(number_of_nodes, vector<int>(1));
     vector<int> mpm_number_of_indices(number_of_nodes);
-    size_t mpm_length = number_of_nodes;
+    int mpm_length = number_of_nodes;
 
     for (size_t i = 0; i < number_of_nodes; i++) {
         mpm[i][0] = random_order[i];
@@ -76,7 +76,7 @@ std::vector<std::vector<size_t>> GOMEAFOS::BuildLinkageTreeFromSimilarityMatrix(
 
     vector<vector < int >> mpm_new;
     vector<int> NN_chain(number_of_nodes + 2, 0);
-    size_t NN_chain_length = 0;
+    int NN_chain_length = 0;
     short done = 0;
 
     while (!done) {
