@@ -180,7 +180,7 @@ std::vector<Node*> GenerationHandler::MakeOffspring(const std::vector<Node *> & 
     return offspring;
 }
 
-bool GenerationHandler::ValidateOffspring(Node* offspring, size_t max_height, size_t max_size) {
+bool GenerationHandler::ValidateOffspring(Node* offspring, int max_height, int  max_size) {
 
     if (max_height > -1) {
         if (offspring->GetHeight() > max_height) {
