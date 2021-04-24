@@ -40,7 +40,7 @@ public:
 
     Node * CloneSubtree() const;
 
-    std::string GetSubtreeExpression(bool only_active);
+    std::string GetSubtreeExpression(bool only_active=true);
 
     std::string GetSubtreeHumanExpression();
 
