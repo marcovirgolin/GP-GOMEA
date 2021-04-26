@@ -24,7 +24,7 @@ If you use our code for academic purposes, please support our research by citing
 This code can be compiled on Linux, we tested on Ubuntu and Fedora (kudos to [@abouter](https://github.com/abouter) for helping out).
 There are a few steps to follow:
 * Inspect and potentially edit the `deps_ubuntu` (or `deps_fedora`) file to align it to your system (no change should be needed). This installs the dependencies that are needed for GP-GOMEA.
-* Run `sudo ./deps_ubuntu` (or `sudo ./deps_fedora)` to install the needed dependencies on your system.
+* Run `chmod +x deps_ubuntu; sudo ./deps_ubuntu` (or `chmod +x deps_fedora; sudo ./deps_fedora)` to install the needed dependencies on your system.
 
 The project is built using CMake (kudos to [@EviSijben](https://github.com/EviSijben)). Run `make` (or `make debug` for a debug build). To test that everything works fine, run `python3 test.py`. You can use Ninja to speed up builds, by prefixing the make command with `GEN=ninja` (e.g. `GEN=ninja make release`).
 
