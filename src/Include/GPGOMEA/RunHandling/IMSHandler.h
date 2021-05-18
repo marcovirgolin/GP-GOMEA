@@ -15,6 +15,7 @@
 #define IMSHANDLER_H
 
 #include <iostream>
+#include <Python.h>
 
 #include "GPGOMEA/Evolution/EvolutionState.h"
 #include "GPGOMEA/Evolution/EvolutionRun.h"

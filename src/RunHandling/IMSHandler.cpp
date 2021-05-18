@@ -49,6 +49,11 @@ void IMSHandler::Start() {
             break;
         } else if (terminated_runs[max_num_runs - 1]) {
             break;
+        } else if (st->config->running_from_python) {
+            // check if Ctrl+c from python
+            if(PyErr_CheckSignals() == -1) {
+                exit(1);
+            }
         }
 
         for (int i = min_run_idx; i <= min(max_run_idx + 1, (int) max_num_runs - 1); i++) {
