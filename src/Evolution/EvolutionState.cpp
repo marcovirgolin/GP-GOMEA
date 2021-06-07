@@ -163,6 +163,8 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
     po::notify(vm);
 
     if (vm.count("file")) {
+        auto file = vm["file"].as<string>();
+        vm.clear();
         SetOptionsFromFile(vm["file"].as<string>());
         return;
     }
