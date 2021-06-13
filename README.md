@@ -1,16 +1,23 @@
 # Genetic Programming - GOMEA, Standard & Semantic
-Implementations of the **Gene-pool Optimal Mixing Evolutionary Algorithm for Genetic Programming** (GP-GOMEA), **standard tree-based GP**, and **Semantic Backpropagation-based GP**.
+Implementations of the **Gene-pool Optimal Mixing Evolutionary Algorithm for Genetic Programming** (GP-GOMEA), **standard tree-based GP**, and **Semantic Backpropagation-based GP** (SBP-GP). The last two can also be used in a multi-objective setting (in which case [NSGA-II](https://doi.org/10.1007/3-540-45356-3_83) is used) --- A multi-objective versions of GP-GOMEA and its population size-free scheme (called *interleaved multistart scheme*) have yet to be implemented.
 This code uses **C++** under the hood for speed, and has a **Python 3** interface to **scikit-learn**.
 
 ## Algorithms
-By estimating interdependencies between model components, and appropriately mixing them, GP-GOMEA is especially proficient in finding models in the form of small symbolic expressions, that can often be interpreted. Semantic Backpropagation-based GP works well when high accuracy is demanded, at the cost of producing very complex models, which are hard or impossible to interpret. Standard GP is a good baseline to compare the other methods with.
+**GP-GOMEA**: GP-GOMEA estimates interdependencies between model components, and interdependent components *en block* to preserve their concerted action. GP-GOMEA is especially proficient in finding models in the form of small symbolic expressions, that can often be interpreted. 
 
-This code also implements the Interlaved Multistart Scheme (IMS), that makes GP more robust w.r.t. setting a specific population size. Setting the population size is tricky: if too small, GP will find models with poor accuracy; If too big, GP will waste computation time. The IMS starts and executes multiple evolutionary runs in an interleaved fashion, with subsequent runs using bigger population sizes. It terminates ongoing runs that perform poorly, according to some heuristics. The IMS is largely inspired from the Parameter-free Genetic Algorithm of Harik and Lobo: https://dl.acm.org/citation.cfm?id=2933949
+**SBP-GP**: SBP-GP uses recursive function inversion to estimate effective ways of modifying evolving models. SBP-GP works well when high accuracy is demanded, at the cost of producing very complex models, which are hard or impossible to interpret. 
 
-It is also possible to run GP to optimize multiple objectives at once (in which case NSGA-II is used: https://doi.org/10.1007/3-540-45356-3_83). **Note**: Multi-objective versions of GP-GOMEA and IMS have yet to be implemented.
+
+GP-GOMEA and SBP-GP are some of the **top-performing** algorithms when it comes to symbolic regression:
+
+![image](https://user-images.githubusercontent.com/5921746/121817988-cb178e00-cc84-11eb-8360-713c875c5b4a.png)
+
+*Image from [SRBench](https://github.com/EpistasisLab/srbench/tree/master/postprocessing), a large benchmark for symbolic regression including over 250 datasets.*
+
+
 
 ## Related research work
-If you use our code for academic purposes, please support our research by citing the paper that most applies, from the following:
+If you use our code for academic purposes, please support our research by citing the papers that most apply:
 * M. Virgolin, T. Alderliesten, C. Witteveen, and P.A.N. Bosman. *Scalable Genetic Programming by Gene-pool Optimal Mixing and Input-space Entropy-based Building Block Learning*. In Proceedings of the Genetic and Evolutionary Computation Conference - GECCO-2017, pages 1041-1048, ACM, 2017. (The source code for this paper is available on Peter's website: https://homepages.cwi.nl/~bosman/source_code.php)
 * M. Virgolin, T. Alderliesten, A. Bel, C. Witteveen, and P.A.N. Bosman. *Symbolic Regression and Feature Construction with GP-GOMEA applied to Radiotherapy Dose Reconstruction of Childhood Cancer Survivors*. In Proceedings of the Genetic and Evolutionary Computation Conference - GECCO-2018, pages 1395-1402, ACM, 2018.
 * M. Virgolin, T. Alderliesten, P.A.N. Bosman. *Linear Scaling with and within Semantic Backpropagation-based Genetic Programming for Symbolic Regression*.  In Proceedings of the Genetic and Evolutionary Computation Conference - GECCO-2019, pages 1084-1092, ACM, 2019.
