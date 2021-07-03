@@ -66,7 +66,7 @@ print('RMSE:', np.sqrt( np.mean( np.square( model.predict(X) - y ) ) ))
 Take a look at `test.py` for more details.
 
 ## Do you want to run a C++ executable instead?
-After running `make`, you will find a C++ executable called `main` in `build/release/src/` that you can run using a parameter setting file, for example, `gpgomea --file params_sgp.txt`.
+After running `make`, you will find a C++ executable called `main` in `build/release/src/` that you can run using a parameter setting file, for example, `main --file params_sgp.txt`.
 
 ### Datasets
 For the C++ executable, datasets must be organized as follows. Each row is an example, and each column is a feature, with exception for the last column, which is the target variable. Values should be separated by spaces. Do not include any textual header.
