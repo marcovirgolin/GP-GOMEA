@@ -23,6 +23,7 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 		unifdepthvar=True, tournament=4, elitism=1,
 		ims='5_1', syntuniqinit=1000, popsize=500,
 		initmaxtreeheight=4, maxtreeheight=17, maxsize=1000,
+		validation=False,
 		seed = -1, parallel=1, caching=False, 
 		silent=True, logtofile=False):
 

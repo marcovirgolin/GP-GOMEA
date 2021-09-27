@@ -110,7 +110,21 @@ public:
         arma::mat Y = Utils::ConvertNumpyToArma(npY);
 
         arma::mat TR = arma::join_horiz(X, Y);
+        // setting validation set if validation option is on
+        if (st->config->validation_perc > 0) {
+            arma::mat V;
+            size_t nrows_validation = TR.n_rows * st->config->validation_perc;
+            while (V.n_rows < nrows_validation) {
+                size_t which_row = arma::randu() * TR.n_rows;
+                arma::mat x = TR.row(which_row);
+                V = join_vert(V, x);
+                TR.shed_row(which_row);
+            }
+            st->fitness->SetFitnessCases(V, FitnessCasesType::FitnessCasesVALIDATION);
+        }
         st->fitness->SetFitnessCases(TR, FitnessCasesType::FitnessCasesTRAIN);
+
+        // A test set is not used when running from Python because .fit only takes the training set
         st->fitness->SetFitnessCases(TR, FitnessCasesType::FitnessCasesTEST);
 
         // ADD VARIABLE TERMINALS
@@ -178,7 +192,6 @@ public:
 
         double_t neg_err = -1.0 * st->fitness->GetTestFit(solution);
         return neg_err;
-
     }
 
     std::string get_model() {

@@ -17,7 +17,7 @@
 #include "GPGOMEA/Genotype/Node.h"
 #include "GPGOMEA/Variation/TreeInitializer.h"
 #include "GPGOMEA/Fitness/Fitness.h"
-#include "GPGOMEA/Fitness/SymbolicRegressionLinearScalingFitness.h"
+#include "GPGOMEA/Fitness/SymbolicRegressionFitness.h"
 #include "GPGOMEA/Semantics/SemanticLibrary.h"
 #include "GPGOMEA/Semantics/SemanticBackpropagator.h"
 #include "GPGOMEA/Operators/Regression/OpTimes.h"

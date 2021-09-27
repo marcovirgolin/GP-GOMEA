@@ -16,10 +16,8 @@ void EvolutionState::ReadAndSetDataSets(po::variables_map& vm) {
     mat TR = fitness->ReadFitnessCases(train);
     mat TE = fitness->ReadFitnessCases(test);
     mat V;
-    double_t validation_perc;
-    if (vm.count("validation")) {
-        validation_perc = vm["validation"].as<double_t>();
-        size_t nrows_validation = TR.n_rows * validation_perc;
+    if (config->validation_perc > 0) {
+        size_t nrows_validation = TR.n_rows * config->validation_perc;
         while (V.n_rows < nrows_validation) {
             size_t which_row = randu() * TR.n_rows;
             mat x = TR.row(which_row);
@@ -34,7 +32,7 @@ void EvolutionState::ReadAndSetDataSets(po::variables_map& vm) {
 
     cout << "# train: " << train << " ( " << TR.n_rows << "x" << TR.n_cols - 1 << " )" << endl;
     if (!V.empty())
-        cout << "# validation: " << validation_perc << " of train ( " << V.n_rows << "x" << V.n_cols - 1 << " )" << endl;
+        cout << "# validation: " << config->validation_perc << " of train ( " << V.n_rows << "x" << V.n_cols - 1 << " )" << endl;
     cout << "# test: " << test << " ( " << TE.n_rows << "x" << TE.n_cols - 1 << " )" << endl;
 
 
@@ -56,14 +54,15 @@ Fitness * EvolutionState::FetchFitnessFunctionGivenProbName(string prob_name) {
     if (prob_name.compare("symbreg") == 0) {
         cout << "symbolic regression ";
 
+        fitness = new SymbolicRegressionFitness();
+
         // LINEAR SCALING
         if (vm.count("linearscaling")) {
             cout << "(linear scaling enabled)";
             config->linear_scaling = true;
-            fitness = new SymbolicRegressionLinearScalingFitness();
-        } else
-            fitness = new SymbolicRegressionFitness();
-
+            ((SymbolicRegressionFitness*) fitness)->use_linear_scaling = true;
+        }
+        
     } else if (prob_name.compare("pyprob") == 0) {
         cout << "custom python evaluation function ";
 
@@ -277,6 +276,12 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
         this->fitness = FetchFitnessFunctionGivenProbName(prob_name);
     }
     cout << endl;
+
+    // Set % of examples to internally use for validation 
+    // (it is done here because it can be used from Python as well)
+    if (vm.count("validation")){
+        config->validation_perc = vm["validation"].as<double_t>();
+    }
     if (!config->running_from_python) {
         ReadAndSetDataSets(vm);
     }

@@ -25,7 +25,6 @@
 
 // PROB TYPES
 #include "GPGOMEA/Fitness/SymbolicRegressionFitness.h"
-#include "GPGOMEA/Fitness/SymbolicRegressionLinearScalingFitness.h"
 #include "GPGOMEA/Fitness/AccuracyFitness.h"
 #include "GPGOMEA/Fitness/PythonFitness.h"
 #include "GPGOMEA/Fitness/MOFitness.h"

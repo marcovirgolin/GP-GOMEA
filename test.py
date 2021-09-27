@@ -7,17 +7,16 @@ from sklearn.model_selection import GridSearchCV
 
 # Vanilla use
 X, y = load_boston(return_X_y=True)
-X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.25, random_state=42 )
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.25, random_state=12 )
 
 print('Running GP-GOMEA...')
-ea = GPG( gomea=True, ims='5_1', generations=10, seed=42, silent=False )
+ea = GPG( gomea=True, ims='5_1', generations=10, seed=12, silent=False )
 ea.fit(X_train, y_train)
 print('Model found:', ea.get_model())
 print('Number of nodes:', ea.get_n_nodes())
 print('Evaluations taken:', ea.get_evaluations()) # care: this is not correct if multiple threads were used when fitting
 print('Test RMSE:', np.sqrt( mean_squared_error(y_test, ea.predict(X_test)) ))
 print('A population member:', ea.get_final_population(X_train)[0])
-
 
 # Grid search
 print('Running Grid Search')

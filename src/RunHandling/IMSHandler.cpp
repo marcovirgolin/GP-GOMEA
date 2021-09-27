@@ -258,7 +258,7 @@ void IMSHandler::Terminate() {
         msg += out;
     }
 
-    if (!st->fitness->TestY.empty()) {
+    if (!st->fitness->TestY.empty() && !st->config->running_from_python) {
         double_t test_fit = st->fitness->GetTestFit(final_elitist);
         out = "Test fit:\t" + to_string(test_fit) + "\n";
         cout << out;

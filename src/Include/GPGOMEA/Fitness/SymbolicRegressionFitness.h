@@ -15,6 +15,7 @@
 #define SYMBOLICREGRESSIONFITNESS_H
 
 #include "GPGOMEA/Fitness/Fitness.h"
+#include "GPGOMEA/Utils/Utils.h"
 
 #include <armadillo>
 
@@ -27,11 +28,14 @@ public:
     
     double_t GetValidationFit(Node * n) override;
 
+    double_t ComputeMSE(const arma::vec & P, const arma::vec & Y);
+    
+    double_t ComputeMSE(const arma::vec & P, const arma::vec & Y, double_t a, double_t b);
 
+
+    bool use_linear_scaling;
 
 private:
-
-    double_t ComputeMSE(const arma::vec & P, const arma::vec & Y);
 
 };
 

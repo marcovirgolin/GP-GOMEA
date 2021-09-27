@@ -58,7 +58,6 @@ public:
     
     arma::vec var_comp_trainY;
 
-    
     size_t evaluations = 0;
 
 private:

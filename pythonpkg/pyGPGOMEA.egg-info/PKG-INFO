@@ -1,10 +1,10 @@
 Metadata-Version: 1.0
 Name: pyGPGOMEA
-Version: 1.3.0
+Version: 1.3.2
 Summary: Python GP-GOMEA
 Home-page: https://github.com/marcovirgolin/GP-GOMEA
 Author: Marco Virgolin
-Author-email: marco.virgolin@gmail.com
+Author-email: marco.virgolin@cwi.nl
 License: UNKNOWN
 Description: UNKNOWN
 Platform: UNKNOWN

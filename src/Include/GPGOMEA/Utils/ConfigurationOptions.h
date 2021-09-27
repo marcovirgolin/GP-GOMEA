@@ -117,7 +117,7 @@ public:
 
     // Extra
     bool linear_scaling = false;
-
+    double_t validation_perc = 0.0;
     bool running_from_python = false;
 
 };

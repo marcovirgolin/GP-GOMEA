@@ -12,7 +12,6 @@
  */
 
 #include "GPGOMEA/Evolution/GenerationHandler.h"
-#include "GPGOMEA/Fitness/SymbolicRegressionLinearScalingFitness.h"
 
 using namespace std;
 using namespace arma;
