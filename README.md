@@ -35,6 +35,17 @@ There are a few steps to follow:
 
 The project is built using CMake (kudos to [@EviSijben](https://github.com/EviSijben)). Run `make` (or `make debug` for a debug build). To test that everything works fine, run `python3 test.py`. You can use Ninja to speed up builds, by prefixing the make command with `GEN=ninja` (e.g. `GEN=ninja make release`).
 
+### Conda
+To install using [conda](https://www.anaconda.com/), run:
+```
+conda create --name gpgomenv python=3.8
+conda activate gpgomenv
+conda install -c conda-forge armadillo
+conda install boost 
+conda install -c conda-forge openmp
+make
+```
+
 ### Docker
 This code can also be compiled and run inside a [Docker](https://www.docker.com/why-docker) container (kudos to [@roy-tc](https://github.com/roy-tc) for providing this!):
 
