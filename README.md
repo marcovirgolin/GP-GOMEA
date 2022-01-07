@@ -3,7 +3,7 @@ Implementations of the **Gene-pool Optimal Mixing Evolutionary Algorithm for Gen
 This code uses **C++** under the hood for speed, and has a **Python 3** interface to **scikit-learn**.
 
 ## Algorithms
-**GP-GOMEA**: GP-GOMEA estimates interdependencies between model components, and interdependent components *en block* to preserve their concerted action. GP-GOMEA is especially proficient in finding models in the form of small symbolic expressions, that can often be interpreted. 
+**GP-GOMEA**: GP-GOMEA estimates interdependencies between model components and uses this info to cross-over interdependent components *en block*, to preserve their concerted action. GP-GOMEA is especially proficient in finding models in the form of small symbolic expressions, that can often be interpreted. 
 
 **SBP-GP**: SBP-GP uses recursive function inversion to estimate effective ways of modifying evolving models. SBP-GP works well when high accuracy is demanded, at the cost of producing very complex models, which are hard or impossible to interpret. 
 
