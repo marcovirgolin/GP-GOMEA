@@ -50,11 +50,26 @@ public:
         new OpAnd(), new OpOr(), new OpNand(), new OpNor(), new OpNot(), new OpXor()
     };
 
+    ConfigurationOptions * Clone() {
+        auto * other = new ConfigurationOptions(*this);
+        for (size_t i = 0; i < all_operators.size(); i++) {
+            other->all_operators[i] = this->all_operators[i]->Clone();
+        }
+        for(size_t i = 0; i < terminals.size(); i++) {
+            other->terminals[i] = this->terminals[i]->Clone();
+        }
+        for(size_t i = 0; i < functions.size(); i++) {
+            other->functions[i] = this->functions[i]->Clone();
+        }
+        return other;
+    }
+
     ~ConfigurationOptions() {
-        // TODO: for some reason, clearing up this memory makes python crash on subsequent instantiations
-        /*for (Operator * op : all_operators) {
+        all_operators.insert(all_operators.end(), functions.begin(), functions.end());
+        all_operators.insert(all_operators.end(), terminals.begin(), terminals.end());
+        for (Operator * op : all_operators) {
             delete op;
-        }*/
+        }
     }
 
     /* Meta-Options */

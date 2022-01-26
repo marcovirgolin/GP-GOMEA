@@ -30,7 +30,7 @@ class EvolutionRun {
 public:
 
     EvolutionRun(EvolutionState & st) {
-        config = new ConfigurationOptions(*st.config); // clone of the configuration settings
+        config = st.config->Clone(); // clone of the configuration settings
         if (st.semantic_library)
             semantic_library = new SemanticLibrary(*st.semantic_library); // clone semantic library
 

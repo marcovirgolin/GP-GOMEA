@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
 	name='pyGPGOMEA',
-	version='1.3.2',
+	version='1.3.3',
 	description='Python GP-GOMEA',
 	author='Marco Virgolin',
 	author_email='marco.virgolin@cwi.nl',
@@ -12,6 +12,6 @@ setup(
 	packages=['pyGPGOMEA'],
 	package_data={'pyGPGOMEA': ['gpgomea.so']},
     include_package_data=True,
-    install_requires=['scikit-learn==0.23.2'],
+    install_requires=['scikit-learn'],
 	)
 

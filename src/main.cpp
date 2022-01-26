@@ -33,6 +33,8 @@ int main(int argc, char** argv) {
     imsh->Start();
     delete imsh;
 
+    delete st;
+
     return 0;
 }
 
