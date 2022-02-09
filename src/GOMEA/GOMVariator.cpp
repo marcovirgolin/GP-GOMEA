@@ -19,7 +19,9 @@
 using namespace std;
 using namespace arma;
 
-Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const std::vector<std::vector<size_t> >& FOS, Fitness & fit, bool use_caching) {
+Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const std::vector<std::vector<size_t> >& FOS, Fitness & fit, 
+    double_t coeff_mut_prob, double_t coeff_mut_strength,
+    bool use_caching) {
 
     Node * offspring = sol.CloneSubtree();
     double_t back_fit = sol.cached_fitness;
@@ -45,12 +47,57 @@ Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const
         for (size_t j : F) {
             off_node = offspring_nodes[j];
             don_node = donor_nodes[j];
-            if (off_node->GetValue().compare(don_node->GetValue()) == 0)
-                continue;
-            else {
+            // no need to make checks if off_node == don_node
+            // but if it is a coefficient and it might mutate, then we should back it up 
+            if ((coeff_mut_prob != 0 && don_node->op->type == OperatorType::opTermConstant) || 
+                off_node->GetValue().compare(don_node->GetValue()) != 0) {
+                // gotta backup
                 Operator * replaced_op = off_node->ChangeOperator(*don_node->op);
                 backup_operators.push_back(replaced_op);
                 changed_indices.push_back(j);
+            } else {
+                // no need
+                continue;
+            }
+        }
+
+        if (coeff_mut_prob != 0) {
+            // collect coeffs
+            size_t num_changed_indices = changed_indices.size();
+            vector<Node*> coeffs;
+            coeffs.reserve(num_changed_indices);
+            for(size_t j : changed_indices) {
+                off_node = offspring_nodes[j];
+                if (off_node->op->type == OperatorType::opTermConstant) {
+                    coeffs.push_back(off_node);
+                }
+            }
+
+            // Mutate constants
+            SubtreeVariator::RandomCoefficientMutation(coeffs, coeff_mut_prob, coeff_mut_strength, use_caching);
+
+            // double-check that these have actually changed, because
+            // the donor might have had the same constant, and 
+            // mutation was not applied
+            vector<size_t> indices_that_did_not_change;
+            indices_that_did_not_change.reserve(num_changed_indices);
+            for(size_t j=0; j < num_changed_indices; j++) {
+                off_node = offspring_nodes[ changed_indices[j] ];
+                if (off_node->op->type != OperatorType::opTermConstant
+                    || backup_operators[j]->type != OperatorType::opTermConstant) {
+                    continue;
+                }
+                if (((OpRegrConstant*) backup_operators[j])->GetConstant() == ((OpRegrConstant*)off_node->op)->GetConstant()){
+                    indices_that_did_not_change.push_back(j);
+                }
+            }
+
+            // remove indices that did not change from changed indices and clean up backup_operators
+            for(int j = indices_that_did_not_change.size() - 1; j > -1; j--) {
+                size_t idx = indices_that_did_not_change[j];
+                changed_indices.erase(changed_indices.begin() + idx);
+                delete backup_operators[idx];
+                backup_operators.erase(backup_operators.begin() + idx);
             }
         }
 
@@ -108,7 +155,10 @@ Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const
     return offspring;
 }
 
-Node* GOMVariator::GOM(const Node& sol, const std::vector<Operator*>& functions, const std::vector<Operator*>& terminals, const std::vector<std::vector<size_t> >& FOS, Fitness& fit, bool use_caching) {
+/*
+Node* GOMVariator::GOM(const Node& sol, const std::vector<Operator*>& functions, const std::vector<Operator*>& terminals, const std::vector<std::vector<size_t> >& FOS, Fitness& fit, 
+    double_t coeff_mut_prob, double_t coeff_mut_strength,
+    bool use_caching) {
 
     Node * offspring = sol.CloneSubtree();
     double_t back_fit = sol.cached_fitness;
@@ -121,7 +171,6 @@ Node* GOMVariator::GOM(const Node& sol, const std::vector<Operator*>& functions,
 
     vector<Node*> offspring_nodes = offspring->GetSubtreeNodes(false);
     
-
     for (size_t i = 0; i < FOS.size(); i++) {
 
         vector<size_t> F = FOS[permut_fos_indices[i]];
@@ -205,6 +254,7 @@ Node* GOMVariator::GOM(const Node& sol, const std::vector<Operator*>& functions,
 
     return offspring;
 }
+*/
 
 
 Node* GOMVariator::MakeBiggerGOMEATree(const Node& original, size_t orig_height, size_t desired_height, size_t max_arity, const GOMEATreeInitializer & tree_init, const std::vector<Operator*>& functions, const std::vector<Operator*>& terminals) {

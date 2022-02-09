@@ -92,17 +92,23 @@ public:
     bool use_IMS = false;
     size_t num_sugen_IMS = 10;
     size_t early_stopping_IMS = 1;
+    int batch_size = -1;
 
     /* Init and Variation */
     size_t initial_maximum_tree_height = 6;
     int maximum_tree_height = 17;
     int maximum_solution_size = -1;
     TreeInitType tree_init_type = TreeInitType::TreeInitRHH;
-
-    size_t elitism = 1;
+    
+    size_t elitism = 0;
     double_t subtree_crossover_proportion = 0.9;
     double_t subtree_mutation_proportion = 0.1;
     double_t reproduction_proportion = 0.0;
+    double_t coeff_mut_prob = 0.0;
+    double_t coeff_mut_strength = 0.25;
+    double_t coeff_mut_decay = 0.5;
+    size_t coeff_mut_num_gen_no_impr_decay = 10;
+
 
     double_t rdo_proportion = 0.0;
     double_t agx_proportion = 0.0;
@@ -125,6 +131,7 @@ public:
     FOSType fos_type = FOSType::FOSLinkageTree;
     bool gomfos_noroot = false;
     double_t gomea_replace_worst = 0.0;
+    bool nongom_coeff_mut = false;
 
     // MultiObjective
     bool multi_objective = false;

@@ -15,15 +15,18 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 	''' GP-GOMEA as scikit-learn regressor '''
 	def __init__(self, 
 		time=60, generations=-1, evaluations=-1, 
-		prob='symbreg', multiobj=False, linearscaling=True, functions='+_*_-_aq', erc=True,
+		prob='symbreg', multiobj=False, linearscaling=True, functions='+_*_-_p/_sqrt_plog', erc=True,
     	classweights = False,
 		gomea=True, gomfos='LT',
 		subcross=0.5, submut=0.5, reproduction=0.0,
 		sblibtype=False, sbrdo=0.0, sbagx=0.0,
-		unifdepthvar=True, tournament=4, elitism=1,
+		unifdepthvar=True, tournament=4, elitism=0,
 		ims='5_1', syntuniqinit=1000, popsize=500,
 		initmaxtreeheight=4, maxtreeheight=17, maxsize=1000,
 		validation=False,
+		coeffmut=False,
+		nongomcoeffmut=False,
+		batchsize=False,
 		seed = -1, parallel=1, caching=False, 
 		silent=True, logtofile=False):
 

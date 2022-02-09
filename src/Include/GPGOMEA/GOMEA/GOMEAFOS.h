@@ -39,7 +39,8 @@ public:
     GOMEAFOS() {
     };
 
-    static std::vector<std::vector<size_t>> GenerateFOS(const std::vector<Node *> & population, FOSType fos_type, bool fos_no_root_swap = false, arma::mat * MI_distribution_adjustments = NULL);
+    //static std::vector<std::vector<size_t>> GenerateFOS(const std::vector<Node *> & population, FOSType fos_type, bool fos_no_root_swap = false, arma::mat * MI_distribution_adjustments = NULL);
+    static std::vector<std::vector<size_t>> GenerateFOS(const std::vector<Node *> & population, FOSType fos_type, arma::mat & MI_distribution_adjustments, bool fos_no_root_swap = false);
     static std::vector<std::vector<size_t>> GenerateAllPossibleCombinationsFOS(size_t number_of_nodes);
     static std::vector<std::vector<size_t>> GenerateTreeTayloredFOS(const std::vector<Node *> & population);
 
@@ -49,7 +50,8 @@ public:
 
 private:
 
-    static std::vector<std::vector<size_t>> GenerateLinkageTreeFOS(size_t number_of_nodes, const std::vector<Node*>& population, arma::mat * MI_distribution_adjustments, bool fos_no_root_swap = false);
+    //static std::vector<std::vector<size_t>> GenerateLinkageTreeFOS(size_t number_of_nodes, const std::vector<Node*>& population, arma::mat * MI_distribution_adjustments, bool fos_no_root_swap = false);
+    static std::vector<std::vector<size_t>> GenerateLinkageTreeFOS(size_t number_of_nodes, const std::vector<Node*>& population, arma::mat & MI_distribution_adjustments, bool fos_no_root_swap = false);
     static std::vector<std::vector<size_t>> GenerateUnivariateFOS(size_t number_of_nodes, bool fos_no_root_swap);
     static std::vector<std::vector<size_t>> GenerateRandomTreeFOS(size_t number_of_nodes, bool fos_no_root_swap);
     

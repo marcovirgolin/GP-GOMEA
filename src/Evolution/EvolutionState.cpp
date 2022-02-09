@@ -144,16 +144,19 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             ("subcross", po::value<double_t>(), "sets the proportion of parents for subtree crossover (default is 0.9)")
             ("submut", po::value<double_t>(), "sets the proportion of parents for subtree mutation (default is 0.1)")
             ("reproduction", po::value<double_t>(), "sets the proportion of parents for reproduction (default is 0.0)")
-            ("elitism", po::value<size_t>(), "sets the number of best solutions to keep (default is 1)")
+            ("elitism", po::value<size_t>(), "sets the number of best solutions to keep (default is 0)")
             ("sbrdo", po::value<double_t>(), "sets the proportion of parents for RDO (default is 0.0)")
             ("sbagx", po::value<double_t>(), "sets the proportion of parents for AGX (default is 0.0)")
             ("sblibtype", po::value<string>(), "sets the type of library for Semantic Backpropagation (default is RD, max tree height 4, size 500, w/o normalization, w k-d tree)")
+            ("coeffmut", po::value<string>(), "randomly mutates coefficients (constants) with the specified scheduling ProbMut_InitialStrength_DecayRate_NumGenWithoutImprovementBeforeDecay (default is disabled)")
             ("unifdepthvar", "picks nodes for subtree variation at uniform random depth (default is disabled)")
             ("tournament", po::value<size_t>(), "sets the size of tournament selection (default is 4)")
             ("gomea", "runs GP-GOMEA instead of tree-based GP")
             ("gomfos", po::value<string>(), "sets the FOS for Gene-pool Optimizal Mixing (default is LT: Linkage Tree)")
             ("gomfosnorootswap", "removes the root from the indices to swap in the FOS (enhances diversity, default is disabled)")
             ("gomeareplaceworst", po::value<double_t>(), "rate of worse performing population to remove and replace with new random solutions (default 0.0)")
+            ("nongomcoeffmut", "applies coefficient mutation *after* GOM instead of *within* GOM (default is disabled)")
+            ("batchsize", po::value<int>(), "uses batches of the specified size instead of the whole training set (default is disabled)")
             ("linearscaling", "enables linear scaling in symbolic regression (defeault is disabled)")
             ("classweights", po::value<string>(), "use class weighting for classification (default is disabled, use a single '_' to set to training set distribution, else specify manually by underscore-separated weights)")
             ("pyprobdef", po::value<string>(), "necessary to set name of module and name of function to use to evaluate individuals (separated by '_', so do not use it in their names them)");
@@ -356,6 +359,37 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
     if (config->maximum_solution_size > 0)
         cout << "# maximum solution size: " << config->maximum_solution_size << endl;
 
+    // COEFFICIENT MUTATION
+    if (vm.count("coeffmut")) {
+        auto coeff_mut_info = Utils::SplitStringByChar(vm["coeffmut"].as<string>(), '_');
+        assert(coeff_mut_info.size() == 4);
+        config->coeff_mut_prob = atof(coeff_mut_info[0].c_str());
+        config->coeff_mut_strength = atof(coeff_mut_info[1].c_str());
+        config->coeff_mut_decay = atof(coeff_mut_info[2].c_str());
+        config->coeff_mut_num_gen_no_impr_decay = atoi(coeff_mut_info[3].c_str());
+
+        cout << "# coefficient mutation: prob "<< config->coeff_mut_prob;
+        cout << ", strength " << config->coeff_mut_strength;
+        cout << ", decay " << config->coeff_mut_decay;
+        cout << ", num. gen. w/o imprevement before decay " << config->coeff_mut_num_gen_no_impr_decay << endl;
+    }
+
+    // BATCHING
+    if (vm.count("batchsize")) {
+        config->batch_size = vm["batchsize"].as<int>();
+        // no elitism allowed in this case
+        if (vm.count("elitism")) {
+            if(vm["elitism"].as<size_t>()>0) {
+                throw std::runtime_error("Elitism (>0) is not compatible with batching");
+            }
+        }
+        // no caching allowed in this case
+        if (vm.count("caching")) {
+            throw std::runtime_error("Caching of outputs is not compatible with batching");
+        }
+        cout << "# batch size: " << config->batch_size << endl;
+    }
+
     // GOMEA
     if (vm.count("gomea")) {
         if (prob_name.compare("multiobj")==0){
@@ -389,6 +423,10 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
         if (vm.count("gomeareplaceworst")) {
             config->gomea_replace_worst = vm["gomeareplaceworst"].as<double_t>();
             cout << "# GOMEA replace worst " << config->gomea_replace_worst * 100 << "% of the population" << endl;
+        }
+
+        if (vm.count("nongomcoeffmut")) {
+            config->nongom_coeff_mut = true;
         }
 
         if (!vm.count("inittype")) {

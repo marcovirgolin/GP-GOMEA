@@ -36,8 +36,7 @@ public:
 
         if (st.config->gomea) {
             generation_handler = new GOMEAGenerationHandler(*((GOMEAGenerationHandler*) st.generation_handler)); // clone generation handler
-            if (((GOMEAGenerationHandler*) st.generation_handler)->linkage_normalization_matrix)
-                ((GOMEAGenerationHandler*) generation_handler)->linkage_normalization_matrix = new arma::mat(); // detach pointer to previous linkage normalization matrix
+            // but re-assign some fields that should be re-set (linkage normalization is re-set at initialization, see EvolutionRun::Initialize())
             ((GOMEAGenerationHandler*) generation_handler)->gomea_converged = false;
         } else {
             if (dynamic_cast<MOFitness*>(st.fitness)){
@@ -68,6 +67,7 @@ public:
         delete config;
         if (semantic_library)
             delete semantic_library;
+
         delete generation_handler;
     }
 
@@ -86,6 +86,8 @@ public:
     Node * elitist = NULL;
     double_t elitist_fit = arma::datum::inf;
     size_t elitist_size;
+
+    size_t num_generations_without_improvement = 0;
 
     bool is_multiobj = false;
     std::vector<Node*> mo_archive;

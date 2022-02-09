@@ -71,7 +71,7 @@ double_t SymbolicRegressionFitness::ComputeMSE(const arma::vec& P, const arma::v
             res = TrainY - ab.first; // do not need to multiply by P elements by 0
         }
     } else {
-        arma::vec res = Y - P;
+        res = Y - P;
     }
 
     double_t mse = arma::mean( arma::square(res) );

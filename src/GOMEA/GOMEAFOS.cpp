@@ -19,7 +19,7 @@
 using namespace std;
 using namespace arma;
 
-std::vector<std::vector<size_t> > GOMEAFOS::GenerateFOS(const std::vector<Node*>& population, FOSType fos_type, bool fos_no_root_swap, arma::mat * MI_distribution_adjustments) {
+std::vector<std::vector<size_t> > GOMEAFOS::GenerateFOS(const std::vector<Node*>& population, FOSType fos_type, arma::mat & MI_distribution_adjustments, bool fos_no_root_swap) {
 
     vector<vector < size_t>> FOS;
 
@@ -300,7 +300,7 @@ int GOMEAFOS::DetermineNearestNeighbour(int index, vector<vector<double_t>> &S_m
     return ( result);
 }
 
-std::vector<std::vector<size_t> > GOMEAFOS::GenerateLinkageTreeFOS(size_t number_of_nodes, const std::vector<Node*>& population, arma::mat * MI_distribution_adjustments, bool fos_no_root_swap) {
+std::vector<std::vector<size_t> > GOMEAFOS::GenerateLinkageTreeFOS(size_t number_of_nodes, const std::vector<Node*>& population, arma::mat & MI_distribution_adjustments, bool fos_no_root_swap) {
 
     vector<vector < size_t>> FOS;
 
@@ -426,8 +426,8 @@ std::vector<std::vector<size_t> > GOMEAFOS::GenerateLinkageTreeFOS(size_t number
     }
 
     // transform entropy into mutual information
-    // apply correction if the pointer MI_distribution_adjustments is not null
-    if (!MI_distribution_adjustments) {
+    //if (!MI_distribution_adjustments) {    // we always apply the correction
+    if (false){
 
         for (size_t i = 0; i < number_of_nodes; i++) {
             for (size_t j = i + 1; j < number_of_nodes; j++) {
@@ -438,21 +438,40 @@ std::vector<std::vector<size_t> > GOMEAFOS::GenerateLinkageTreeFOS(size_t number
 
     } else {
 
-        if (MI_distribution_adjustments->n_elem == 0) {
-            delete MI_distribution_adjustments->memptr();
-            MI_distribution_adjustments->set_size(number_of_nodes, number_of_nodes);
+        /*if (MI_distribution_adjustments->n_elem == 0) {
+            //delete MI_distribution_adjustments->memptr();
+            //MI_distribution_adjustments->set_size(number_of_nodes, number_of_nodes);
+            delete MI_distribution_adjustments;
+            mat * temp = new arma::mat(number_of_nodes, number_of_nodes);
+            (*MI_distribution_adjustments) = (*temp);
             for (size_t i = 0; i < number_of_nodes; i++) {
                 (*MI_distribution_adjustments)(i, i) = 1.0 / mi_matrix[i][i];
                 for (size_t j = i + 1; j < number_of_nodes; j++) {
                     (*MI_distribution_adjustments)(i, j) = 2.0 / mi_matrix[i][j];
                 }
             }
+        }*/
+        // first call, set it all up
+        if (arma::accu(MI_distribution_adjustments)==0) {
+            for (size_t i = 0; i < number_of_nodes; i++) {
+                MI_distribution_adjustments(i, i) = 1.0 / mi_matrix[i][i];
+                for (size_t j = i + 1; j < number_of_nodes; j++) {
+                    MI_distribution_adjustments(i, j) = 2.0 / mi_matrix[i][j];
+                }
+            }
         }
 
-        for (size_t i = 0; i < number_of_nodes; i++) {
+        /*for (size_t i = 0; i < number_of_nodes; i++) {
             mi_matrix[i][i] = mi_matrix[i][i] * (*MI_distribution_adjustments)(i, i);
             for (size_t j = i + 1; j < number_of_nodes; j++) {
                 mi_matrix[i][j] = mi_matrix[i][j] * (*MI_distribution_adjustments)(i, j);
+            }
+        }*/
+
+        for (size_t i = 0; i < number_of_nodes; i++) {
+            mi_matrix[i][i] = mi_matrix[i][i] * MI_distribution_adjustments(i, i);
+            for (size_t j = i + 1; j < number_of_nodes; j++) {
+                mi_matrix[i][j] = mi_matrix[i][j] * MI_distribution_adjustments(i, j);
             }
         }
 
@@ -507,7 +526,6 @@ std::vector<std::vector<size_t> > GOMEAFOS::GenerateLinkageTreeFOS(size_t number
             cout << endl;
         }
     }*/
-
     return FOS;
 }
 

@@ -35,7 +35,9 @@ public:
 
     static std::pair<Node*, Node*> SubtreeCrossover(const Node & p1, const Node & p2, bool unif_depth_var, bool use_caching);
     static Node * SubtreeMutation(const Node & p, const TreeInitializer & tree_initializer, const std::vector<Operator*> & functions, const std::vector<Operator*> & terminals, size_t initial_max_tree_height, bool unif_depth_var, bool use_caching);
-    static Node * TopMutation(const Node & p, const TreeInitializer & tree_initializer, const std::vector<Operator*> & functions, const std::vector<Operator*> & terminals, size_t initial_max_tree_height );
+    static Node * TopMutation(const Node & p, const TreeInitializer & tree_initializer, const std::vector<Operator*> & functions, const std::vector<Operator*> & terminals, size_t initial_max_tree_height);
+    static void RandomCoefficientMutation(Node * n, double_t coeff_mut_prob, double_t coeff_mut_strength, bool use_caching);
+    static void RandomCoefficientMutation(std::vector<Node*> coefficients, double_t coeff_mut_prob, double_t coeff_mut_strength, bool use_caching);
     static Node * SubtreeRDO(const Node& p, int max_height, const arma::mat & X, const arma::vec & Y, SemanticLibrary & semlib, bool unif_depth_var, bool use_caching, bool is_linear_scaling_enabled);
     static std::vector<Node*> GetNodesAtUniformRandomDepth(Node* o, std::vector<Node*>& nodes_o);
     static std::pair<Node*, Node*> SubtreeAGX(Node & p1, Node & p2, int max_height, const arma::mat & X, SemanticLibrary & semlib, bool unif_depth_var, bool use_caching, bool is_linear_scaling_enabled);

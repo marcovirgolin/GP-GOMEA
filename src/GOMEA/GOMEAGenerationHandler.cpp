@@ -19,6 +19,9 @@ using namespace arma;
 
 void GOMEAGenerationHandler::PerformGeneration(std::vector<Node*> & population) {
 
+    // only works for population.size() > 1
+    assert(population.size() > 1);
+
     // if using GOMEA and it converged, re-initialize it
     if (!conf->use_IMS && gomea_converged) {
         // this is going to be handled by the IMS if it is active
@@ -32,7 +35,7 @@ void GOMEAGenerationHandler::PerformGeneration(std::vector<Node*> & population) 
 
     // Build FOS
     vector<vector < size_t >> FOS;
-    FOS = GOMEAFOS::GenerateFOS(population, conf->fos_type, conf->gomfos_noroot, linkage_normalization_matrix);
+    FOS = GOMEAFOS::GenerateFOS(population, conf->fos_type, linkage_normalization_matrix, conf->gomfos_noroot);
 
     // Replace worst % of the population
     if (conf->gomea_replace_worst > 0) {
@@ -40,7 +43,7 @@ void GOMEAGenerationHandler::PerformGeneration(std::vector<Node*> & population) 
         uvec fit_order = sort_index(fitnesses);
         for (size_t i = 0; i < conf->gomea_replace_worst * population.size(); i++) {
             population[ fit_order[ population.size() - 1 - i ] ]->ClearSubtree();
-            TreeInitShape tis = randu() > 0.5 ? TreeInitShape::TreeInitFULL : TreeInitShape::TreeInitGROW;
+            TreeInitShape tis = randu() < 0.5 ? TreeInitShape::TreeInitFULL : TreeInitShape::TreeInitGROW;
             population[ fit_order[ population.size() - 1 - i ] ] = tree_initializer->InitializeRandomTree(tis, conf->initial_maximum_tree_height, conf->functions, conf->terminals);
             fitness->ComputeFitness(population[ fit_order[ population.size() - 1 - i ] ], conf->caching);
         }
@@ -48,28 +51,31 @@ void GOMEAGenerationHandler::PerformGeneration(std::vector<Node*> & population) 
 
     // Variate solutions
     vector<Node*> offspring(population.size());
-    /*vector<Node*> donors;
-    uvec shuffled_don_indices = shuffle( regspace<uvec>(0, population.size() - 1) );
-    size_t donors_per_thread;
-#pragma omp parallel
-    {
-        donors_per_thread = population.size() / omp_get_num_threads();
-        donors = vector<Node*>(donors_per_thread);
-        size_t start_idx = omp_get_thread_num() * donors_per_thread;
-        for (size_t i = 0; i < donors_per_thread; i++) {
-            donors[i] = population[shuffled_don_indices[start_idx + i]];
-        }
-    }*/
 
     size_t variator_limit = population.size();
 #pragma omp parallel for schedule(static)
     for (size_t i = 0; i < variator_limit; i++) {
+        // if batching, re-evaluate the parent w.r.t. current batch
+        if (conf->batch_size > 0) {
+            fitness->ComputeFitness(population[i], conf->caching);
+        }
+        // generate offspring
         Node * off;
-        if (population.size() > 1)
-            off = GOMVariator::GOM(*population[i], population, FOS, *fitness, conf->caching);
-        else
-            off = GOMVariator::GOM(*population[i], conf->functions, conf->terminals, FOS, *fitness, conf->caching);
-
+        // if doing constant mutation within GOM, then pass coeff_mut_prob != 0 below
+        // else, to do it after GOM, we pass 0 in GOM
+        double_t temp_coeff_mut_prob = conf->coeff_mut_prob;
+        if (conf->coeff_mut_prob != 0 && conf->nongom_coeff_mut) {
+            temp_coeff_mut_prob = 0;
+        }
+        // apply GOM
+        off = GOMVariator::GOM(*population[i], population, FOS, *fitness, 
+            temp_coeff_mut_prob, conf->coeff_mut_strength,
+            conf->caching);
+        // check if we should do coeff mutation after GOM (note: this does not guarantee strict improvement)
+        if (conf->coeff_mut_prob != 0 && conf->nongom_coeff_mut) {
+            SubtreeVariator::RandomCoefficientMutation(off, conf->coeff_mut_prob, conf->coeff_mut_strength, conf->caching);
+        }
+        // store offspring
         offspring[i] = off;
     }
     variator_limit = population.size();

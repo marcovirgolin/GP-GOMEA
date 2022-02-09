@@ -141,6 +141,38 @@ std::vector<Node*> SubtreeVariator::GetNodesAtUniformRandomDepth(Node* o, vector
     return candidates_o;
 }
 
+void SubtreeVariator::RandomCoefficientMutation(Node * n, double_t coeff_mut_prob, double_t coeff_mut_strength, bool use_caching){
+    vector<Node*> coeffs;
+    coeffs.reserve(100);
+    for(Node * curr_n : n->GetSubtreeNodes(false)) {
+        if (curr_n->op->type==OperatorType::opTermConstant) {
+            coeffs.push_back(curr_n);
+        }
+    }
+    if (coeffs.empty()) {
+        return;
+    }
+    SubtreeVariator::RandomCoefficientMutation(coeffs, coeff_mut_prob, coeff_mut_strength, use_caching);
+}
+
+void SubtreeVariator::RandomCoefficientMutation(std::vector<Node*> coeffs, double_t coeff_mut_prob, double_t coeff_mut_strength, bool use_caching) {
+    for(Node * c : coeffs) {
+        if (arma::randu() < coeff_mut_prob) {
+            double_t curr_val = ((OpRegrConstant*)c->op)->GetConstant();
+            double_t new_val = curr_val + curr_val*(arma::randu() * 2 - 1)*coeff_mut_strength;
+            if (isnan(new_val) || new_val == arma::datum::inf || new_val == -arma::datum::inf) {
+                continue;
+            }
+            // replace
+            delete c->op;
+            c->op = new OpRegrConstant(new_val);
+            if (use_caching) {
+                c->ClearCachedOutput(true);
+            }
+        }
+    }
+}
+
 Node* SubtreeVariator::SubtreeRDO(const Node& p, int max_height, const arma::mat & X, const arma::vec & Y, SemanticLibrary & semlib, bool unif_depth_var, bool use_caching, bool is_linear_scaling_enabled) {
 
     Node * o = p.CloneSubtree();

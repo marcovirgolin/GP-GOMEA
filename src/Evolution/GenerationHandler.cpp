@@ -147,6 +147,15 @@ std::vector<Node*> GenerationHandler::MakeOffspring(const std::vector<Node *> & 
             offspring_size = offspring_size_pvt;
             variator_limit = variator_limit_pvt;
         }
+
+        // stuff that should be applied to all offspring
+        // coefficient random mutation
+        if (conf->coeff_mut_prob != 0) {
+#pragma omp for schedule(static)
+            for (size_t i = 0; i < population.size(); i++) {
+                SubtreeVariator::RandomCoefficientMutation(offspring[i], conf->coeff_mut_prob, conf->coeff_mut_strength, conf->caching);
+            }
+        }
     }
 
     // elitism

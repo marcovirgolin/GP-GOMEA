@@ -56,7 +56,7 @@ public:
     // OperatorTerminalType term_type;
     std::string name;
     size_t id;
-    bool is_arithmetic;
+    bool is_arithmetic = false;
 
 private:
 
