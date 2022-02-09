@@ -10,7 +10,7 @@ This code uses **C++** under the hood for speed, and has a **Python 3** interfac
 
 GP-GOMEA and SBP-GP are some of the **top-performing** algorithms when it comes to symbolic regression:
 
-![image](https://user-images.githubusercontent.com/5921746/121817988-cb178e00-cc84-11eb-8360-713c875c5b4a.png)
+![image](srbench_results.png)
 
 *Image from [SRBench](https://github.com/EpistasisLab/srbench/tree/master/postprocessing), a large benchmark for symbolic regression including over 250 datasets.*
 
@@ -37,9 +37,10 @@ Other works featuring GP-GOMEA (in some form) or the other algorithms implemente
 * M. Virgolin, T. Alderliesten, C. Witteveen, and P.A.N. Bosman. *Scalable Genetic Programming by Gene-pool Optimal Mixing and Input-space Entropy-based Building Block Learning*. In Proceedings of the Genetic and Evolutionary Computation Conference - GECCO-2017, pages 1041-1048, ACM, 2017. (The source code for this paper is available on Peter's website: https://homepages.cwi.nl/~bosman/source_code.php)
 * M. Virgolin, T. Alderliesten, A. Bel, C. Witteveen, and P.A.N. Bosman. *Symbolic Regression and Feature Construction with GP-GOMEA applied to Radiotherapy Dose Reconstruction of Childhood Cancer Survivors*. In Proceedings of the Genetic and Evolutionary Computation Conference - GECCO-2018, pages 1395-1402, ACM, 2018.
 * M. Virgolin, T. Alderliesten, P.A.N. Bosman. *Linear Scaling with and within Semantic Backpropagation-based Genetic Programming for Symbolic Regression*.  In Proceedings of the Genetic and Evolutionary Computation Conference - GECCO-2019, pages 1084-1092, ACM, 2019.
-* M. Virgolin, T. Alderliesten, C. Witteveen, P.A.N. Bosman. *Improving Model-based Genetic Programming for Symbolic Regression of Small Expressions*. Preprint on arXiv https://arxiv.org/abs/1904.02050 2019, accepted in Evolutionary Computation.
+* M. Virgolin, T. Alderliesten, C. Witteveen, P.A.N. Bosman. *Improving Model-based Genetic Programming for Symbolic Regression of Small Expressions*.  Evolutionary Computation, pages 211-237, MIT Press, 2021.
 * M. Virgolin, T. Alderliesten, P.A.N. Bosman. *On Explaining Machine Learning Models by Evolving Crucial and Compact Features*. Swarm and Evolutionary Computation, v. 53, p. 100640, 2020.
 * M. Virgolin, A. De Lorenzo, E. Medvet, F. Randone. "Learning a Formula of Interpretability to Learn Interpretable Formulas". Parallel Problem Solving from Nature - PPSN-XVI, pages 79-93, Springer, 2020.
+* W. La Cava, P. Orzechowski, B, Burlacu, F.O. de França, M. Virgolin, Y. Jin, M. Kommenda, J.H. Moore. *Contemporary symbolic regression methods and their relative performance*. Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track, 2021.
 
 ## Installation
 
