@@ -1,5 +1,5 @@
 # Genetic Programming - GOMEA, Standard & Semantic
-Implementations of the **Gene-pool Optimal Mixing Evolutionary Algorithm for Genetic Programming** (GP-GOMEA), **standard tree-based GP**, and **Semantic Backpropagation-based GP** (SBP-GP). The last two can also be used in a multi-objective setting (in which case [NSGA-II](https://doi.org/10.1007/3-540-45356-3_83) is used) --- A multi-objective versions of GP-GOMEA and its population size-free scheme (called *interleaved multistart scheme*) have yet to be implemented.
+Implementations of the **Gene-pool Optimal Mixing Evolutionary Algorithm for Genetic Programming** ([GP-GOMEA](https://direct.mit.edu/evco/article-abstract/29/2/211/97362/Improving-Model-Based-Genetic-Programming-for?redirectedFrom=fulltext)), **standard tree-based GP** ([Standard GP](http://www.gp-field-guide.org.uk/)), and **Semantic Backpropagation-based GP** ([SBP-GP](https://ieeexplore.ieee.org/document/6808504)). The last two can also be used in a multi-objective setting (in which case [NSGA-II](https://doi.org/10.1007/3-540-45356-3_83) is used) --- Multi-objective versions of GP-GOMEA and its population size-free scheme (called *interleaved multistart scheme*) have yet to be implemented.
 This code uses **C++** under the hood for speed, and has a **Python 3** interface to **scikit-learn**.
 
 ## Algorithms
