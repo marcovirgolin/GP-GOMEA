@@ -1,6 +1,7 @@
 setup.py
 pyGPGOMEA/GPGOMEARegressor.py
 pyGPGOMEA/__init__.py
+pyGPGOMEA/gpgomea.so
 pyGPGOMEA.egg-info/PKG-INFO
 pyGPGOMEA.egg-info/SOURCES.txt
 pyGPGOMEA.egg-info/dependency_links.txt

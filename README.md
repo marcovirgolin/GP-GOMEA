@@ -55,11 +55,8 @@ The project is built using CMake (kudos to [@EviSijben](https://github.com/EviSi
 ### Conda
 To install using [conda](https://www.anaconda.com/), run:
 ```
-conda create --name gpgomenv python=3.8
+conda env create -f environment.yml
 conda activate gpgomenv
-conda install -c conda-forge armadillo
-conda install boost 
-conda install -c conda-forge openmp
 make
 ```
 

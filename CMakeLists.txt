@@ -6,6 +6,7 @@ cmake_policy(SET CMP0051 NEW)
 project(GPGOMEA)
 
 find_package(Armadillo REQUIRED)
+find_package(PythonInterp REQUIRED)
 find_package(PythonLibs REQUIRED)
 # Extract major/minor python version
 string(REPLACE "." ";" VERSION_LIST ${PYTHONLIBS_VERSION_STRING})

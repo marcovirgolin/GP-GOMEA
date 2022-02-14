@@ -1,0 +1,15 @@
+name: gpgomenv
+channels:
+    - conda-forge
+dependencies:
+    - gcc=11.2.0
+    - gxx=11.2.0
+    - python
+    - cmake=3.19.1 
+    - armadillo=9.900.4 
+    - boost=1.74.0 
+    - pkg-config 
+    - scikit-learn=1.0.1 
+    - pandas 
+    - numpy
+    - sympy
