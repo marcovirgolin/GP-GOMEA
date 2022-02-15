@@ -76,6 +76,7 @@ public:
     EvolutionState * st = NULL;
     IMSHandler * imsh = NULL;
     std::string hyperparams_string = "";
+    std::string progress_log = "";
     std::streambuf * default_output_stream = std::cout.rdbuf();
     std::ofstream * output_file_stream = NULL;
     std::stringstream * silent_output_stream = NULL;
@@ -102,6 +103,7 @@ public:
         silent_output_stream = NULL;
         std::cout.rdbuf(default_output_stream);
         evaluations = 0;
+        progress_log = "";
     }
 
     void run(np::ndarray npX, np::ndarray npY) {
@@ -152,6 +154,7 @@ public:
         solution = imsh->GetFinalElitist()->CloneSubtree();
         evaluations = st->fitness->evaluations;
         final_population = imsh->GetAllActivePopulations(true);
+        progress_log = imsh->progress_log;
 
         // delete run handler
         delete imsh;
@@ -210,6 +213,10 @@ public:
         return human_expression;
     }
 
+    std::string get_progress_log() {
+        return progress_log;
+    }
+
     size_t get_n_nodes() {
 	    return solution->GetSubtreeNodes(true).size();
     }
@@ -261,6 +268,8 @@ public:
         return return_population;
     };
 
+
+
 private:
 
 };
@@ -281,6 +290,7 @@ BOOST_PYTHON_MODULE(gpgomea) {
             .def("get_evaluations", &pyGPGOMEA::get_evaluations)
             .def("get_n_nodes", &pyGPGOMEA::get_n_nodes)
             .def("get_final_population", &pyGPGOMEA::get_final_population)
+            .def("get_progress_log", &pyGPGOMEA::get_progress_log)
             .def_pickle(GPGOMEA_pickle_suite())
             ;
 }

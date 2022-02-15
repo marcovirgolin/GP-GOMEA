@@ -19,6 +19,7 @@ void IMSHandler::Start() {
 
     string stats_file = "stats_generations.txt";
     string heading = "gen\ttime\tevals\tbest_fit\tbest_size\tpop_size";
+    progress_log = heading + "\n";
     if (!st->config->running_from_python)
         Logger::GetInstance()->Log(heading, stats_file);
 
@@ -163,6 +164,7 @@ void IMSHandler::Start() {
         macro_generation++;
 
         string generation_stats = to_string(macro_generation) + "\t" + to_string(st->timer.toc()) + "\t" + to_string(st->fitness->evaluations) + "\t" + to_string(elitist_fit) + "\t" + to_string(elitist_size) + "\t" + to_string(biggest_pop_size_reached);
+        progress_log += generation_stats + "\n";
 
         if (!st->config->running_from_python)
             Logger::GetInstance()->Log(generation_stats, stats_file);

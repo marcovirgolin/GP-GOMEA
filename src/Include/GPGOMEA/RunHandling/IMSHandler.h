@@ -80,6 +80,8 @@ public:
     double_t elitist_fit = arma::datum::inf;
     size_t elitist_size;
 
+    std::string progress_log;
+
 private:
 
 };
