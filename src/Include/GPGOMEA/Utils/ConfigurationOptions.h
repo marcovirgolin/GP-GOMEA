@@ -107,7 +107,7 @@ public:
     double_t coeff_mut_prob = 0.0;
     double_t coeff_mut_strength = 0.25;
     double_t coeff_mut_decay = 0.5;
-    size_t coeff_mut_num_gen_no_impr_decay = 10;
+    int coeff_mut_num_gen_no_impr_decay = 10;
 
 
     double_t rdo_proportion = 0.0;

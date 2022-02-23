@@ -16,7 +16,7 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 	def __init__(self, 
 		time=60, generations=-1, evaluations=-1, 
 		prob='symbreg', multiobj=False, linearscaling=True, functions='+_*_-_p/_sqrt_plog', erc=True,
-    	classweights = False,
+    classweights = False,
 		gomea=True, gomfos='LT',
 		subcross=0.5, submut=0.5, reproduction=0.0,
 		sblibtype=False, sbrdo=0.0, sbagx=0.0,

@@ -11,6 +11,11 @@
  * Created on June 27, 2018, 4:18 PM
  */
 
+#ifndef INTERNAL_STRATEGY_PARAMETERS
+#define INTERNAL_STRATEGY_PARAMETER_TAU 1e-1
+#define INTERNAL_STRATEGY_PARAMETER_EPS 1e-16
+#endif
+
 #ifndef OPREGRCONSTANT_H
 #define OPREGRCONSTANT_H
 
@@ -30,6 +35,7 @@ public:
         this->upper_b = upper_b;
         name = std::to_string(constant);
         type = OperatorType::opTermConstant;
+        internal_strategy_parameter = arma::datum::nan;
         // term_type = OperatorTerminalType::opTermConstant;
     }
 
@@ -53,8 +59,12 @@ public:
 
     arma::vec ComputeOutput(const arma::mat& x) override {
         if (std::isnan(constant)) {
+            // first utilization, set up constant (& internal strategy parameter in case it will be used)
             constant = round( (arma::randu() * (upper_b - lower_b) + lower_b) * 1e3 ) / 1e3;
             name = std::to_string(constant);
+            internal_strategy_parameter = std::max( 
+                std::exp(arma::randn()*INTERNAL_STRATEGY_PARAMETER_TAU), 
+                INTERNAL_STRATEGY_PARAMETER_EPS );
         }
 
         arma::vec out = arma::ones(x.n_rows);
@@ -75,6 +85,8 @@ public:
     }
 
     double_t lower_b, upper_b;
+    double_t internal_strategy_parameter;
+
 
 protected:
 

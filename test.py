@@ -21,17 +21,17 @@ X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.25, rando
 
 print('Running GP-GOMEA...')
 ea = GPG( 
-	gomea=True,  				# uses GOMEA as search algorithm
+	gomea=True,  											# uses GOMEA as search algorithm
 	functions="+_-_*_p/_sqrt_plog", 	# functions to use
-	coeffmut='0.5_0.5_0.5_5',		# mutate constants with prob. of 0.5, by up to -0.5 and +0.5 of curr. val, decay 0.5 every 5 gen without improvement
-	time=10, generations=-1, evaluations=-1,# time limit of 10s, no genereations or evaluations limit
-	initmaxtreeheight=3, 			# how tall trees are at initialization (they cannot grow taller when using GOMEA)
-	ims='4_1', 	 			# interleaved multistart scheme: run a larger population doubled every 4 gen of the smaller one, patience of 1 iteration(s) before terminating a suboptimal population
-	popsize=256,  				# initial pop size for the first run
-	batchsize=256,				# batch size
-	parallel=4,				# in parallel on 4 cores
-	linearscaling=False, 			# whether to use a linear layer on top of the solutions (highly-recommended for real-world data!)
-	silent=False)				# log progress
+	coeffmut='0.5_0.5_0.5_10',				# mutate constants with prob. of 0.5, with std of 0.5*abs(curr. val), which decays by 0.5 every 10 gen without improvement
+	time=10, generations=-1, evaluations=-1, # time limit of 10s, no genereations or evaluations limit
+	initmaxtreeheight=3, 							# how tall trees are at initialization (they cannot grow taller when using GOMEA)
+	ims='4_1', 	 											# interleaved multistart scheme: run a larger population doubled every 4 gen of the smaller one, patience of 1 iteration(s) before terminating a suboptimal population
+	popsize=64,  											# initial pop size for the first run
+	batchsize=256,										# batch size
+	parallel=4,												# in parallel on 4 cores
+	linearscaling=False, 							# whether to use a linear layer on top of the solutions (highly-recommended for real-world data!)
+	silent=False)											# log progress
 ea.fit(X_train, y_train)
 
 print("\n")

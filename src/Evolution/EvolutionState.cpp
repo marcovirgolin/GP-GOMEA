@@ -148,7 +148,7 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             ("sbrdo", po::value<double_t>(), "sets the proportion of parents for RDO (default is 0.0)")
             ("sbagx", po::value<double_t>(), "sets the proportion of parents for AGX (default is 0.0)")
             ("sblibtype", po::value<string>(), "sets the type of library for Semantic Backpropagation (default is RD, max tree height 4, size 500, w/o normalization, w k-d tree)")
-            ("coeffmut", po::value<string>(), "randomly mutates coefficients (constants) with the specified scheduling ProbMut_InitialStrength_DecayRate_NumGenWithoutImprovementBeforeDecay (default is disabled)")
+            ("coeffmut", po::value<string>(), "randomly mutates coefficients (constants) with the specified scheduling, either ProbMut_ES (the string 'ES' specifies that adaptive, ES-like constant optimization is used) or ProbMut_InitialMutStrength_DecayRate_NumGenWithoutImprovementBeforeDecay (default is disabled)")
             ("unifdepthvar", "picks nodes for subtree variation at uniform random depth (default is disabled)")
             ("tournament", po::value<size_t>(), "sets the size of tournament selection (default is 4)")
             ("gomea", "runs GP-GOMEA instead of tree-based GP")
@@ -361,17 +361,27 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
 
     // COEFFICIENT MUTATION
     if (vm.count("coeffmut")) {
-        auto coeff_mut_info = Utils::SplitStringByChar(vm["coeffmut"].as<string>(), '_');
-        assert(coeff_mut_info.size() == 4);
+        vector<string> coeff_mut_info = Utils::SplitStringByChar(vm["coeffmut"].as<string>(), '_');
+        assert(coeff_mut_info.size() == 4 || coeff_mut_info.size() == 2);
         config->coeff_mut_prob = atof(coeff_mut_info[0].c_str());
-        config->coeff_mut_strength = atof(coeff_mut_info[1].c_str());
-        config->coeff_mut_decay = atof(coeff_mut_info[2].c_str());
-        config->coeff_mut_num_gen_no_impr_decay = atoi(coeff_mut_info[3].c_str());
-
         cout << "# coefficient mutation: prob "<< config->coeff_mut_prob;
-        cout << ", strength " << config->coeff_mut_strength;
-        cout << ", decay " << config->coeff_mut_decay;
-        cout << ", num. gen. w/o imprevement before decay " << config->coeff_mut_num_gen_no_impr_decay << endl;
+        if(Utils::IsNumber(coeff_mut_info[1])) {
+            config->coeff_mut_strength = atof(coeff_mut_info[1].c_str());
+            config->coeff_mut_decay = atof(coeff_mut_info[2].c_str());
+            config->coeff_mut_num_gen_no_impr_decay = atoi(coeff_mut_info[3].c_str());
+            cout << ", strength " << config->coeff_mut_strength;
+            cout << ", decay " << config->coeff_mut_decay;
+            cout << ", num. gen. w/o imprevement before decay " << config->coeff_mut_num_gen_no_impr_decay;
+        } else {
+            if (Utils::ToLowerCase(coeff_mut_info[1]).compare("es") != 0) {
+                throw runtime_error("Unrecognized coeff. mut. option "+coeff_mut_info[1]);
+            }
+            config->coeff_mut_strength = -1;
+            config->coeff_mut_decay = 1;
+            config->coeff_mut_num_gen_no_impr_decay = -1;
+            cout << ", ES-like adaptive";
+        }
+        cout << endl;
     }
 
     // BATCHING

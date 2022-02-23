@@ -170,7 +170,6 @@ void IMSHandler::Start() {
             Logger::GetInstance()->Log(generation_stats, stats_file);
 
         cout << " > generation " << macro_generation << " - best fit: " << elitist_fit << endl;
-
     }
 
     Terminate();

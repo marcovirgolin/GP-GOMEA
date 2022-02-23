@@ -159,13 +159,31 @@ void SubtreeVariator::RandomCoefficientMutation(std::vector<Node*> coeffs, doubl
     for(Node * c : coeffs) {
         if (arma::randu() < coeff_mut_prob) {
             double_t curr_val = ((OpRegrConstant*)c->op)->GetConstant();
-            double_t new_val = curr_val + curr_val*(arma::randu() * 2 - 1)*coeff_mut_strength;
+            double_t new_val;
+            // keep track of internal strategy parameter in case it is used
+            double_t mutated_internal_strategy_parameter = arma::datum::nan;
+            if (coeff_mut_strength < 0){
+                // evolution strategy-like
+                new_val = curr_val + (arma::randn()*((OpRegrConstant*)c->op)->internal_strategy_parameter);  
+                // mutate internal strategy parameter (to be used for update later)
+                mutated_internal_strategy_parameter = std::max( 
+                    ((OpRegrConstant*)c->op)->internal_strategy_parameter*std::exp(arma::randn()*INTERNAL_STRATEGY_PARAMETER_TAU), 
+                    INTERNAL_STRATEGY_PARAMETER_EPS );
+            } else{
+                double_t stdev = coeff_mut_strength*abs(curr_val);
+                if (stdev == 0) {
+                    stdev = INTERNAL_STRATEGY_PARAMETER_EPS; // set it to the same eps as for the internal strategy one
+                }
+                new_val = curr_val + (arma::randn())*stdev;
+            }
+            //std::cout << "was " << curr_val << " now is " << new_val << " (strength " << coeff_mut_strength << ")" << std::endl;
             if (isnan(new_val) || new_val == arma::datum::inf || new_val == -arma::datum::inf) {
                 continue;
             }
             // replace
             delete c->op;
             c->op = new OpRegrConstant(new_val);
+            ((OpRegrConstant*)c->op)->internal_strategy_parameter = mutated_internal_strategy_parameter;
             if (use_caching) {
                 c->ClearCachedOutput(true);
             }
