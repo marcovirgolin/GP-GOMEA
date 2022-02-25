@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
 	name='pyGPGOMEA',
-	version='1.6.0',
+	version='1.6.5',
 	description='Python GP-GOMEA',
 	author='Marco Virgolin',
 	author_email='marco.virgolin@cwi.nl',

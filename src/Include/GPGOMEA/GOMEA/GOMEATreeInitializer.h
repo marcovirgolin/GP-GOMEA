@@ -28,6 +28,7 @@ public:
 
     Node * GenerateTreeFull(size_t max_height_left, int actual_height_left, size_t max_arity, const std::vector<Operator*>& functions, const std::vector<Operator*>& terminals) const;
     Node * GenerateTreeGrow(size_t max_height_left, int actual_height_left, int cur_height, size_t max_arity, const std::vector<Operator*>& functions, const std::vector<Operator*>& terminals) const;
+    Node * GenerateTreeHeuristic(size_t max_height_left, int actual_height_left, size_t actual_max_height, size_t max_arity, const std::vector<Operator*>& functions, const std::vector<Operator*>& terminals) const;
     
 private:
 

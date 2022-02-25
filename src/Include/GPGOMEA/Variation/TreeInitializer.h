@@ -20,7 +20,7 @@
 #include <iostream>
 
 enum TreeInitType {
-    TreeInitHH, TreeInitRHH
+    TreeInitHH, TreeInitRHH, TreeInitHeuristic
 };
 
 enum TreeInitShape {
@@ -36,8 +36,9 @@ public:
 
     virtual Node * InitializeRandomTree(TreeInitShape init_shape, size_t max_height, const std::vector<Operator *> & functions, const std::vector<Operator *> & terminals) const;
 
-    Node * GenerateTreeGrow(size_t height_left, size_t cur_height, const std::vector<Operator *> & functions, const std::vector<Operator *> & terminals) const;
+    Node * GenerateTreeGrow(size_t height_left, const std::vector<Operator *> & functions, const std::vector<Operator *> & terminals) const;
     Node * GenerateTreeFull(size_t height_left, const std::vector<Operator *> & functions, const std::vector<Operator *> & terminals) const;
+    Node * GenerateTreeHeuristic(size_t heigh_left, size_t max_height, const std::vector<Operator *> & functions, const std::vector<Operator *> & terminals) const;
 
     TreeInitType tree_init_type;
 

@@ -322,15 +322,20 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
     // INITIALIZATION TYPE
     if (vm.count("inittype")) {
         string init_type = vm["inittype"].as<string>();
+        cout << "# initialization type: ";
         if (init_type.compare("RHH") == 0) {
             config->tree_init_type = TreeInitType::TreeInitRHH;
-            cout << "# initialization type: Ramped Half-n-Half" << endl;
+            cout << "Ramped Half-n-Half";
         } else if (init_type.compare("HH") == 0) {
             config->tree_init_type = TreeInitType::TreeInitHH;
-            cout << "# initialization type: Half-n-Half" << endl;
+            cout << "Half-n-Half";
+        } else if (Utils::ToLowerCase(init_type).compare("heuristic")==0) {
+            config->tree_init_type = TreeInitType::TreeInitHeuristic;
+            cout << "Heuristic";
         } else {
             throw std::runtime_error("EvolutionState::SetOptions unrecognized initialization type");
         }
+        cout << endl;
     }
 
     // SEMANTIC UNIQUENESS INITIALIZATION

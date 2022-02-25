@@ -25,6 +25,11 @@ Node* GOMEATreeInitializer::InitializeRandomTree(TreeInitShape init_shape, size_
     }
 
     int height = max_height;
+
+    if (tree_init_type == TreeInitType::TreeInitHeuristic) {
+        return GenerateTreeHeuristic(max_height, max_height, max_height, max_arity, functions, terminals);
+    }
+
     if (tree_init_type == TreeInitType::TreeInitRHH) {
         height = randu() * max_height;
     }
@@ -92,6 +97,36 @@ Node * GOMEATreeInitializer::GenerateTreeFull(size_t max_height_left, int actual
 
     } else {
         index = rnd * terminals.size();
+        curr = new Node(terminals[index]->Clone());
+    }
+
+
+    return curr;
+}
+
+
+Node* GOMEATreeInitializer::GenerateTreeHeuristic(size_t max_height_left, int actual_height_left, size_t actual_max_height, size_t max_arity, const std::vector<Operator*>& functions, const std::vector<Operator*>& terminals) const {
+    Node * curr;
+    size_t index;
+    double_t rnd_op = arma::randu();
+    double_t rnd_leaf = arma::randu();
+    double_t prob_leaf = 0.01 + std::pow( ((double_t)(actual_max_height - actual_height_left) / actual_max_height), 3 );
+
+    if (max_height_left > 0) {
+        if (actual_height_left > 0 && rnd_leaf > prob_leaf) {
+            index = rnd_op * functions.size();
+            curr = new Node(functions[index]->Clone());
+        } else {
+            index = rnd_op * terminals.size();
+            curr = new Node(terminals[index]->Clone());
+        }
+
+        for (size_t i = 0; i < max_arity; i++) {
+            curr->AppendChild(GenerateTreeHeuristic(max_height_left - 1, actual_height_left - 1, actual_max_height, max_arity, functions, terminals));
+        }
+
+    } else {
+        index = rnd_op * terminals.size();
         curr = new Node(terminals[index]->Clone());
     }
 
