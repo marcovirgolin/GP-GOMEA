@@ -20,7 +20,7 @@ using namespace std;
 using namespace arma;
 
 Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const std::vector<std::vector<size_t> >& FOS, Fitness & fit, 
-    double_t coeff_mut_prob, double_t coeff_mut_strength,
+    double_t coeff_mut_prob, double_t coeff_mut_strength, GOMCoeffMutStrat gom_coeff_mut_strat, 
     bool use_caching) {
 
     Node * offspring = sol.CloneSubtree();
@@ -61,7 +61,7 @@ Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const
             }
         }
 
-        if (coeff_mut_prob != 0) {
+        if (coeff_mut_prob != 0 && gom_coeff_mut_strat==GOMCoeffMutStrat::gcmsWithin) {
             // collect coeffs
             size_t num_changed_indices = changed_indices.size();
             vector<Node*> coeffs;
@@ -150,9 +150,87 @@ Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const
         // discard backup
         for (Operator * op : backup_operators)
             delete op;
+
+        // if interleaved coeff mut
+        if (gom_coeff_mut_strat == GOMCoeffMutStrat::gcmsInterleaved){
+            GOMVariator::CoeffMutGOMStyle(offspring, 1, fit, coeff_mut_prob, coeff_mut_strength, use_caching);
+        }
     }
 
     return offspring;
+}
+
+
+void GOMVariator::CoeffMutGOMStyle(Node * sol, size_t num_of_attempts, Fitness & fit, double_t coeff_mut_prob, double_t coeff_mut_strength, bool use_caching) {
+
+    double_t backup_fit = sol->cached_fitness;
+    vector<Node*> backup_nodes = sol->GetSubtreeNodes(false);
+    vector<size_t> const_indices;
+    vector<double_t> const_values;
+    vector<bool> which_are_active;
+    const_indices.reserve(backup_nodes.size());
+    const_values.reserve(backup_nodes.size());
+    which_are_active.reserve(backup_nodes.size());
+    for(size_t j = 0; j < backup_nodes.size(); j++) {
+        Node * n = backup_nodes[j];
+        if (n->op->type == OperatorType::opTermConstant) {
+            const_indices.push_back(j);
+            const_values.push_back(((OpRegrConstant*)n->op)->GetConstant());
+            which_are_active.push_back(n->IsActive());
+        }
+    }
+
+    if (const_values.empty()) {
+        return;
+    }
+
+    for(size_t j = 0; j < num_of_attempts; j++) {
+        SubtreeVariator::RandomCoefficientMutation(sol, coeff_mut_prob, coeff_mut_strength, use_caching);
+        vector<Node*> sol_nodes = sol->GetSubtreeNodes(false);
+        // check whether we actually need a fitness eval
+        // to do that, first check if at least one active const changed
+        bool gotta_eval = false;
+        for(size_t k =0; k < const_values.size(); k++) {
+            if (which_are_active[k]) {
+                // check that the value changed
+                double_t val_before = const_values[k];
+                double_t val_new = ((OpRegrConstant*)sol_nodes[const_indices[k]]->op)->GetConstant();
+                if (val_new != val_before) {
+                    gotta_eval = true;
+                    if (use_caching) {
+                        // go on in case need to clear more cached outputs
+                        sol_nodes[const_indices[k]]->ClearCachedOutput(true);
+                    } else {
+                        // can stop here because there's no caching and we already know re-evaluation is needed
+                        break;
+                    }
+                }
+            }
+        }
+        bool accept_change = true;
+        if (gotta_eval){
+            double_t new_fit = fit.ComputeFitness(sol, use_caching);
+            if (new_fit > backup_fit) {
+                accept_change = false;
+            }
+        }
+        if (accept_change) {
+            // update backup info
+            for (size_t k = 0; k < const_values.size(); k++) {
+                const_values[k] = ((OpRegrConstant*)sol_nodes[const_indices[k]]->op)->GetConstant();
+            }
+            backup_fit = sol->cached_fitness;
+            // note: active nodes and node positions do not change
+        } else {
+            // reset offspring
+            for (size_t k = 0; k < const_values.size(); k++) {
+                ((OpRegrConstant*)sol_nodes[const_indices[k]]->op)->SetConstant(const_values[k]);
+                if (use_caching && which_are_active[k])
+                    sol_nodes[const_indices[k]]->ClearCachedOutput(true);
+            }
+            sol->cached_fitness = backup_fit;
+        }
+    }
 }
 
 /*

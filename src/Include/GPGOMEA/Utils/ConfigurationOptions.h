@@ -10,6 +10,7 @@
 
 #include "GPGOMEA/Operators/OpVariable.h"
 #include "GPGOMEA/GOMEA/GOMEAFOS.h"
+#include "GPGOMEA/GOMEA/GOMVariator.h"
 #include "GPGOMEA/Variation/TreeInitializer.h"
 #include "GPGOMEA/Semantics/SemanticLibrary.h"
 
@@ -131,7 +132,7 @@ public:
     FOSType fos_type = FOSType::FOSLinkageTree;
     bool gomfos_noroot = false;
     double_t gomea_replace_worst = 0.0;
-    bool nongom_coeff_mut = false;
+    GOMCoeffMutStrat gom_coeff_mut_strat = GOMCoeffMutStrat::gcmsWithin;
 
     // MultiObjective
     bool multi_objective = false;

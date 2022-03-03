@@ -26,7 +26,7 @@ class GPGOMEARegressor(BaseEstimator, RegressorMixin):
 		maxtreeheight=17, maxsize=1000,
 		validation=False,
 		coeffmut=False,
-		nongomcoeffmut=False,
+		gomcoeffmutstrat=False,
 		batchsize=False,
 		seed = -1, parallel=1, caching=False, 
 		silent=True, logtofile=False):

@@ -34,6 +34,7 @@
 // GOMEA
 #include "GPGOMEA/GOMEA/GOMEATreeInitializer.h"
 #include "GPGOMEA/GOMEA/GOMEAFOS.h"
+#include "GPGOMEA/GOMEA/GOMVariator.h"
 #include "GPGOMEA/GOMEA/GOMEAGenerationHandler.h"
 
 // OTHER

@@ -61,19 +61,20 @@ void GOMEAGenerationHandler::PerformGeneration(std::vector<Node*> & population) 
         }
         // generate offspring
         Node * off;
-        // if doing constant mutation within GOM, then pass coeff_mut_prob != 0 below
-        // else, to do it after GOM, we pass 0 in GOM
-        double_t temp_coeff_mut_prob = conf->coeff_mut_prob;
-        if (conf->coeff_mut_prob != 0 && conf->nongom_coeff_mut) {
-            temp_coeff_mut_prob = 0;
-        }
         // apply GOM
         off = GOMVariator::GOM(*population[i], population, FOS, *fitness, 
-            temp_coeff_mut_prob, conf->coeff_mut_strength,
+            conf->coeff_mut_prob, conf->coeff_mut_strength, conf->gom_coeff_mut_strat,
             conf->caching);
+
         // check if we should do coeff mutation after GOM (note: this does not guarantee strict improvement)
-        if (conf->coeff_mut_prob != 0 && conf->nongom_coeff_mut) {
-            SubtreeVariator::RandomCoefficientMutation(off, conf->coeff_mut_prob, conf->coeff_mut_strength, conf->caching);
+        if (conf->coeff_mut_prob != 0) {
+            if (conf->gom_coeff_mut_strat == GOMCoeffMutStrat::gcmsAfterOnce){
+                GOMVariator::CoeffMutGOMStyle(off, 1, *fitness, conf->coeff_mut_prob, conf->coeff_mut_strength, conf->caching);
+            }
+            else if (conf->gom_coeff_mut_strat == GOMCoeffMutStrat::gcmsAfterFOSSizeTimes)
+            {
+                GOMVariator::CoeffMutGOMStyle(off, FOS.size(), *fitness, conf->coeff_mut_prob, conf->coeff_mut_strength, conf->caching);
+            }
         }
         // store offspring
         offspring[i] = off;

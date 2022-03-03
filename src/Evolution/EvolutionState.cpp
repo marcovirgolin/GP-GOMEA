@@ -155,7 +155,7 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             ("gomfos", po::value<string>(), "sets the FOS for Gene-pool Optimizal Mixing (default is LT: Linkage Tree)")
             ("gomfosnorootswap", "removes the root from the indices to swap in the FOS (enhances diversity, default is disabled)")
             ("gomeareplaceworst", po::value<double_t>(), "rate of worse performing population to remove and replace with new random solutions (default 0.0)")
-            ("nongomcoeffmut", "applies coefficient mutation *after* GOM instead of *within* GOM (default is disabled)")
+            ("gomcoeffmutstrat", po::value<string>(), "strategy for applying coefficient mutation in GP-GOMEA (default is 'within')")
             ("batchsize", po::value<int>(), "uses batches of the specified size instead of the whole training set (default is disabled)")
             ("linearscaling", "enables linear scaling in symbolic regression (defeault is disabled)")
             ("classweights", po::value<string>(), "use class weighting for classification (default is disabled, use a single '_' to set to training set distribution, else specify manually by underscore-separated weights)")
@@ -440,8 +440,19 @@ void EvolutionState::SetOptions(int argc, char* argv[]) {
             cout << "# GOMEA replace worst " << config->gomea_replace_worst * 100 << "% of the population" << endl;
         }
 
-        if (vm.count("nongomcoeffmut")) {
-            config->nongom_coeff_mut = true;
+        if (vm.count("gomcoeffmutstrat")) {
+            string gcms_string = Utils::ToLowerCase(vm["gomcoeffmutstrat"].as<string>());
+            if (gcms_string.compare("within")==0) {
+                config->gom_coeff_mut_strat = GOMCoeffMutStrat::gcmsWithin;
+            } else if (gcms_string.compare("interleaved")==0) {
+                config->gom_coeff_mut_strat = GOMCoeffMutStrat::gcmsInterleaved;
+            } else if (gcms_string.compare("afteronce")==0) {
+                config->gom_coeff_mut_strat = GOMCoeffMutStrat::gcmsAfterOnce;
+            } else if (gcms_string.compare("afterfossize")==0) {
+                config->gom_coeff_mut_strat = GOMCoeffMutStrat::gcmsAfterFOSSizeTimes;
+            } else {
+                throw std::runtime_error("Unrecognized GOM coefficient mutation strategy: "+gcms_string);
+            }
         }
 
         if (!vm.count("inittype")) {
