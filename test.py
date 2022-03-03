@@ -1,10 +1,8 @@
 from pyGPGOMEA import GPGOMEARegressor as GPG
-from sklearn.datasets import load_boston
 import numpy as np
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
-from sklearn.preprocessing import StandardScaler
 
 SEED=42
 np.random.seed(SEED)
