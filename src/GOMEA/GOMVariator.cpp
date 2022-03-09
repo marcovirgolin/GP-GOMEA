@@ -152,7 +152,7 @@ Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const
             delete op;
 
         // if interleaved coeff mut
-        if (gom_coeff_mut_strat == GOMCoeffMutStrat::gcmsInterleaved){
+        if (coeff_mut_prob != 0 && gom_coeff_mut_strat == GOMCoeffMutStrat::gcmsInterleaved){
             GOMVariator::CoeffMutGOMStyle(offspring, 1, fit, coeff_mut_prob, coeff_mut_strength, use_caching);
         }
     }
