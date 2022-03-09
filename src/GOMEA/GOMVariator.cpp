@@ -49,8 +49,9 @@ Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const
             don_node = donor_nodes[j];
             // no need to make checks if off_node == don_node
             // but if it is a coefficient and it might mutate, then we should back it up 
-            if ((coeff_mut_prob != 0 && don_node->op->type == OperatorType::opTermConstant) || 
-                off_node->GetValue().compare(don_node->GetValue()) != 0) {
+            if (off_node->GetValue().compare(don_node->GetValue()) != 0 ||
+                (gom_coeff_mut_strat==GOMCoeffMutStrat::gcmsWithin && coeff_mut_prob != 0 && don_node->op->type == OperatorType::opTermConstant) 
+                ) {
                 // gotta backup
                 Operator * replaced_op = off_node->ChangeOperator(*don_node->op);
                 backup_operators.push_back(replaced_op);
@@ -76,11 +77,11 @@ Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const
             // Mutate constants
             SubtreeVariator::RandomCoefficientMutation(coeffs, coeff_mut_prob, coeff_mut_strength, use_caching);
 
-            // double-check that these have actually changed, because
-            // the donor might have had the same constant, and 
-            // mutation was not applied
-            vector<size_t> indices_that_did_not_change;
-            indices_that_did_not_change.reserve(num_changed_indices);
+            // double-check that these have actually changed, because e.g.
+            // the donor might have had the same constant and  
+            // mutation was actually not applied
+            vector<size_t> pos_of_indices_that_actually_did_not_change;
+            pos_of_indices_that_actually_did_not_change.reserve(num_changed_indices);
             for(size_t j=0; j < num_changed_indices; j++) {
                 off_node = offspring_nodes[ changed_indices[j] ];
                 if (off_node->op->type != OperatorType::opTermConstant
@@ -88,16 +89,16 @@ Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const
                     continue;
                 }
                 if (((OpRegrConstant*) backup_operators[j])->GetConstant() == ((OpRegrConstant*)off_node->op)->GetConstant()){
-                    indices_that_did_not_change.push_back(j);
+                    pos_of_indices_that_actually_did_not_change.push_back(j);
                 }
             }
 
             // remove indices that did not change from changed indices and clean up backup_operators
-            for(int j = indices_that_did_not_change.size() - 1; j > -1; j--) {
-                size_t idx = indices_that_did_not_change[j];
-                changed_indices.erase(changed_indices.begin() + idx);
-                delete backup_operators[idx];
-                backup_operators.erase(backup_operators.begin() + idx);
+            for(int j = pos_of_indices_that_actually_did_not_change.size() - 1; j > -1; j--) {
+                size_t pos = pos_of_indices_that_actually_did_not_change[j];
+                changed_indices.erase(changed_indices.begin() + pos);
+                delete backup_operators[pos];
+                backup_operators.erase(backup_operators.begin() + pos);
             }
         }
 
@@ -164,46 +165,39 @@ Node* GOMVariator::GOM(const Node& sol, const std::vector<Node*> & donors, const
 void GOMVariator::CoeffMutGOMStyle(Node * sol, size_t num_of_attempts, Fitness & fit, double_t coeff_mut_prob, double_t coeff_mut_strength, bool use_caching) {
 
     double_t backup_fit = sol->cached_fitness;
-    vector<Node*> backup_nodes = sol->GetSubtreeNodes(false);
-    vector<size_t> const_indices;
-    vector<double_t> const_values;
+    vector<Node*> nodes = sol->GetSubtreeNodes(false);
+    vector<Node*> const_nodes;
+    vector<double_t> const_values_before;
     vector<bool> which_are_active;
-    const_indices.reserve(backup_nodes.size());
-    const_values.reserve(backup_nodes.size());
-    which_are_active.reserve(backup_nodes.size());
-    for(size_t j = 0; j < backup_nodes.size(); j++) {
-        Node * n = backup_nodes[j];
+    const_nodes.reserve(nodes.size()/2+1);
+    const_values_before.reserve(nodes.size()/2+1);
+    which_are_active.reserve(nodes.size()/2+1);
+    for(size_t j = 0; j < nodes.size(); j++) {
+        Node * n = nodes[j];
         if (n->op->type == OperatorType::opTermConstant) {
-            const_indices.push_back(j);
-            const_values.push_back(((OpRegrConstant*)n->op)->GetConstant());
+            const_nodes.push_back(n);
+            const_values_before.push_back(((OpRegrConstant*)n->op)->GetConstant());
             which_are_active.push_back(n->IsActive());
         }
     }
 
-    if (const_values.empty()) {
+    if (const_values_before.empty()) {
         return;
     }
 
     for(size_t j = 0; j < num_of_attempts; j++) {
-        SubtreeVariator::RandomCoefficientMutation(sol, coeff_mut_prob, coeff_mut_strength, use_caching);
-        vector<Node*> sol_nodes = sol->GetSubtreeNodes(false);
+        SubtreeVariator::RandomCoefficientMutation(const_nodes, coeff_mut_prob, coeff_mut_strength, use_caching);
         // check whether we actually need a fitness eval
         // to do that, first check if at least one active const changed
         bool gotta_eval = false;
-        for(size_t k =0; k < const_values.size(); k++) {
+        for(size_t k =0; k < const_values_before.size(); k++) {
             if (which_are_active[k]) {
                 // check that the value changed
-                double_t val_before = const_values[k];
-                double_t val_new = ((OpRegrConstant*)sol_nodes[const_indices[k]]->op)->GetConstant();
+                double_t val_before = const_values_before[k];
+                double_t val_new = ((OpRegrConstant*)const_nodes[k]->op)->GetConstant();
                 if (val_new != val_before) {
                     gotta_eval = true;
-                    if (use_caching) {
-                        // go on in case need to clear more cached outputs
-                        sol_nodes[const_indices[k]]->ClearCachedOutput(true);
-                    } else {
-                        // can stop here because there's no caching and we already know re-evaluation is needed
-                        break;
-                    }
+                    break;
                 }
             }
         }
@@ -216,17 +210,18 @@ void GOMVariator::CoeffMutGOMStyle(Node * sol, size_t num_of_attempts, Fitness &
         }
         if (accept_change) {
             // update backup info
-            for (size_t k = 0; k < const_values.size(); k++) {
-                const_values[k] = ((OpRegrConstant*)sol_nodes[const_indices[k]]->op)->GetConstant();
+            for (size_t k = 0; k < const_values_before.size(); k++) {
+                const_values_before[k] = ((OpRegrConstant*)const_nodes[k]->op)->GetConstant();
             }
             backup_fit = sol->cached_fitness;
             // note: active nodes and node positions do not change
         } else {
-            // reset offspring
-            for (size_t k = 0; k < const_values.size(); k++) {
-                ((OpRegrConstant*)sol_nodes[const_indices[k]]->op)->SetConstant(const_values[k]);
-                if (use_caching && which_are_active[k])
-                    sol_nodes[const_indices[k]]->ClearCachedOutput(true);
+            // reset offspring 
+            for (size_t k = 0; k < const_values_before.size(); k++) {
+                ((OpRegrConstant*)const_nodes[k]->op)->SetConstant(const_values_before[k]);
+                if (use_caching){
+                    const_nodes[k]->ClearCachedOutput(true);
+                }
             }
             sol->cached_fitness = backup_fit;
         }

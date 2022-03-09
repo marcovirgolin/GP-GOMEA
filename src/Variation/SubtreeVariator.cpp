@@ -176,13 +176,11 @@ void SubtreeVariator::RandomCoefficientMutation(std::vector<Node*> coeffs, doubl
                 }
                 new_val = curr_val + (arma::randn())*stdev;
             }
-            //std::cout << "was " << curr_val << " now is " << new_val << " (strength " << coeff_mut_strength << ")" << std::endl;
             if (isnan(new_val) || new_val == arma::datum::inf || new_val == -arma::datum::inf) {
                 continue;
             }
             // replace
-            delete c->op;
-            c->op = new OpRegrConstant(new_val);
+            ((OpRegrConstant*)c->op)->SetConstant(new_val);
             ((OpRegrConstant*)c->op)->internal_strategy_parameter = mutated_internal_strategy_parameter;
             if (use_caching) {
                 c->ClearCachedOutput(true);
