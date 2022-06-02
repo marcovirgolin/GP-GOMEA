@@ -1,4 +1,7 @@
-FROM ubuntu:20.10
+FROM ubuntu:20.04
+
+# Set console to not use prompts
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Upgrade installed packages
 RUN apt-get update && apt-get upgrade -y && apt-get clean

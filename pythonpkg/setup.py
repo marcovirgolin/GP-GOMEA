@@ -12,6 +12,6 @@ setup(
 	packages=['pyGPGOMEA'],
 	package_data={'pyGPGOMEA': ['gpgomea.so']},
     include_package_data=True,
-    install_requires=['scikit-learn'],
+    install_requires=['scikit-learn', 'sympy'],
 	)
 
