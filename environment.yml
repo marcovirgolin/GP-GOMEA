@@ -4,7 +4,7 @@ channels:
 dependencies:
     - gcc=11.2.0
     - gxx=11.2.0
-    - python
+    - python=3.8
     - cmake=3.19.1 
     - armadillo=9.900.4 
     - boost=1.74.0 
