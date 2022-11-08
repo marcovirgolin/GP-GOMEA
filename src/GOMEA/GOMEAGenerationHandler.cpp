@@ -56,7 +56,7 @@ void GOMEAGenerationHandler::PerformGeneration(std::vector<Node*> & population) 
 #pragma omp parallel for schedule(static)
     for (size_t i = 0; i < variator_limit; i++) {
         // if batching, re-evaluate the parent w.r.t. current batch
-        if (conf->batch_size > 0) {
+        if (conf->batch_size > 0 && conf->batch_size < fitness->TrainX.n_rows) {
             fitness->ComputeFitness(population[i], conf->caching);
         }
         // generate offspring

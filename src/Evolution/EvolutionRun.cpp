@@ -51,7 +51,8 @@ void EvolutionRun::DoGeneration() {
     // if batching, temporarily set the batch
     arma::mat backupX;
     arma::vec backupY;
-    if (generation_handler->conf->batch_size > 0) {
+    if (generation_handler->conf->batch_size > 0 && 
+        generation_handler->conf->batch_size < fitness->TrainX.n_rows) {
         backupX = arma::mat(fitness->TrainX);
         backupY = arma::vec(fitness->TrainY);
         // sample a batch
@@ -68,7 +69,8 @@ void EvolutionRun::DoGeneration() {
     generation_handler->PerformGeneration(population);
 
     // if batching, remove the batch and put the original training set back
-    if (generation_handler->conf->batch_size > 0) {
+    if (generation_handler->conf->batch_size > 0 && 
+        generation_handler->conf->batch_size < fitness->TrainX.n_rows) {
         backupX.insert_cols(backupX.n_cols, backupY);
         fitness->SetFitnessCases(backupX, FitnessCasesType::FitnessCasesTRAIN);
     }
