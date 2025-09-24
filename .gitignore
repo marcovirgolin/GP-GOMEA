@@ -42,6 +42,8 @@ cmake*
 params_valgrind.txt
 stats_generations.txt
 result.txt
+.RData
+.Rhistory
 
 # IDE
 .idea/
