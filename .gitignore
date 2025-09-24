@@ -51,3 +51,5 @@ result.txt
 
 # pycache
 */__pycache__/
+pythonpkg/pyGPGOMEA/__py_cache__*/
+pythonpkg/pyGPGOMEA/__py_cache__*

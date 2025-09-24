@@ -26,8 +26,7 @@ else()
 endif()
 
 # Build Python package
-add_library(gpgomea_python MODULE gpgomea_python.cpp ${ALL_OBJECT_FILES}
-        gpgomea_rcpp.cpp)
+add_library(gpgomea_python MODULE gpgomea_python.cpp ${ALL_OBJECT_FILES})
 target_link_libraries(gpgomea_python ${GPGOMEA_LINK_LIBS})
 target_include_directories(
   gpgomea_python PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Include>
