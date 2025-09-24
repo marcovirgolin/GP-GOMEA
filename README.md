@@ -53,7 +53,7 @@ There are a few steps to follow:
 * Inspect and potentially edit the `deps_ubuntu` (or `deps_fedora`) file to align it to your system (no change should be needed). 
 * Run `chmod +x deps_ubuntu; sudo ./deps_ubuntu` (or `chmod +x deps_fedora; sudo ./deps_fedora)` to install the needed dependencies on your system.
 
-The project is built using CMake (kudos to [@EviSijben](https://github.com/EviSijben)). Run `make` (or `make debug` for a debug build). To test that everything works fine, run `python3 test.py`. You can use Ninja to speed up builds, by prefixing the make command with `GEN=ninja` (e.g. `GEN=ninja make release`).
+The project is built using CMake (kudos to [@EviSijben](https://github.com/EviSijben)). Run `make` (or `make debug` for a debug build). To test that everything works fine, run `python3 examples/python/test.py`. You can use Ninja to speed up builds, by prefixing the make command with `GEN=ninja` (e.g. `GEN=ninja make release`).
 
 ### Conda
 To install using [conda](https://www.anaconda.com/), run:
@@ -73,12 +73,12 @@ docker build -t gp-gomea .
 This will:
 * Install dependencies (implementation derived from on `deps_ubuntu`).
 * Build the project.
-* Test that everything is fine using `python3 test.py`.
+* Test that everything is fine using `python3 examples/python/test.py`.
 
-You can run the container in interactive mode using `docker run -it gp-gomea` and issue for instance `python3 test.py` or execute your own script.
+You can run the container in interactive mode using `docker run -it gp-gomea` and issue for instance `python3 examples/python/test.py` or execute your own script.
 
 ## Using the Python interface
-See `test.py`. 
+See `examples/python/test.py`. 
 For example:
 ```python
 from pyGPGOMEA import GPGOMEARegressor as GPGR
@@ -91,7 +91,7 @@ model.fit(X, y)
 print('Model found:', model.get_model())
 print('RMSE:', np.sqrt( np.mean( np.square( model.predict(X) - y ) ) ))
 ```
-Take a look at `test.py` for more details.
+Take a look at `examples/python/test.py` for more details.
 
 ## Do you want to run a C++ executable instead?
 After running `make`, you will find a C++ executable called `main` in `build/release/src/` that you can run using a parameter setting file, for example, `main --file params_sgp.txt`.
