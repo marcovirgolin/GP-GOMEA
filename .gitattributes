@@ -1,0 +1,10 @@
+* text eol=lf
+
+# Alguns binários comuns (evitar normalização)
+*.png -text
+*.jpg -text
+*.pdf -text
+*.zip -text
+*.exe -text
+*.dll -text
+*.so -text
